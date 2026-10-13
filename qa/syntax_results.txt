@@ -1,0 +1,5 @@
+PASS 34 JavaScript modules
+PASS combined script
+PASS 4 inline single-file scripts
+PASS single-file game script equals tested production script
+RESULT: ALL PASSED

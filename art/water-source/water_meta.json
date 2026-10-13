@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "file": "fld_water_stag.png",
+      "size": [
+        1024,
+        640
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "png_webp_pixel_identical": true
+    },
+    {
+      "file": "fld_water_boar.png",
+      "size": [
+        640,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "png_webp_pixel_identical": true
+    },
+    {
+      "file": "fld_water_rabbit.png",
+      "size": [
+        1024,
+        576
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "png_webp_pixel_identical": true
+    }
+  ]
+}

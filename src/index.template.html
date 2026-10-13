@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bio-Hunter">
+<meta name="theme-color" content="#0b100d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<title>Bio-Hunter: Warden Protocol — Prototype</title>
+<style>
+<!--@CSS@-->
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="960" height="600"></canvas>
+  <div id="ov"><div id="panel"></div></div>
+  <div id="title"></div>
+</div>
+<button id="tskip" title="ข้ามบทสอน">ข้ามบทสอน</button><button id="t_fs" title="เต็มจอ">⛶</button><button id="t_pause" title="พัก">❚❚</button>
+<button id="te_exit" type="button">✕ เสร็จ / ออก</button>
+<div id="tedit"><span id="te_sel" style="color:#ffd666">ลากปุ่มเพื่อย้าย · แตะปุ่มเพื่อเลือก</span><button class="tab on" data-te="done">เสร็จ</button><button class="tab" data-te="view">มุมมอง: ต่อสู้</button><button class="tab" data-te="bar">ย้ายแถบ</button><span class="gap"></span><button class="tab" data-te="s-">ทุกปุ่ม −</button><button class="tab" data-te="s+">ทุกปุ่ม +</button><button class="tab" data-te="k-">ปุ่มที่เลือก −</button><button class="tab" data-te="k+">ปุ่มที่เลือก +</button><span class="gap"></span><button class="tab" data-te="o">ความโปร่ง</button><button class="tab" data-te="mirror">สลับซ้าย/ขวา</button><button class="tab" data-te="reset">รีเซ็ต</button></div>
+<div id="rot"><div class="ic">⟳</div><b>หมุนอุปกรณ์เป็นแนวนอน</b><span>เกมนี้ออกแบบมาให้เล่นแนวนอน (landscape)<br>หมุนจอไม่ได้? เล่นต่อแนวตั้งได้ แต่ภาพจะเล็ก</span><button id="rot_go" type="button">เล่นต่อแบบแนวตั้ง</button></div>
+<div id="touch">
+  <div id="joy"><div id="joyKnob"></div></div>
+  <button class="tb" id="t_atk">ตี</button>
+  <button class="tb bb" id="t_dodge">หลบ</button>
+  <button class="tb bb" id="t_heavy">ชาร์จ<br>ตีหนัก</button>
+  <button class="tb bb" id="t_block">กัน</button>
+  <div id="side">
+    <button class="tb" id="t_scan">สแกน</button>
+    <button class="tb bb" id="t_dart">ยิง<br>ยา</button>
+    <button class="tb bb" id="t_load">สลับ<br>ยา</button>
+    <button class="tb bb" id="t_heal">ยา<br>สมาน</button>
+    <button class="tb bf" id="t_sneak">ย่อ</button>
+    <button class="tb bf" id="t_int">ตรวจ<br>เก็บ</button>
+    <button class="tb bf" id="t_bait">เหยื่อ</button>
+    <button class="tb bf" id="t_snare">กับดัก</button>
+    <button class="tb bf" id="t_map">แผนที่</button>
+    <button class="tb bf" id="t_x">ถอย</button>
+  </div>
+</div>
+<div id="foot">WASD เดิน · เมาส์เล็ง · คลิกซ้าย/J แทง · คลิกขวา/K ค้างเพื่อชาร์จ · Space หลบ · L/Shift ป้องกัน · Q สแกน · E ยาสลบ · R ยาสมานแผล · P พัก · M ปิดเสียง</div>
+
+<!--@ART@-->
+<!--@JS@-->
+</body>
+</html>

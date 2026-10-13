@@ -1,0 +1,49 @@
+PASS 27 images decoded
+PASS no failed image loads
+PASS arena meadow painted
+PASS rock positions unchanged meadow
+PASS arena water painted
+PASS rock positions unchanged water
+PASS arena den painted
+PASS rock positions unchanged den
+PASS arena thicket painted
+PASS rock positions unchanged thicket
+PASS arena bloom painted
+PASS rock positions unchanged bloom
+PASS map stag loaded
+PASS map geometry stag
+PASS ground stag decoded
+PASS painted water stag
+PASS map boar loaded
+PASS map geometry boar
+PASS ground boar decoded
+PASS painted water boar
+PASS map rabbit loaded
+PASS map geometry rabbit
+PASS ground rabbit decoded
+PASS painted water rabbit
+PASS state selects frame 0
+PASS state selects frame 7
+PASS state selects frame 8
+PASS state selects frame 9
+PASS state selects frame 10
+PASS state selects frame 11
+PASS state selects frame 12
+PASS state selects frame 13
+PASS state selects frame 14
+PASS state selects frame 15
+PASS walking selects walk frame
+PASS rendered fx_fire
+PASS rendered fx_spore
+PASS rendered fx_impact
+PASS rendered fld_tent
+PASS rendered fld_campfire
+PASS rendered fld_tree_a
+PASS rendered fld_tree_b
+PASS rendered fld_tree_c
+PASS rendered fld_bush_a
+PASS rendered fld_bush_b
+PASS rendered fld_bush_c
+PASS rendered warden_sheet
+PASS no runtime errors
+RESULT: ALL PASSED (48 checks)
