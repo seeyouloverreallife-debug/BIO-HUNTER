@@ -1,0 +1,35 @@
+{
+ "id": "./",
+ "name": "Bio-Hunter: Warden Protocol",
+ "short_name": "Bio-Hunter",
+ "description": "Action-RPG: diagnose, cure and protect the forest.",
+ "lang": "th",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "fullscreen",
+ "display_override": [
+  "fullscreen",
+  "standalone"
+ ],
+ "orientation": "landscape",
+ "background_color": "#0b100d",
+ "theme_color": "#0b100d",
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
