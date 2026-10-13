@@ -1,2 +1,0 @@
-SMOKE OK [desktop] - 127 checks passed
-SMOKE OK [touch] - 33 checks passed
