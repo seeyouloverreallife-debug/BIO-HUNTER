@@ -1,5 +1,5 @@
 // Bio-Hunter service worker — offline play. Bump VERSION to force clients to refresh.
-const VERSION = 'bh-18.6.1';
+const VERSION = 'bh-18.10.2-rc1';
 const CORE = ['./', 'index.html', 'art/art.js', 'art/ui.js', 'art/visual.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
