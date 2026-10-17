@@ -2011,7 +2011,7 @@ function sfx(n) {
 /* ================= DOM ================= */
 var canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
 var ov = document.getElementById('ov'), panelEl = document.getElementById('panel'), titleEl = document.getElementById('title');
-var GAME_VER = '18.10.31-anim3', titleArm = 0;
+var GAME_VER = '18.10.31-fix2', titleArm = 0;
 
 /* ================= STATE ================= */
 var mode = 'title', paused = false;
@@ -8106,7 +8106,15 @@ function ratCue(A, elapsed) {
   return cfg.name + (elapsed >= A.dur * .8 ? ' · ใกล้ออกท่า!' : '');
 }
 function ratParry(id) { var cfg = RatpackConfig.attacks[id]; return cfg ? !!cfg.parry : undefined; }
+/* ภาคสนาม (v18.10.31-fix1): Core ของฝูงไม่ถูกก้าวนอกไฟต์ — R.last เป็นภาพค้างตำแหน่งตอนสร้าง ไม่ตามหนูที่เดินลาดตระเวนจริง (ผู้เล่นเห็น 'ภาพหนูค้าง') → วาดหนูหัวหน้าตามตำแหน่ง/ทิศจริงของมัน + ลูกน้องตัวเล็กตามหลัง */
+function ratFieldDraw(m) {
+  var w = Math.max(56, (m.r || 20) * 3.1), f = m.face || 0, i, back, side, x, y;
+  ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.beginPath(); ctx.ellipse(m.x, m.y + 6, w * .36, w * .13, 0, 0, TAU); ctx.fill();
+  for (i = 2; i >= 1; i--) { back = i * w * .6; side = (i % 2 ? 1 : -1) * w * .2 + Math.sin(tNow * 3 + i) * 2; x = m.x - Math.cos(f) * back - Math.sin(f) * side; y = m.y - Math.sin(f) * back + Math.cos(f) * side; vilAnimal('rat', x, y, f, w * .6, 1); }
+  vilAnimal('rat', m.x, m.y, f, w, 1);
+}
 function ratDraw(m) {
+  if (typeof mode !== 'undefined' && mode === 'field') { ratFieldDraw(m); return true; }
   var R = m.rp; if (!R || !R.last) return false;
   if (R.consumed && R.last.pools) R.last.pools = R.last.pools.filter(function (p) { return !R.consumed[p.id]; });
   RatpackArt.draw(ctx, R.last, { quality: (typeof isTouch !== 'undefined' && isTouch) ? 'low' : 'high' });
@@ -9422,6 +9430,12 @@ function vilGround(cx, base, w, h, seed, kind) { /* คืน true = ใช้�
   }
   ctx.restore();
 }
+/* v18.10.31-fix1: ฐานตึก (ลานดิน/หินรองใต้ตึก) เป็นชั้นพื้น — เดิมเรียงตามความลึกพร้อมตัวตึก ทำให้ฐานของร้านเกราะ (กว้างกว่าตัวตึก) ไปทับ NPC ช่างมีราที่ยืนข้างตึก เหลือแต่หัว */
+function vilBuildingGround(b) {
+  var im = vimg(b.art); if (!im) return;
+  var w = b.aw, h = w * im.h / im.w;
+  if (!vilGround(b.ax, b.ay, w, h, b.ax + b.ay, (b.art === 'vil_workshop' || b.art === 'vil_armorer') ? 'stone' : null)) { ctx.fillStyle = 'rgba(0,0,0,.26)'; ctx.beginPath(); ctx.ellipse(b.ax + 6, b.ay - 3, w * .30, 9, 0, 0, TAU); ctx.fill(); }
+}
 function vilBuilding(b) {  var im = vimg(b.art), i;
   if (!im) { /* ภาพยังไม่โหลด: กล่องเดิม */
     ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.fillRect(b.x + 6, b.y + 8, b.w, b.h); ctx.fillStyle = '#6a5a44'; ctx.fillRect(b.x, b.y, b.w, b.h);
@@ -9429,8 +9443,7 @@ function vilBuilding(b) {  var im = vimg(b.art), i;
     txt(b.sign, b.x + b.w / 2, b.y + b.h * .8, 12, '#f0e8d0', 'center', true); return;
   }
   var w = b.aw, h = w * im.h / im.w, top = b.ay - h;
-  if (!vilGround(b.ax, b.ay, w, h, b.ax + b.ay, (b.art === 'vil_workshop' || b.art === 'vil_armorer') ? 'stone' : null)) { ctx.fillStyle = 'rgba(0,0,0,.26)'; ctx.beginPath(); ctx.ellipse(b.ax + 6, b.ay - 3, w * .30, 9, 0, 0, TAU); ctx.fill(); }
-  ctx.drawImage(im.el, b.ax - w / 2, top, w, h);
+  ctx.drawImage(im.el, b.ax - w / 2, top, w, h); /* พื้นฐานตึกถูกวาดไปแล้วใน vilBuildingGround (ชั้นพื้น ก่อน NPC/ของตกแต่งทั้งหมด) */
   if (b.art === 'vil_workshop') { var gx = b.ax - w / 2 + .42 * w, gy = top + .62 * h, gl = ctx.createRadialGradient(gx, gy, 1, gx, gy, 22); gl.addColorStop(0, 'rgba(255,170,70,' + (.45 + .15 * Math.sin(V.t * 9)) + ')'); gl.addColorStop(1, 'rgba(255,140,60,0)'); ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(gx, gy, 22, 0, TAU); ctx.fill(); }
   if (b.art === 'vil_rehab_pen') { /* สัตว์ในคอก: อยู่บนพื้นฟางในภาพ + แถบสภาพ */
     for (i = 0; i < S.pen.length; i++) {
@@ -9518,6 +9531,7 @@ function drawVillage() {
   for (i = 0; i < SPECIES.length; i++) { var tk2 = SPECIES[i], tv = trustOf(tk2); if (tv < 45) continue;
     var ax = tv >= 90 ? 890 - i * 8 + Math.sin(V.t * .4 + i) * 10 : (tv >= 70 ? 922 : 946), ay = 384 + i * 18, aa = tv >= 90 ? .95 : (tv >= 70 ? .8 : .4);
     vilAnimal(tk2, ax, ay, Math.PI, tk2 === 'rabbit' ? 36 : 52, aa); }
+  for (di = 0; di < VIL_RECTS.length; di++) vilBuildingGround(VIL_RECTS[di]); /* ชั้นพื้นของตึกทุกหลังก่อนเรียงความลึก */
   // camp
   vilCamp();
   txt('แคมป์', 470, 478, 11, '#d8c8a0', 'center', true);
@@ -13219,8 +13233,16 @@ function nakaDrawImpact(N) {
   for (i = 0; i < 6; i++) { a = i * Math.PI / 3; ctx.beginPath(); ctx.moveTo(f.x + Math.cos(a) * (14 + t * 22), f.y + Math.sin(a) * (14 + t * 22)); ctx.lineTo(f.x + Math.cos(a) * (21 + t * 24), f.y + Math.sin(a) * (21 + t * 24)); ctx.stroke(); }
   ctx.restore();
 }
+/* ภาคสนาม (v18.10.31-fix2): โครงลำตัว N.chain ถูกอัปเดตเฉพาะในไฟต์ (nakaUpdate) — ตอนลาดตระเวนมันค้างเป็นวงขดกลางสนาม ไม่ตามงูที่เดินจริง (ผู้เล่นเห็น 'ภาพค้าง')
+   → สร้างโครงชั่วคราวจากตำแหน่ง/ทิศจริง: หัวที่ (m.x,m.y) ลำตัวไล่ตามหลังแบบเลื้อยเป็นคลื่น แล้วใช้ตัววาดลำตัว/หัวเดิม */
+function nakaFieldChain(m) {
+  var N = m.nk, ch = N.chain, n = ch.length, seg = Math.hypot(ch[1].x - ch[0].x, ch[1].y - ch[0].y) || 18, f = m.face || 0, dx = Math.cos(f), dy = Math.sin(f), out = [], i, amp, sw;
+  for (i = 0; i < n; i++) { amp = Math.min(1, i / 6) * seg * .85; sw = Math.sin(tNow * 2.4 - i * .55) * amp; out.push({ x: m.x - dx * seg * i * .92 - dy * sw, y: m.y - dy * seg * i * .92 + dx * sw }); }
+  return out;
+}
 function nakaDraw(m) {
   var N = m.nk; if (!N || !N.chain) return;
+  if (typeof mode !== 'undefined' && mode === 'field') { var fch = nakaFieldChain(m), fsk = nakaSkinOf(N); nakaDrawBody(m, fch, fsk, null); nakaDrawHead(m, fch, fsk, null, null); return; }
   var ch = N.chain, sk = nakaSkinOf(N), cues = N.creature ? N.creature.cues : null, react = N.reaction ? N.reaction.cues : null;
   if (N.impact && N.impact.life > 0) N.impact.life -= 1 / 60;
   nakaPlanFor(m);
@@ -14643,7 +14665,7 @@ requestAnimationFrame(frame);
 try { if (typeof navigator !== 'undefined' && navigator.serviceWorker && /^https?:/.test(location.protocol)) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); } catch (e) {}
 window.__bh = { cureTestHit: cureTestHit, ailCands: ailCands, ailTellK: ailTellK, doseEfficacy: doseEfficacy, ailEvidence: ailEvidence, sickStageMul: sickStageMul, readVis: readVis, setTreatFight: function (v) { TREAT_FIGHT = !!v; }, huntClue: huntClue, setCardScale: function (v) { CARD_SCALE = +v || 1; cardsDirty(); }, CARD_DEF: CARD_DEF, modS: modS, cardEquip: cardEquip, cardUnequip: cardUnequip, cardRankUp: cardRankUp, cardUsed: cardUsed, cardCapacity: cardCapacity, cardDrain: cardDrain, cardGrant: cardGrant, cardDropNote: cardDropNote, cardsDirty: cardsDirty, cardRoll: cardRoll, cardOrbDrop: cardOrbDrop, updateCardOrbs: updateCardOrbs, CARD_ORBS: function () { return CARD_ORBS; }, CARD_LOG: function () { return CARD_LOG; }, cardFieldDrop: cardFieldDrop, cardDropChance: cardDropChance, allyStanceCycle: allyStanceCycle, allyShieldMul: allyShieldMul, updateAlly: updateAlly, makeAlly: makeAlly, ALLY: function () { return ALLY; }, allyStanceFx: allyStanceFx, allyGuardMul: allyGuardMul, allyPot: allyPot, penEvents: penEvents, setPenEv: function (v) { PEN_EV_ON = !!v; }, PEN_NOTES: function () { return PEN_NOTES; }, AIL_KEYS: AIL_KEYS, MEDSALL: MEDS, BREW: BREW, HUNT_CLUES: function () { return HUNT_CLUES; }, penAdd: penAdd, treatFight: function () { return TREAT_FIGHT; }, MONSTER_PLUGINS: MONSTER_PLUGINS, mpParry: mpParry, mpCue: mpCue, parryOK: parryOK, cureNeed: cureNeed, cureFrac: cureFrac, antiLv: antiLv, visual: function () { return { loaded: Object.keys(VIS.images), failed: VIS.failed.slice(), draws: Object.assign({},VIS.draws), wardenFrame: P ? wardenFrame(P) : -1 }; }, wardenFrame: wardenFrame, visualFx: visualFx, ring: ring, setArena: setArena, loadMap: loadMap, buildBg: buildBg, draw: draw, AV: function () { return AV; }, bg: function () { return bg; }, BUGS: function () { return BUGS; }, spawnBug: spawnBug, updateBugs: updateBugs, clearBugs: clearBugs, minionMaxHp: hiveMinionMaxHp, minionHit: hiveMinionTakeDamage, hiveBalance: { cap: hiveSwarmCap, wave: hiveSwarmWaveSize, canSummon: hiveSwarmCanSummon, cooldown: hiveSwarmSummonCooldown, biteReady: hiveSwarmBiteReady }, isBoss: isBoss, bugsStrike: bugsStrike, combatOpening: function () { return combatOpeningInfo(M); }, fxState: function () { return { chain: hitChain, best: bestChain, flash: flashA, punch: punch, slashes: slashes.length }; }, chainHit: chainHit, screenFx: screenFx, skillLv: skillLv, skillPts: skillPts, skillTotal: skillTotal, skillCan: skillCan, SKILLS: SKILLS, jrStamps: jrStamps, ldUse: ldUse, ldSave: ldSave, ldActive: ldActive, ldHtml: ldHtml, bagHtml: bagHtml, bagTotal: bagTotal, giftCollect: giftCollect, setDay: function (k) { dayOverride = k || ''; }, dailyEnsure: dailyEnsure, dailyUpdate: dailyUpdate, dailyDone: dailyDone, jrUpdate: jrUpdate, jrStatus: jrStatus, mutNow: mutNow, mutId: mutId, dailyGoals: dailyGoals, GOAL_DEFS: GOAL_DEFS, MUT_KEYS: MUT_KEYS, dayShift: dayShift, enterTitle: enterTitle, renderTitle: renderTitle, GAME_VER: GAME_VER, PT: function () { return PT; }, ptReport: ptReport, ptLabRows: ptLabRows, ptLabCurrent: ptLabCurrent, ptLabPlan: ptLabPlan, ptLabHtml: ptLabHtml, ptCsv: ptCsv, ptFrame: ptFrame, PTF: function () { return PTF; }, TUT: function () { return TUT; }, tutSkip: tutSkip, tutSteps: tutSteps, guidePages: guidePages, guideHtml: guideHtml, saveCode: saveCode, importSave: importSave, ART: function () { return ART; }, artSetup: artSetup, setCritOff: function (v) { CRIT_OFF = !!v; }, critInfo: critInfo, PRAC: function () { return PRAC; }, pracStats: pracStats, SHRINE: function () { return SHRINE; }, FIRES: function () { return FIRES; }, huntFires: function () { return huntFires; }, setHF: function (v) { huntFires = v; }, FIELD: function () { return FIELD; }, scanRec: function () { return scanRec; }, hint: function () { return hint; }, hurtPlayer: hurtPlayer, WTREE_NODES: WTREE_NODES, curW: curW, wnodeCost: wnodeCost, CAT: function () { return CAT; }, ftext: ftext, texts: function () { return texts; }, rw: rw,
   hitFeel: hitFeel, hitStopAdd: hitStopAdd, HIT_FEEL: HIT_FEEL, BOAR_OPEN: BOAR_OPEN, BOAR_RIDGE: BOAR_RIDGE, boarOpenActive: boarOpenActive, boarChargeNote: boarChargeNote, boarOpenStart: boarOpenStart, boarPilot: boarPilot, hitstopNow: function () { return hitstop; }, monsterLive: monsterLive, HUNT_CLUES_ARR: function () { return HUNT_CLUES; }, prepAuto: prepAuto, BOAR_ADAPT: BOAR_ADAPT, boarAdaptK: boarAdaptK, boarAdaptSetEnabled: boarAdaptSetEnabled, boarProfileChoose: boarProfileChoose, RESEARCH: RESEARCH, cleanResearch: cleanResearch, researchHas: researchHas, researchTier: researchTier, researchNote: researchNote, chronicleHtmlTest: function () { return chronicleHtml(); }, boarOpenStart: boarOpenStart, ELEM_REACTIONS: ELEM_REACTIONS, ELEM_ZONES: function () { return ELEM_ZONES; }, elemSetEnabled: elemSetEnabled, elemIgnite: function (x, y, r, life) { addFire(x, y, r, life); }, FIRES: function () { return FIRES; }, boarSteerMul: boarSteerMul, diagLine: diagLine, setDiag: function (v) { DIAG = !!v; }, ecoAnomalyLevel: ecoAnomalyLevel, huntGoalsInit: huntGoalsInit, setHuntKind: function (k) { HUNT_LAST_KIND = k; }, ratOpenStartTest: function (dur, x, y) { ratOpenStart('alpha', dur, x, y); }, SETS: SETS, SET_KEYS: SET_KEYS, armorBonuses: armorBonuses, STATUS: STATUS, applyFx: applyFx, RATS: function () { return RATS; }, ratPilot: ratPilot, ratsStrike: ratsStrike, ratLibs: ratLibs, wolfOpenActive: wolfOpenActive, wolfBiteNote: wolfBiteNote, wolfOpenStart: wolfOpenStart, HUNT_GOALS: function () { return HUNT_GOALS; }, setHuntGoals: function (a) { HUNT_GOALS = a; }, HUNT_GOAL_DEF: HUNT_GOAL_DEF, huntGoalNote: huntGoalNote, perfectDodge: perfectDodge, BLADE_PIN: BLADE_PIN, FANG_HAMSTRING: FANG_HAMSTRING, bladePinned: bladePinned, crippled: crippled, boarChargeMotion: boarChargeMotion, tNowGet: function () { return tNow; }, rocksNow: function () { return ROCKS; }, hitStopSpent: function () { return hitStopSpent; },
-  DARTS: function () { return darts; }, MEDS: function () { return huntMeds; }, PART_TH: function () { return PART_TH; }, wardenWeaponFrame: wardenWeaponFrame, wardenMotionFrame: wardenMotionFrame, WARDEN_W: WARDEN_W, VISimg: function () { return VIS.images; }, VISstate: function () { return VIS; }, ENCOUNTER_T1_CAP: function () { return ENCOUNTER_T1_CAP_18131; }, PART_NAMES: PART_NAMES, RITES: RITES, ritesSet: ritesSet, ritesCast: ritesCast, ritesPress: ritesPress, ritesGain: ritesGain, RITE_Z: function () { return RITE_Z; }, riteSel: function () { return RITE_SEL; }, sparkOf: sparkOf, LIVING: LIVING, ARENA: function () { return { cx: CX, cy: CY, r: ARENA_R }; }, livingSet: livingSet, WET: function () { return WET; }, shatterRock: monsterShatterRock, setDecor: function (v) { AV.decor = v; },  livingEcho: livingEcho, livingPull: livingPull, livingDrives: livingDrives, ECHO: function () { return ECHO; }, GATLING: GATLING, gatState: gatState, GAT_ROUNDS: GAT_ROUNDS, gatSpecies: gatSpecies,
+  DARTS: function () { return darts; }, MEDS: function () { return huntMeds; }, PART_TH: function () { return PART_TH; }, ratFieldDraw: ratFieldDraw, nakaFieldChain: nakaFieldChain, wardenWeaponFrame: wardenWeaponFrame, wardenMotionFrame: wardenMotionFrame, WARDEN_W: WARDEN_W, VISimg: function () { return VIS.images; }, VISstate: function () { return VIS; }, VIMGs: function () { return VIMG; }, ENCOUNTER_T1_CAP: function () { return ENCOUNTER_T1_CAP_18131; }, PART_NAMES: PART_NAMES, RITES: RITES, ritesSet: ritesSet, ritesCast: ritesCast, ritesPress: ritesPress, ritesGain: ritesGain, RITE_Z: function () { return RITE_Z; }, riteSel: function () { return RITE_SEL; }, sparkOf: sparkOf, LIVING: LIVING, ARENA: function () { return { cx: CX, cy: CY, r: ARENA_R }; }, livingSet: livingSet, WET: function () { return WET; }, shatterRock: monsterShatterRock, setDecor: function (v) { AV.decor = v; },  livingEcho: livingEcho, livingPull: livingPull, livingDrives: livingDrives, ECHO: function () { return ECHO; }, GATLING: GATLING, gatState: gatState, GAT_ROUNDS: GAT_ROUNDS, gatSpecies: gatSpecies,
   PODS: function () { return PODS; },
   state: function () { return { P: P, M: M, mode: mode, paused: paused, stats: stats }; },
   fieldStep: function (dt) { if (FIELD && mode === 'field') updateField(dt); }, step: step, hurt: hurtPlayer, ACTIONS: ACTIONS, finish: finish, openDecision: openDecision, monsterDowned: monsterDowned, hitMonster: hitMonster,
