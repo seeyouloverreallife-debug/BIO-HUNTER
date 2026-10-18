@@ -1,5 +1,5 @@
 /* BIO Hunter - Naka (snake) runtime bundle: core + animation v2.6 + behavior v2.7 + adapter v2.8 + config + locomotion v2.9 + creature v3.0 + reactions v3.1 + telegraph v3.2 + readability v3.3.
-   Source: Naka_Lab_v3.3/production/Naka_Runtime_v3.3 (unmodified, concatenated by tools/build-naka-runtime.ps1). Host: src/modules/20-combat/monster/naka-boss.js */
+   Source: Naka_Lab_v3.3/production/Naka_Runtime_v3.3 (v3.4 host patch: committed head aim; animation add-on in naka-attack-v34.js; originally concatenated by tools/build-naka-runtime.ps1). Host: src/modules/20-combat/monster/naka-boss.js */
 /* ---- naka-core.js ---- */
 (function(root,factory){const m=factory();if(typeof module==='object'&&module.exports)module.exports=m;root.NakaCore=m;})(typeof globalThis!=='undefined'?globalThis:this,function(){'use strict';
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -340,6 +340,7 @@ function animationHitContact(id,chain,player,aim,t,atk,playerRadius=11){
 // Signature hazards remain committed world-space zones; their warning geometry is
 // distinct from the articulated body, and this distinction is made explicit in UI.
 function attackCollisionGeometry(id,chain,aim,t,atk,zone=null){
+ if(atk.arsenalV42&&typeof globalThis.NakaArsenalV42!=='undefined')return globalThis.NakaArsenalV42.geometry(id,chain,aim,t,atk);
  const existing=attackHitGeometry(id,chain,aim,t,atk);
  if(existing)return existing;
  if(phases(atk,t)!=='active')return null;
@@ -347,7 +348,14 @@ function attackCollisionGeometry(id,chain,aim,t,atk,zone=null){
   const h=chain[0];return {kind:'capsule',a:{...h},b:{x:h.x+Math.cos(aim)*34,y:h.y+Math.sin(aim)*34},radius:22};
  }
  if(id==='body_slam')return {kind:'capsules',points:chain.slice(2,12).map(q=>({...q})),radius:27};
- if(id==='coil_trap'||id==='half_coil')return {kind:'capsules',points:chain.slice(1,-1).map(q=>({...q})),radius:13};
+ if(id==='coil_trap'||id==='half_coil'){
+  const shape={kind:'capsules',points:chain.slice(1,-1).map(q=>({...q})),radius:13};
+  // A closing wrap also catches the area enclosed by the visible coil.
+  // This is a committed capture area, never a player-following hitbox or teleport.
+  if(id==='half_coil'&&atk.wrapConstrict37&&(t-atk.windup)/atk.active>=.38)
+   shape.capture={x:atk.wrapTarget.x,y:atk.wrapTarget.y,radius:atk.wrapRadius-22};
+  return shape;
+ }
  if(id==='constrict_pulse')return {kind:'capsules',points:chain.slice(2,-2).map(q=>({...q})),radius:20};
  if(id==='double_coil'&&zone)return {kind:'ring-hazard',...zone};
  if(id==='shadow_breach'&&zone)return {kind:'disc-hazard',...zone};
@@ -360,7 +368,7 @@ function attackCollisionGeometry(id,chain,aim,t,atk,zone=null){
 function attackShapeContains(shape,p,playerRadius=11){
  if(!shape)return false;
  if(shape.kind==='capsule')return pointSegmentDistance(p,shape.a,shape.b)<=shape.radius+playerRadius;
- if(shape.kind==='capsules')return shape.points.length>1&&shape.points.slice(1).some((q,i)=>pointSegmentDistance(p,shape.points[i],q)<=shape.radius+playerRadius);
+ if(shape.kind==='capsules')return !!(shape.capture&&dist(shape.capture,p)<=shape.capture.radius)||(shape.points.length>1&&shape.points.slice(1).some((q,i)=>pointSegmentDistance(p,shape.points[i],q)<=shape.radius+playerRadius));
  // Locked hazard boundaries represent the player's center. This preserves the
  // telegraphed safe wedge and avoids hidden radius expansion into it.
  if(shape.kind==='disc-hazard')return dist(shape,p)<=shape.radius;
@@ -664,7 +672,7 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
  function validateConfig(config){
   if(!config||!config.variants||!Array.isArray(config.attacks)||!config.rig||config.rig.nodes!==27||!config.rig.constraints||config.rig.constraints.spacing!==18)
    throw Error('v2.7 Naka config with variants, 16 attacks and rig constraints required');
-  if(config.attacks.length!==16||new Set(config.attacks.map(a=>a.id)).size!==16)throw Error('Expected 16 unique attacks');
+  if(config.attacks.length<16||new Set(config.attacks.map(a=>a.id)).size!==config.attacks.length)throw Error('Expected at least 16 unique attacks');
   for(const k of ['marsh','dusk','ancient'])if(!config.variants[k])throw Error('Missing variant '+k);
   return config;
  }
@@ -703,7 +711,7 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
   const constraints={spacing:18,maxBendRadians:.68,...config.rig.constraints};
   let brain=B.createState(seed),active=null,lastTime=-Infinity,lastFrame=null,queuedEvent=null,serial=0;
   function snapshot(){return {schema:'biohunter.naka.integration.state.v2.8',variant,active:active?{id:active.id,startedAt:active.startedAt,aim:active.aim,target:point(active.target),sequence:active.sequence}:null,lastTime:Number.isFinite(lastTime)?lastTime:null,brain:B.snapshot(brain)};}
-  function beginAttack(id,{now,chain,heading=0,target,tailBroken=false,headBroken=false}={}){
+  function beginAttack(id,{now,chain,heading=0,target,tailBroken=false,headBroken=false,pursuit=false,riposte43=false,sourceEvade43=null,huntRead44=null,guardCounter45=false}={}){
    finite(now,'now');finite(heading,'heading');if(now<lastTime)throw Error('non-monotonic time');
    if(active)throw Error('attack already in progress');
    const raw=attackMap[id];if(!raw)throw Error('Unknown attack '+id);
@@ -712,11 +720,19 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
    if(headBroken&&['lunge','marsh_dive','shadow_breach'].includes(id))throw Error('Head broken: '+id);
    const base=C.solveSpineConstraints(validateChain(chain),constraints);
    assertPoint(target,'target');
-   const atk=C.variantAttack(raw,variantMeta);
+   let atk=C.variantAttack(raw,variantMeta);
+   if(id==='half_coil'&&typeof globalThis.NakaWrapV37!=='undefined')atk=globalThis.NakaWrapV37.prepare(base,atk,target,heading,variant);
+   if(pursuit&&typeof globalThis.NakaPursuitV38!=='undefined')atk=globalThis.NakaPursuitV38.prepare(atk,variant);
+   if(typeof globalThis.NakaMotionV39!=='undefined')atk=globalThis.NakaMotionV39.prepare(atk,variant,base);
+   if(typeof globalThis.NakaArsenalV42!=='undefined')atk=globalThis.NakaArsenalV42.prepare(atk,target,base);
+   if(guardCounter45)atk=globalThis.NakaGuardV46?globalThis.NakaGuardV46.prepareCounter(atk,variant,base,target):{...atk,guardCounter45:true};
+   if(riposte43)atk={...atk,riposte43:true,sourceEvade43};
+   if(huntRead44)atk={...atk,huntRead44:{...huntRead44,target:{...huntRead44.target}}};
    const zone=C.pressureZone(id,base[0],target);
-   active={id,atk,startedAt:now,aim:heading,target:point(target),base,zone,sequence:++serial};
+   const committedAim=guardCounter45||B.ATTACK_FAMILY[id]==='head'?Math.atan2(target.y-base[0].y,target.x-base[0].x):heading;
+   active={id,atk,startedAt:now,aim:committedAim,target:point(target),base,zone,sequence:++serial};
    brain=B.committed(brain,id,now);
-   queuedEvent={type:'attack_started',id,time:now,sequence:serial,target:point(target),aim:heading};
+   queuedEvent={type:'attack_started',id,time:now,sequence:serial,target:point(target),aim:active.aim,pursuit:!!atk.pursuitV38,riposte43:!!atk.riposte43,sourceEvade43:atk.sourceEvade43||null,huntRead44:atk.huntRead44||null,guardCounter45:!!atk.guardCounter45};
    return snapshot();
   }
   function poseAt(a,t){
@@ -725,12 +741,15 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
   }
   function interrupt(now){
    finite(now,'now');if(now<lastTime)throw Error('non-monotonic time');
+   if(typeof globalThis.NakaArsenalV42!=='undefined')brain=globalThis.NakaArsenalV42.cancelMovement(brain,now);
    if(!active)return false;
    const id=active.id,sequence=active.sequence;active=null;
    brain=B.recovered(brain,now,variant);
+   if(typeof globalThis.NakaPursuitV38!=='undefined')brain=globalThis.NakaPursuitV38.cancel(brain,now,variant);
    queuedEvent={type:'attack_interrupted',id,time:now,sequence};
    return true;
   }
+  function guardHit45(info){const result=globalThis.NakaGuardV45?globalThis.NakaGuardV45.receiveHit(brain,info):{state:brain,result:'none'};brain=result.state;return result.result;}
   function step(o){
    if(!o)throw Error('observation required');
    const now=finite(o.now,'now');if(now<lastTime)throw Error('non-monotonic time');
@@ -738,6 +757,8 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
    const heading=finite(o.heading,'heading');
    const arena=o.arena||{width:960,height:620};
    if(!Number.isFinite(arena.width)||!Number.isFinite(arena.height)||arena.width<100||arena.height<100)throw Error('finite positive arena required');
+   if(typeof globalThis.NakaHuntV44!=='undefined')brain=globalThis.NakaHuntV44.observe(brain,{now,head:chain[0],player:o.player,observedVelocity:o.observedVelocity||{x:0,y:0},dodging:!!o.dodging});
+   if(typeof globalThis.NakaTacticsV48!=='undefined')brain=globalThis.NakaTacticsV48.observe(brain,{now,observedVelocity:o.observedVelocity||{x:0,y:0}});
    const events=queuedEvent?[queuedEvent]:[];queuedEvent=null;
    let intent={kind:'busy',reason:'active attack'},pose,attack=null;
    if(active&&now>=active.startedAt+A.duration(active.atk)){
@@ -752,16 +773,17 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
    }else if(active){pose=poseAt(active,now-active.startedAt);}
    else {
     if(o.observedVelocity!==undefined)assertPoint(o.observedVelocity,'observedVelocity');
-    const observation={now,variant:variantMeta,attacks:attackMap,head:chain[0],player:point(o.player),heading,
-      observedVelocity:o.observedVelocity||{x:0,y:0},arena,phase:o.phase||'stalking',pattern:o.pattern||'neutral',
+    const observation={now,variant:variantMeta,attacks:attackMap,head:chain[0],spine:chain,player:point(o.player),heading,
+      guardPressure45:o.guardPressure45||0,dodging:!!o.dodging,evasionScale:o.evasionScale,threat:o.threat||null,observedVelocity:o.observedVelocity||{x:0,y:0},arena,phase:o.phase||'stalking',pattern:o.pattern||'neutral',
       cooldowns:o.cooldowns||{},tailBroken:!!o.tailBroken,headBroken:!!o.headBroken,
       reactive:o.reactive||null,escapeFollowup:o.escapeFollowup||null,comboNext:o.comboNext||null};
     const decision=B.decide(brain,observation);brain=decision.state;intent={...decision.intent};
     if(intent.kind==='attack'){
-     beginAttack(intent.id,{now,chain,heading,target:o.player,tailBroken:o.tailBroken,headBroken:o.headBroken});
+     beginAttack(intent.id,{now,chain,heading,target:intent.target||o.player,tailBroken:o.tailBroken,headBroken:o.headBroken,pursuit:!!intent.pursuit,riposte43:!!intent.riposte43,sourceEvade43:intent.sourceEvade43||null,huntRead44:intent.huntRead44||null,guardCounter45:!!intent.guardCounter45});
      events.push(queuedEvent);queuedEvent=null;
      pose=poseAt(active,0);
-    }else pose={chain:C.solveSpineConstraints(chain,constraints),hitbox:null,stage:'idle',active:false,rootTravel:0,telegraph:null};
+    }else if(intent.guard45&&typeof globalThis.NakaGuardV45!=='undefined')pose={chain:globalThis.NakaGuardV45.sample(intent.guard45,now),hitbox:null,stage:'idle',active:false,rootTravel:0,telegraph:null};
+    else pose={chain:C.solveSpineConstraints(chain,constraints),hitbox:null,stage:'idle',active:false,rootTravel:0,telegraph:null};
    }
    if(active){attack={id:active.id,sequence:active.sequence,elapsed:Math.max(0,now-active.startedAt),duration:A.duration(active.atk),phase:pose.stage,
       aim:active.aim,target:point(active.target),zone:active.zone?{...active.zone}:null,attackSpec:{...active.atk},rootTravel:pose.rootTravel};}
@@ -773,7 +795,7 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
    lastTime=now;lastFrame=output;return output;
   }
   function getLastFrame(){return lastFrame?JSON.parse(JSON.stringify(lastFrame)):null;}
-  return {variant,step,beginAttack,interrupt,snapshot,getLastFrame};
+  return {variant,step,beginAttack,interrupt,snapshot,getLastFrame,guardHit45};
  }
  function sweptContact(previous,current,previousPlayer,currentPlayer,playerRadius=11){
   if(!previous?.attack||!current?.attack||previous.variant!==current.variant||previous.attack.sequence!==current.attack.sequence||previous.attack.id!==current.attack.id)
@@ -789,12 +811,17 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
   return C.sweptAttackContact(attackSpec.id,previous.nodes,current.nodes,previousPlayer,currentPlayer,current.attack.aim,
     previous.attack.elapsed,current.attack.elapsed,attackSpec,zone,playerRadius);
  }
- function sampleManual({config,variant,id,chain,target,heading=0,elapsed=0}){
+ function sampleManual({config,variant,id,chain,target,heading=0,elapsed=0,pursuit=false,guardCounter45=false}){
   validateConfig(config);validateChain(chain);assertPoint(target,'target');finite(elapsed,'elapsed');finite(heading,'heading');
   const v=config.variants[variant],raw=config.attacks.find(a=>a.id===id);
   if(!v||!raw||raw.exclusiveVariant&&raw.exclusiveVariant!==variant)throw Error('Invalid variant/attack pairing');
-  const atk=C.variantAttack(raw,{...v,id:variant});
+  let atk=C.variantAttack(raw,{...v,id:variant});
   const base=C.solveSpineConstraints(cloneChain(chain),{spacing:18,maxBendRadians:.68,...config.rig.constraints});
+  if(id==='half_coil'&&typeof globalThis.NakaWrapV37!=='undefined')atk=globalThis.NakaWrapV37.prepare(base,atk,target,heading,variant);
+  if(pursuit&&typeof globalThis.NakaPursuitV38!=='undefined')atk=globalThis.NakaPursuitV38.prepare(atk,variant);
+  if(typeof globalThis.NakaMotionV39!=='undefined')atk=globalThis.NakaMotionV39.prepare(atk,variant,base);
+  if(typeof globalThis.NakaArsenalV42!=='undefined')atk=globalThis.NakaArsenalV42.prepare(atk,target,base);
+  if(guardCounter45&&typeof globalThis.NakaGuardV46!=='undefined')atk=globalThis.NakaGuardV46.prepareCounter(atk,variant,base,target);
   const zone=C.pressureZone(id,base[0],target);
   const t=Math.max(0,Math.min(elapsed,A.duration(atk)));
   const pose=alignCollisionStage(A.samplePose(base,atk,t,{aim:heading,center:target,zone,includeRootMotion:true,transitionFrom:base,constraints:config.rig.constraints}),atk,t,heading,zone);
@@ -1087,7 +1114,7 @@ return {PROFILES,ATTACK_FAMILY,ENVELOPES,createState,attackLegal,attackScores,mo
   dusk:Object.freeze({name:'Ambusher',rhythm:'quick feint and lateral flash',color:'#a9aeff',pulseHz:5.6,bodyLean:.31,eyeNarrow:.68,crest:1,plate:0}),
   ancient:Object.freeze({name:'Guardian',rhythm:'heavy charge and dorsal plate rise',color:'#f3c47f',pulseHz:1.35,bodyLean:.45,eyeNarrow:.50,crest:0,plate:1})
  });
- const TAIL=new Set(['tail_sweep','tail_hook','counter_whip']);
+ const TAIL=new Set(['tail_sweep','tail_hook','counter_whip','tail_reap']);
  const COIL=new Set(['coil_trap','half_coil','constrict_pulse','double_coil']);
  const HEAVY=new Set(['body_slam','titan_bodywave']);
  function assertRig(rig){if(!Array.isArray(rig)||rig.length!==27||rig.some(p=>!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)))throw Error('27 finite rig nodes required');}
