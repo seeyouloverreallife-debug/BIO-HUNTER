@@ -2077,7 +2077,7 @@ function sfx(n) {
 /* ================= DOM ================= */
 var canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
 var ov = document.getElementById('ov'), panelEl = document.getElementById('panel'), titleEl = document.getElementById('title');
-var GAME_VER = '18.10.31-scene1', titleArm = 0;
+var GAME_VER = '18.10.31-arm1', titleArm = 0;
 
 /* ================= STATE ================= */
 var mode = 'title', paused = false;
@@ -9684,7 +9684,7 @@ function villageInteract() {
     return;
   }
   sfx('scan');
-  if (n.view && typeof openTalk === 'function' && openTalk(n)) return; /* ฉากสนทนา RPG (talk.js) */
+  if ((n.view || (typeof TALK_DEF !== 'undefined' && TALK_DEF[n.id])) && typeof openTalk === 'function' && openTalk(n)) return; /* ฉากสนทนา RPG (talk.js) */
   if (!n.view) { V.bubble = n.name + ': ' + npcLine(n.id); V.bubNpc = n; V.bubT = 5; return; }
   hubSay = { n: n, line: npcLine(n.id) };
   openHub(n.view, '');
@@ -9772,6 +9772,18 @@ function vilGate() {
   ctx.drawImage(im.el, g.ax - w / 2, g.ay - h, w, h);
   vilPlaque('ประตูสู่ป่า →', g.ax, g.ay - h + 6);
 }
+/* สไปรต์ NPC ในหมู่บ้านจากพอร์เทรตใหม่ (ครึ่งตัว): ย่อเป็น canvas สำรองครั้งเดียว + ไล่ขอบล่างจางลงพื้น แล้วแคชต่อคีย์ภาพ */
+var VIL_SPR = {};
+function vilSprite(n) {
+  var key = n.portrait, im = key ? vimg(key) : null, s, c, x, g, H0 = 200;
+  if (!im || typeof document === 'undefined') return null;
+  s = VIL_SPR[key]; if (s && s.src === im.el) return s;
+  c = document.createElement('canvas'); c.height = H0; c.width = Math.max(1, Math.round(im.w * H0 / im.h)); x = c.getContext('2d');
+  x.drawImage(im.el, 0, 0, c.width, c.height);
+  g = x.createLinearGradient(0, c.height * .6, 0, c.height); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)');
+  x.globalCompositeOperation = 'destination-out'; x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
+  s = { el: c, w: c.width, h: c.height, src: im.el }; VIL_SPR[key] = s; return s;
+}
 function vilNpc(n, i) {
   var near = V.near === n, bob = Math.sin(V.t * 2 + i) * 1.2, im, hh, ww;
   if (n.obj && n.id === 'garden' && VIS.images.vil3_garden_plot) { /* แปลงปลูก V3: ภาพ 3 แถว · พืชพร้อมเก็บ = ภาพออกดอก + จุดบอกสถานะทีละแปลง */
@@ -9798,12 +9810,12 @@ function vilNpc(n, i) {
     } else { ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(n.x, n.y + 10, 12, 6, 0, 0, TAU); ctx.fill();
       ctx.fillStyle = '#5a3f26'; ctx.fillRect(n.x - 3, n.y - 2, 6, 24); ctx.fillStyle = n.col; ctx.fillRect(n.x - 26, n.y - 30, 52, 34); ctx.strokeStyle = '#3a2814'; ctx.lineWidth = 2; ctx.strokeRect(n.x - 26, n.y - 30, 52, 34); ctx.fillStyle = '#f4ecd0'; ctx.fillRect(n.x - 20, n.y - 25, 16, 11); ctx.fillRect(n.x + 3, n.y - 22, 15, 14); ctx.fillStyle = '#c0392b'; ctx.fillRect(n.x - 13, n.y - 28, 3, 3); }
   } else {
-    im = n.pic ? vimg(n.pic) : null; hh = n.id === 'kid' ? 48 : 60;
+    im = vilSprite(n) || (n.pic ? vimg(n.pic) : null); hh = im && im.src ? (n.id === 'kid' ? 62 : 76) : (n.id === 'kid' ? 48 : 60);
     ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(n.x, n.y + 11, 15, 6, 0, 0, TAU); ctx.fill();
     if (im) {
       ww = hh * im.w / im.h;
       ctx.strokeStyle = near ? '#ffe9a0' : n.col; ctx.globalAlpha = near ? .95 : .6; ctx.lineWidth = near ? 2.5 : 2; ctx.beginPath(); ctx.ellipse(n.x, n.y + 11, 19, 7.5, 0, 0, TAU); ctx.stroke(); ctx.globalAlpha = 1;
-      ctx.drawImage(im.el, n.x - ww / 2, n.y + 13 + bob * .5 - hh, ww, hh);
+      ctx.drawImage(im.el, n.x - ww / 2, n.y + (im.src ? 17 : 13) + bob * .5 - hh, ww, hh);
     } else {
       ctx.fillStyle = n.col; ctx.beginPath(); ctx.arc(n.x, n.y + bob, 12, 0, TAU); ctx.fill();
       ctx.fillStyle = '#f4dcc0'; ctx.beginPath(); ctx.arc(n.x, n.y - 9 + bob, 7, 0, TAU); ctx.fill();
@@ -9830,11 +9842,20 @@ function vilPlayer() {
   }
 }
 /* ฉากหลังของหน้าเมนู (mode 'hub'): หมู่บ้านนิ่ง ๆ ไม่มี HUD/วงเลือก NPC · ยังไม่เคยเข้าหมู่บ้าน (เปิดจากหน้าชื่อเกม) = พื้นป่ามืด */
+var hubBg = null, hubBgCtx = null, hubBgAt = -1e9, hubBgDirty = true;
 function drawHubBackdrop() {
-  if (V) { var nr = V.near; V.near = null; V.t += 1 / 60 * .6; drawVillage(true); V.near = nr; return; }
-  ctx.setTransform(RS, 0, 0, RS, 0, 0); var g = ctx.createRadialGradient(VW / 2, H * .55, 40, VW / 2, H * .55, Math.max(VW, H) * .75); g.addColorStop(0, '#1d3022'); g.addColorStop(1, '#070b08'); ctx.fillStyle = g; ctx.fillRect(0, 0, VW, H);
-}
-function drawVillage(backdrop) {
+  if (!V) { ctx.setTransform(RS, 0, 0, RS, 0, 0); var g = ctx.createRadialGradient(VW / 2, H * .55, 40, VW / 2, H * .55, Math.max(VW, H) * .75); g.addColorStop(0, '#1d3022'); g.addColorStop(1, '#070b08'); ctx.fillStyle = g; ctx.fillRect(0, 0, VW, H); return; }
+  /* วาดหมู่บ้านลง canvas สำรองครั้งเดียว แล้วคัดลอกทุกเฟรม (ไม่วาดซีนหมู่บ้านทั้งฉากทุกเฟรมขณะเปิดเมนู) · รีเฟรชทุก ~2.5 วิ (ภาพ lazy โหลดเสร็จ) หรือเมื่อเปิดหน้าใหม่/ปรับขนาด */
+  var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+  if (!hubBg) { hubBg = document.createElement('canvas'); hubBgCtx = hubBg.getContext('2d'); }
+  if (hubBg.width !== canvas.width || hubBg.height !== canvas.height) { hubBg.width = canvas.width; hubBg.height = canvas.height; hubBgDirty = true; }
+  if (hubBgDirty || now - hubBgAt > 2500) {
+    var main = ctx, nr = V.near; ctx = hubBgCtx; V.near = null;
+    try { drawVillage(true); } finally { ctx = main; V.near = nr; }
+    hubBgDirty = false; hubBgAt = now;
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(hubBg, 0, 0);
+}function drawVillage(backdrop) {
   ctx.setTransform(RS, 0, 0, RS, 0, 0); ctx.fillStyle = '#243a26'; ctx.fillRect(0, 0, VW, H); ctx.translate(OFFX, 0);
   TXK = WK; /* ป้ายชื่อตึก/NPC ขยายตามจอเล็ก */
   var i;
@@ -10037,7 +10058,7 @@ function taleNpcLine(id) {
    กด F/ตรวจ-เก็บ ที่ NPC → ภาพพอร์เทรตใหญ่ + กล่องบทพูดทักทาย + ตัวเลือก "วันนี้จะคุยเรื่องไหน"
    (เช่น พัฒนาอาวุธ / ดูกระเป๋า / คุยเล่น) · "คุยเล่น" วนบทพูดหลายบรรทัด · ตัวเลือกพาไปหน้าฮับเดิม (openHub) ·
    NPC ที่ไม่มี TALK_DEF (กระดาน ลานเพาะปลูก ลานซ้อม เด็กน้อย) ใช้พฤติกรรมเดิม
-   ดร.น้อยมี 2 ท่า: port_noi (ทักทาย/ธุระ) · port_noi2 (ตอนคุยเล่น) */
+   ทุกคนมี 2 ท่า: port_<id> (ทักทาย/ธุระ) · port_<id>2 (ตอนคุยเล่น) · เด็กน้อยมีแต่คุยเล่น (ไม่มีหัวข้อธุระ) */
 var TALK = { id: '', n: 0, mood: '' };
 var TALK_DEF = {
   smith: {
@@ -10076,7 +10097,13 @@ var TALK_DEF = {
     opts: [{ t: 'แผนที่ป่า / ออกพิทักษ์', s: 'ดูสุขภาพป่าและออกเดินทาง', view: 'main' }, { t: 'เลือกภารกิจ', s: 'ไปที่กระดานภารกิจ', view: 'board' }, { t: 'เตรียมออกล่า', s: 'ตรวจเสบียงและเลือกท่าซ้อมก่อนไป', view: 'prep' }],
     chat: ['เป็นคนดูแลป่าไม่ได้แปลว่าต้องชนะทุกครั้ง — แปลว่ากลับมาให้ได้ทุกครั้งต่างหาก', 'ฉันเคยพาทีมเข้าป่าลึกสามวัน ไม่ได้เจออะไรเลย… แล้วฉันก็รู้ว่า "ไม่เจอ" ก็เป็นข่าวดี', 'ผ้าพันคอผืนนี้? ของคนที่ฉันเคยเสียไป ฉันเลยไม่ชอบเห็นใครกลับมาตัวเปล่า', 'เธอทำได้ดี — แต่อย่าให้ฉันได้ยินว่าเธอไม่ยอมถอนตัวตอนต้องถอนนะ']
   },
-  keeper: {
+  kid: {
+    greet: ['พี่ๆ! มาเล่นกับหนูไหม', 'เย้ พี่มาแล้ว! หนูเก็บใบไม้สวย ๆ มาให้ดูด้วย', 'ชู่ว… เบา ๆ นะ หนูกำลังตามรอยแมลงอยู่'],
+    ask: 'พี่อยากคุยเรื่องอะไรเหรอ?',
+    opts: [],
+    chat: ['หนูอยากเป็น Warden เหมือนพี่ตอนโตน่ะ! ป้าแก้วบอกว่าต้องเรียนรู้เรื่องใบไม้ก่อน', 'ใบนี้เหมือนใบที่ดร.น้อยจดไว้ในสมุดเลย หนูเก็บมาให้พี่แล้วนะ', 'ยายตาเล่าเรื่องป่าให้ฟังทุกคืนเลย หนูชอบตอนที่กวางตัวใหญ่มาที่รั้ว', 'พี่ช่างบรานตีเหล็กดังมาก! หนูเคยแอบดู ประกายไฟสวยจัง']
+  }
+,  keeper: {
     greet: ['อุ้ย มาแล้วเหรอลูก เข้ามาก่อน เดี๋ยวป้าตักน้ำให้', 'ป้ากำลังให้อาหารพอดี มานี่ ๆ', 'เบา ๆ นะ ตัวเล็กตัวน้อยกำลังนอนอยู่'],
     ask: 'วันนี้ไปดูพวกเขาที่คอกไหม?',
     opts: [{ t: 'ดูสัตว์ในคอก', s: 'ให้ยา ดูอาการ และปล่อยกลับป่า', view: 'pen' }],
@@ -10090,8 +10117,8 @@ function talkGreeting(id) {
   return d.greet[(S.hunts + S.wins + id.length) % d.greet.length];
 }
 function talkPic(id) {
-  var key = (id === 'doc' && TALK.mood === 'chat' && window.BH_UI && window.BH_UI.port_noi2) ? 'port_noi2' : ('port_' + ({ smith: 'bran', armorer: 'mira', doc: 'noi', elder: 'ta', trader: 'pim', captain: 'ren', keeper: 'kaew' }[id]));
-  var u = window.BH_UI && window.BH_UI[key];
+  var base = { smith: 'bran', armorer: 'mira', doc: 'noi', elder: 'ta', trader: 'pim', captain: 'ren', keeper: 'kaew', kid: 'kid' }[id], ui = window.BH_UI || {};
+  var u = (TALK.mood === 'chat' && ui['port_' + base + (base === 'noi' ? '2' : '2')]) ? ui['port_' + base + '2'] : ui['port_' + base];
   return u && u.src ? u.src : '';
 }
 function talkHtml(n, line, mood) {
@@ -10110,7 +10137,7 @@ function talkHtml(n, line, mood) {
 function talkNpc(id) { for (var i = 0; i < VIL_NPCS.length; i++) if (VIL_NPCS[i].id === id) return VIL_NPCS[i]; return null; }
 function openTalk(n) {
   if (!n || !TALK_DEF[n.id]) return false;
-  mode = 'hub'; paused = false; initWorld(); hubNote = ''; hubSay = null; TALK.n = 0;
+  mode = 'hub'; paused = false; initWorld(); hubBgDirty = true; hubNote = ''; hubSay = null; TALK.n = 0;
   showPanel(talkHtml(n, talkGreeting(n.id), ''));
   return true;
 }
@@ -10127,9 +10154,11 @@ function talkGo(arg) {
 
 /* ================= SCENES — ภาพฉากประกอบเมนู + คัทซีนตีอาวุธ (v18.10.31-scene1) =================
    art/scene/scene_*.webp  แบนเนอร์หัวหน้าเมนู (กัปตันเรน/ป้าแก้ว/ยายตา/ช่างบราน) · ภาพ trio ใช้ที่หน้าชื่อเกมผ่าน CSS
-   art/scene/forge_cut.mp4 คัทซีนช่างบรานตีอาวุธ 6 วินาที — เล่นหลังผลิต/พัฒนาอาวุธสำเร็จ (buyItem หมวด forge · wtree up)
+   art/scene/forge_cut.mp4 / armor_cut.mp4 คัทซีน 6 วินาที — ตีอาวุธ (buyItem หมวด forge · wtree up) / เย็บเกราะ (buyItem หมวด armor · nakaup)
    ข้ามได้ทุกเวลา: ปุ่ม "ข้าม" / คลิก / Esc · Space · Enter · ติ๊ก "ไม่ต้องแสดงอีก" เก็บใน localStorage (bh-nocut) */
-var HUB_SCENE = { main: 'trio', pen: 'pen', skills: 'camp', forge: 'forge' };
+var HUB_SCENE = { main: 'trio', pen: 'pen', skills: 'camp', forge: 'forge', armor: 'armor' };
+/* คัทซีนต่อประเภท: forge = ช่างบรานตีอาวุธ · armor = ช่างมีราเย็บเกราะ (ภาพปกวิดีโอ = scene_<poster>.webp) */
+var CUTS = { forge: { src: 'art/scene/forge_cut.mp4', poster: 'art/scene/scene_forge.webp', cap: 'ช่างบรานกำลังตีอาวุธ…' }, armor: { src: 'art/scene/armor_cut.mp4', poster: 'art/scene/scene_armor2.webp', cap: 'ช่างมีรากำลังเย็บเกราะ…' } };
 function sceneBannerHtml(view) {
   var k = HUB_SCENE[view];
   return k ? '<div class="hub-ban" style="background-image:url(art/scene/scene_' + k + '.webp)"></div>' : '';
@@ -10144,15 +10173,16 @@ function forgeCutEnd() {
   try { c.v.pause(); c.v.removeAttribute('src'); c.v.load(); } catch (e) {}
   if (c.el && c.el.parentNode) c.el.parentNode.removeChild(c.el);
 }
-function forgeCutscene(title) {
+function forgeCutscene(title, kind) {
+  var def = CUTS[kind || 'forge'] || CUTS.forge;
   if (FORGE_CUT || forgeCutOff() || typeof document === 'undefined' || !ov || !ov.parentNode) return false;
   var el = document.createElement('div'), v, c = { el: el, v: null, timer: 0, onKey: null };
   el.id = 'forgecut'; el.className = 'forgecut';
-  el.innerHTML = '<video playsinline preload="auto" poster="art/scene/scene_forge.webp"></video><div class="fc-cap">' + (title || 'ช่างบรานกำลังตีอาวุธ…') + '</div>' +
+  el.innerHTML = '<video playsinline preload="auto" poster="' + def.poster + '"></video><div class="fc-cap">' + (title || def.cap) + '</div>' +
     '<div class="fc-bar"><label class="fc-no"><input type="checkbox"> ไม่ต้องแสดงอีก</label><button class="fc-skip" type="button">ข้าม ▸</button></div>';
   v = el.querySelector('video'); c.v = v;
   try { v.volume = clamp(.8 * (typeof setMul === 'function' ? setMul('vol') : 1), 0, 1); } catch (e) {}
-  v.src = 'art/scene/forge_cut.mp4';
+  v.src = def.src;
   v.addEventListener('ended', forgeCutEnd); v.addEventListener('error', forgeCutEnd);
   var cb = el.querySelector('input');
   function done() { try { if (cb.checked && window.localStorage) window.localStorage.setItem('bh-nocut', '1'); } catch (e) {} forgeCutEnd(); }
@@ -12383,7 +12413,7 @@ function prepAuto() { /* เตรียมให้ตามลำดับค�
 }
 function openHub(view, note) {
   view = view || 'main';
-  mode = 'hub'; paused = false; initWorld();
+  mode = 'hub'; paused = false; initWorld(); hubBgDirty = true;
   if (note !== undefined) hubNote = note; else hubNote = '';
   if (view !== 'main') resetArmed = false;
   var ri = rankIdx(), nx = RANK_XP[ri + 1];
@@ -12515,7 +12545,7 @@ function buyItem(id) {
   if (c.wk) S.wk = c.wk; else S.res[id] = true;
   persist(); sfx('heal');
   openHub(c.tab, 'ปลดล็อก ' + c.name + ' แล้ว');
-  if (c.tab === 'forge') forgeCutscene(); /* คัทซีนช่างตีอาวุธ (ข้ามได้) */
+  if (c.tab === 'forge' || c.tab === 'armor') forgeCutscene(null, c.tab); /* คัทซีนช่างตีอาวุธ / เย็บเกราะ (ข้ามได้) */
 }
 function supplyBuy(arg) {
   var a = String(arg || '').split(':'), k = a[0], n = a[1] === 'max' ? 99 : (+a[1] === 1 ? 1 : 0);
@@ -12781,6 +12811,7 @@ function gearRender(view,note,arg) {
   openHub(view,note||'');
   var el=panelEl.querySelector('[data-act="gear"][data-arg="'+arg+'"]');if(el)el.focus();
 }
+var gearCut='';
 function gearAction(arg) {
   if(mode!=='hub')return;
   var a=String(arg||'').split(':'),op=a[0],id=a[1],view='armor',note='';
@@ -12796,7 +12827,7 @@ function gearAction(arg) {
   else if(op==='nakaup' && id==='naka'){
     var us=nakaUpgradeState(); if(us.done||!us.ready)return;
     for(var uk in us.next.cost)S.mats[uk]-=us.next.cost[uk];
-    S.tier=S.tier||{};S.tier.naka=us.tier+1;persist();sfx('heal');note='อัปเกรดเกราะนาคาเป็นขั้น '+NAKA_ROMAN[us.tier+1]+' · '+us.next.name+' แล้ว';
+    S.tier=S.tier||{};S.tier.naka=us.tier+1;persist();sfx('heal');note='อัปเกรดเกราะนาคาเป็นขั้น '+NAKA_ROMAN[us.tier+1]+' · '+us.next.name+' แล้ว';gearCut='armor';
   }else if(op==='equipset' && SET_KEYS.indexOf(id)>=0){
     if(!SLOTS.every(function(sl){return !!S.res['arm_'+id+'_'+sl];}))return;
     S.eq=gearFull(id);persist();sfx('scan');note='สวมชุด'+SETS[id].name+'ครบ 4 ชิ้นแล้ว';
@@ -12809,6 +12840,7 @@ function gearAction(arg) {
     else{ldSave(i);GEAR_UI.pendingSave=-1;note='บันทึกชุดที่ '+(i+1)+' แล้ว';}
   }else return;
   gearRender(view,note,arg);
+  if(gearCut){gearCut='';forgeCutscene(null,'armor');}
 }
 /* ================= หน้าตัวละคร (v18.10.28): ค่าสถานะ · อาวุธ · เกราะ · สถานะที่ได้ · สถานะต่อสู้ =================
    อ่านอย่างเดียว ไม่แก้เซฟ — ใช้ gearArmorStats / armorBonusRows / curW ที่มีอยู่ ·
@@ -15672,7 +15704,7 @@ requestAnimationFrame(frame);
 try { if (typeof navigator !== 'undefined' && navigator.serviceWorker && /^https?:/.test(location.protocol)) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); } catch (e) {}
 window.__bh = { cureTestHit: cureTestHit, ailCands: ailCands, ailTellK: ailTellK, doseEfficacy: doseEfficacy, ailEvidence: ailEvidence, sickStageMul: sickStageMul, readVis: readVis, setTreatFight: function (v) { TREAT_FIGHT = !!v; }, huntClue: huntClue, setCardScale: function (v) { CARD_SCALE = +v || 1; cardsDirty(); }, CARD_DEF: CARD_DEF, modS: modS, cardEquip: cardEquip, cardUnequip: cardUnequip, cardRankUp: cardRankUp, cardUsed: cardUsed, cardCapacity: cardCapacity, cardDrain: cardDrain, cardGrant: cardGrant, cardDropNote: cardDropNote, cardsDirty: cardsDirty, cardRoll: cardRoll, cardOrbDrop: cardOrbDrop, updateCardOrbs: updateCardOrbs, CARD_ORBS: function () { return CARD_ORBS; }, CARD_LOG: function () { return CARD_LOG; }, cardFieldDrop: cardFieldDrop, cardDropChance: cardDropChance, allyStanceCycle: allyStanceCycle, allyShieldMul: allyShieldMul, updateAlly: updateAlly, makeAlly: makeAlly, ALLY: function () { return ALLY; }, allyStanceFx: allyStanceFx, allyGuardMul: allyGuardMul, allyPot: allyPot, penEvents: penEvents, setPenEv: function (v) { PEN_EV_ON = !!v; }, PEN_NOTES: function () { return PEN_NOTES; }, AIL_KEYS: AIL_KEYS, MEDSALL: MEDS, BREW: BREW, HUNT_CLUES: function () { return HUNT_CLUES; }, penAdd: penAdd, treatFight: function () { return TREAT_FIGHT; }, MONSTER_PLUGINS: MONSTER_PLUGINS, mpParry: mpParry, mpCue: mpCue, parryOK: parryOK, cureNeed: cureNeed, cureFrac: cureFrac, antiLv: antiLv, visual: function () { return { loaded: Object.keys(VIS.images), failed: VIS.failed.slice(), draws: Object.assign({},VIS.draws), wardenFrame: P ? wardenFrame(P) : -1 }; }, wardenFrame: wardenFrame, visualFx: visualFx, ring: ring, setArena: setArena, loadMap: loadMap, buildBg: buildBg, draw: draw, AV: function () { return AV; }, bg: function () { return bg; }, BUGS: function () { return BUGS; }, spawnBug: spawnBug, updateBugs: updateBugs, clearBugs: clearBugs, minionMaxHp: hiveMinionMaxHp, minionHit: hiveMinionTakeDamage, hiveBalance: { cap: hiveSwarmCap, wave: hiveSwarmWaveSize, canSummon: hiveSwarmCanSummon, cooldown: hiveSwarmSummonCooldown, biteReady: hiveSwarmBiteReady }, isBoss: isBoss, bugsStrike: bugsStrike, combatOpening: function () { return combatOpeningInfo(M); }, fxState: function () { return { chain: hitChain, best: bestChain, flash: flashA, punch: punch, slashes: slashes.length }; }, chainHit: chainHit, screenFx: screenFx, skillLv: skillLv, skillPts: skillPts, skillTotal: skillTotal, skillCan: skillCan, SKILLS: SKILLS, jrStamps: jrStamps, ldUse: ldUse, ldSave: ldSave, ldActive: ldActive, ldHtml: ldHtml, bagHtml: bagHtml, bagTotal: bagTotal, giftCollect: giftCollect, setDay: function (k) { dayOverride = k || ''; }, dailyEnsure: dailyEnsure, dailyUpdate: dailyUpdate, dailyDone: dailyDone, jrUpdate: jrUpdate, jrStatus: jrStatus, mutNow: mutNow, mutId: mutId, dailyGoals: dailyGoals, GOAL_DEFS: GOAL_DEFS, MUT_KEYS: MUT_KEYS, dayShift: dayShift, enterTitle: enterTitle, renderTitle: renderTitle, GAME_VER: GAME_VER, PT: function () { return PT; }, ptReport: ptReport, ptLabRows: ptLabRows, ptLabCurrent: ptLabCurrent, ptLabPlan: ptLabPlan, ptLabHtml: ptLabHtml, ptCsv: ptCsv, ptFrame: ptFrame, PTF: function () { return PTF; }, TUT: function () { return TUT; }, tutSkip: tutSkip, tutSteps: tutSteps, guidePages: guidePages, guideHtml: guideHtml, saveCode: saveCode, importSave: importSave, ART: function () { return ART; }, artSetup: artSetup, setCritOff: function (v) { CRIT_OFF = !!v; }, critInfo: critInfo, PRAC: function () { return PRAC; }, pracStats: pracStats, SHRINE: function () { return SHRINE; }, FIRES: function () { return FIRES; }, huntFires: function () { return huntFires; }, setHF: function (v) { huntFires = v; }, FIELD: function () { return FIELD; }, scanRec: function () { return scanRec; }, hint: function () { return hint; }, hurtPlayer: hurtPlayer, WTREE_NODES: WTREE_NODES, curW: curW, wnodeCost: wnodeCost, CAT: function () { return CAT; }, ftext: ftext, texts: function () { return texts; }, rw: rw,
   hitFeel: hitFeel, hitStopAdd: hitStopAdd, HIT_FEEL: HIT_FEEL, BOAR_OPEN: BOAR_OPEN, BOAR_RIDGE: BOAR_RIDGE, boarOpenActive: boarOpenActive, boarChargeNote: boarChargeNote, boarOpenStart: boarOpenStart, boarPilot: boarPilot, hitstopNow: function () { return hitstop; }, monsterLive: monsterLive, HUNT_CLUES_ARR: function () { return HUNT_CLUES; }, prepAuto: prepAuto, BOAR_ADAPT: BOAR_ADAPT, boarAdaptK: boarAdaptK, boarAdaptSetEnabled: boarAdaptSetEnabled, boarProfileChoose: boarProfileChoose, RESEARCH: RESEARCH, cleanResearch: cleanResearch, researchHas: researchHas, researchTier: researchTier, researchNote: researchNote, chronicleHtmlTest: function () { return chronicleHtml(); }, boarOpenStart: boarOpenStart, ELEM_REACTIONS: ELEM_REACTIONS, ELEM_ZONES: function () { return ELEM_ZONES; }, elemSetEnabled: elemSetEnabled, elemIgnite: function (x, y, r, life) { addFire(x, y, r, life); }, FIRES: function () { return FIRES; }, boarSteerMul: boarSteerMul, diagLine: diagLine, setDiag: function (v) { DIAG = !!v; }, ecoAnomalyLevel: ecoAnomalyLevel, huntGoalsInit: huntGoalsInit, setHuntKind: function (k) { HUNT_LAST_KIND = k; }, ratOpenStartTest: function (dur, x, y) { ratOpenStart('alpha', dur, x, y); }, SETS: SETS, SET_KEYS: SET_KEYS, armorBonuses: armorBonuses, STATUS: STATUS, applyFx: applyFx, RATS: function () { return RATS; }, ratPilot: ratPilot, ratsStrike: ratsStrike, ratLibs: ratLibs, wolfOpenActive: wolfOpenActive, wolfBiteNote: wolfBiteNote, wolfOpenStart: wolfOpenStart, HUNT_GOALS: function () { return HUNT_GOALS; }, setHuntGoals: function (a) { HUNT_GOALS = a; }, HUNT_GOAL_DEF: HUNT_GOAL_DEF, huntGoalNote: huntGoalNote, perfectDodge: perfectDodge, BLADE_PIN: BLADE_PIN, FANG_HAMSTRING: FANG_HAMSTRING, bladePinned: bladePinned, crippled: crippled, boarChargeMotion: boarChargeMotion, tNowGet: function () { return tNow; }, rocksNow: function () { return ROCKS; }, hitStopSpent: function () { return hitStopSpent; },
-  DARTS: function () { return darts; }, MEDS: function () { return huntMeds; }, PART_TH: function () { return PART_TH; }, ratFieldDraw: ratFieldDraw, nakaFieldChain: nakaFieldChain, wardenWeaponFrame: wardenWeaponFrame, wardenMotionFrame: wardenMotionFrame, WARDEN_W: WARDEN_W, VISimg: function () { return VIS.images; }, VISstate: function () { return VIS; }, VIMGs: function () { return VIMG; }, ENCOUNTER_T1_CAP: function () { return ENCOUNTER_T1_CAP_18131; }, PART_NAMES: PART_NAMES, tale: function () { return { open: taleOpen(), tale: S && S.tale, step: TALE && TALE.step, scans: stats && stats.scans, scans0: TALE && TALE.scans0, spot: taleSpot(), forest: S && S.forest && S.forest.stag, note: V && V.note, bubble: V && V.bubble, kit: document.body.classList.contains('tale-scan') }; }, startTaleFight: startTaleFight, taleFinish: taleFinish, enterTale: enterTale, BOSS_KINDS: BOSS_KINDS, MATS: MATS, RITES: RITES, ritesSet: ritesSet, ritesCast: ritesCast, ritesPress: ritesPress, ritesGain: ritesGain, RITE_Z: function () { return RITE_Z; }, riteSel: function () { return RITE_SEL; }, sparkOf: sparkOf, LIVING: LIVING, ARENA: function () { return { cx: CX, cy: CY, r: ARENA_R }; }, livingSet: livingSet, WET: function () { return WET; }, shatterRock: monsterShatterRock, setDecor: function (v) { AV.decor = v; },  livingEcho: livingEcho, livingPull: livingPull, livingDrives: livingDrives, ECHO: function () { return ECHO; }, GATLING: GATLING, gatState: gatState, GAT_ROUNDS: GAT_ROUNDS, gatSpecies: gatSpecies,
+  DARTS: function () { return darts; }, MEDS: function () { return huntMeds; }, PART_TH: function () { return PART_TH; }, ratFieldDraw: ratFieldDraw, nakaFieldChain: nakaFieldChain, wardenWeaponFrame: wardenWeaponFrame, wardenMotionFrame: wardenMotionFrame, WARDEN_W: WARDEN_W, VISimg: function () { return VIS.images; }, VISstate: function () { return VIS; }, VIMGs: function () { return VIMG; }, ENCOUNTER_T1_CAP: function () { return ENCOUNTER_T1_CAP_18131; }, PART_NAMES: PART_NAMES, VILSPR: function () { return VIL_SPR; }, tale: function () { return { open: taleOpen(), tale: S && S.tale, step: TALE && TALE.step, scans: stats && stats.scans, scans0: TALE && TALE.scans0, spot: taleSpot(), forest: S && S.forest && S.forest.stag, note: V && V.note, bubble: V && V.bubble, kit: document.body.classList.contains('tale-scan') }; }, startTaleFight: startTaleFight, taleFinish: taleFinish, enterTale: enterTale, BOSS_KINDS: BOSS_KINDS, MATS: MATS, RITES: RITES, ritesSet: ritesSet, ritesCast: ritesCast, ritesPress: ritesPress, ritesGain: ritesGain, RITE_Z: function () { return RITE_Z; }, riteSel: function () { return RITE_SEL; }, sparkOf: sparkOf, LIVING: LIVING, ARENA: function () { return { cx: CX, cy: CY, r: ARENA_R }; }, livingSet: livingSet, WET: function () { return WET; }, shatterRock: monsterShatterRock, setDecor: function (v) { AV.decor = v; },  livingEcho: livingEcho, livingPull: livingPull, livingDrives: livingDrives, ECHO: function () { return ECHO; }, GATLING: GATLING, gatState: gatState, GAT_ROUNDS: GAT_ROUNDS, gatSpecies: gatSpecies,
   PODS: function () { return PODS; },
   state: function () { return { P: P, M: M, mode: mode, paused: paused, stats: stats }; },
   fieldStep: function (dt) { if (FIELD && mode === 'field') updateField(dt); }, step: step, hurt: hurtPlayer, ACTIONS: ACTIONS, finish: finish, openDecision: openDecision, monsterDowned: monsterDowned, hitMonster: hitMonster,
