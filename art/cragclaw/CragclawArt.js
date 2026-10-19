@@ -274,24 +274,27 @@ function rigPart(ctx,s,opts,id,drawFn){
  var R=typeof globalThis!=='undefined'&&globalThis.CragclawRig;
  if(R)R.withBone(ctx,'cragclaw',s,id,opts,drawFn);else drawFn();
 }
-function drawBody(ctx,s,opts){var m=secondaryMotion(s,opts),p=(Config.variants[s.variant]||Config.variants.stone).palette, pose=s.pose||{};
+/* BIO Hunter host patch: optional sprite painter (setSprite). When ready(s,opts) is true the procedural legs/shell/shoulders/crest/face/eyes (and unbroken claws) are replaced by sprite layers; fracture marks, FX, hitboxes stay procedural. */
+var _sprite=null;function setSprite(o){_sprite=o||null;}
+function drawBody(ctx,s,opts){var _sp=_sprite&&_sprite.ready&&_sprite.ready(s,opts)?_sprite:null;var m=secondaryMotion(s,opts),p=(Config.variants[s.variant]||Config.variants.stone).palette, pose=s.pose||{};
  withSave(ctx,function(){
    var z=s.r/33,bob=(pose.bodyBob||0)*s.r;
    ctx.translate(s.x,s.y+bob);ctx.rotate(s.dir);ctx.scale(z,z);var roll=pose.shellTilt||0;var slide=pose.lateral||0;
    if(rigVisible(opts,'shadow'))ellipse(ctx,-3,12,43,28,'rgba(0,0,0,.25)');
    for(var side=-1;side<=1;side+=2)for(var i=0;i<4;i++){
      (function(side,i){var id='leg_'+(side<0?'upper':'lower')+'_'+(i+1);
-       if(rigVisible(opts,id))rigPart(ctx,s,opts,id,function(){drawLeg(ctx,-24+i*13,side*10,side,i,s.phase,pose.legCycle||0,slide,pose.gaitWeight||0,pose.limp||0);});
+       if(!_sp&&rigVisible(opts,id))rigPart(ctx,s,opts,id,function(){drawLeg(ctx,-24+i*13,side*10,side,i,s.phase,pose.legCycle||0,slide,pose.gaitWeight||0,pose.limp||0);});
      })(side,i);
    }
    for(var sl=-1;sl<=1;sl+=2)for(var li=0;li<4;li++){
      (function(sl,li){var id='leg_'+(sl<0?'upper':'lower')+'_'+(li+1);
-       if(rigVisible(opts,id))rigPart(ctx,s,opts,id,function(){drawFootMotion(ctx,s,sl,li,m,false);});
+       if(!_sp&&rigVisible(opts,id))rigPart(ctx,s,opts,id,function(){drawFootMotion(ctx,s,sl,li,m,false);});
      })(sl,li);
    }
+   if(_sp)_sp.legs(ctx,s,m);
    // Slight weight shift makes the armor settle over the leg pair.
    var stagger=s.staggerVisual||{};ctx.translate((stagger.slide||0)+(stagger.shake||0),roll*9+slide*1.5);if(stagger.brace)ctx.rotate(stagger.brace*.08);
-   if(rigVisible(opts,'shell'))rigPart(ctx,s,opts,'shell',function(){
+   if(!_sp&&rigVisible(opts,'shell'))rigPart(ctx,s,opts,'shell',function(){
    drawNormalRear(ctx,s);
    // layered carapace
    ellipse(ctx,-5,5,36,27,'#233d4e');
@@ -317,23 +320,24 @@ function drawBody(ctx,s,opts){var m=secondaryMotion(s,opts),p=(Config.variants[s
    // mineral cracks in phase 3
    if(s.phase>=3){ctx.strokeStyle='rgba(135,236,255,.83)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-31,7);ctx.lineTo(-19,-1);ctx.lineTo(-11,5);ctx.lineTo(2,1);ctx.stroke();}
    }); // shell layer ends before separately articulated shoulder/crest layers
-   if(rigVisible(opts,'shoulders'))rigPart(ctx,s,opts,'shoulders',function(){drawShoulderMotion(ctx,s,m,false);});
-   if(rigVisible(opts,'crest'))rigPart(ctx,s,opts,'crest',function(){drawLivingCrest(ctx,s,m,false);});
-   if(rigVisible(opts,'face'))rigPart(ctx,s,opts,'face',function(){
+   if(!_sp&&rigVisible(opts,'shoulders'))rigPart(ctx,s,opts,'shoulders',function(){drawShoulderMotion(ctx,s,m,false);});
+   if(!_sp&&rigVisible(opts,'crest'))rigPart(ctx,s,opts,'crest',function(){drawLivingCrest(ctx,s,m,false);});
+   if(!_sp&&rigVisible(opts,'face'))rigPart(ctx,s,opts,'face',function(){
    // face mouth and eyestalks
    ellipse(ctx,28,0,17,16,'#b5b5a1','#274553',1.5);
    ctx.strokeStyle='#283e49';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(40,-5);ctx.quadraticCurveTo(46,0,40,5);ctx.stroke();
    drawNormalFace(ctx,s);
    drawLivingFace(ctx,s,m,false);
    }); // face layer
-   if(rigVisible(opts,'eyes'))rigPart(ctx,s,opts,'eyes',function(){
+   if(!_sp&&rigVisible(opts,'eyes'))rigPart(ctx,s,opts,'eyes',function(){
    ctx.strokeStyle='#466779';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(31,-10);ctx.lineTo(40,-17);ctx.moveTo(31,10);ctx.lineTo(40,17);ctx.stroke();
    ellipse(ctx,40,-17,4.8,4.8,'#f6d185','#172d3b',1);ellipse(ctx,40,17,4.8,4.8,'#f6d185','#172d3b',1);
    ellipse(ctx,41,-17,2.0,2.2,'#142b35');ellipse(ctx,41,17,2.0,2.2,'#142b35');
    }); // eye stalks layer
+   if(_sp)_sp.shell(ctx,s,m,opts);
    var parts=s.parts||{},cr=parts.crusher&&parts.crusher.broken,pi=parts.pincer&&parts.pincer.broken;
-   if(rigVisible(opts,'crusher'))rigPart(ctx,s,opts,'crusher',function(){drawClaw(ctx,s,-1,parts.crusher||{broken:cr},true,pose.clawOpen||0.2,pose.claws&&pose.claws.crusher,m);});
-   if(rigVisible(opts,'pincer'))rigPart(ctx,s,opts,'pincer',function(){drawClaw(ctx,s,1,parts.pincer||{broken:pi},false,pose.clawOpen||0.2,pose.claws&&pose.claws.pincer,m);});
+   if(rigVisible(opts,'crusher'))rigPart(ctx,s,opts,'crusher',function(){if(_sp&&_sp.claw(ctx,s,-1,s.parts&&s.parts.crusher,pose.clawOpen||0.2,pose.claws&&pose.claws.crusher))return;drawClaw(ctx,s,-1,parts.crusher||{broken:cr},true,pose.clawOpen||0.2,pose.claws&&pose.claws.crusher,m);});
+   if(rigVisible(opts,'pincer'))rigPart(ctx,s,opts,'pincer',function(){if(_sp&&_sp.claw(ctx,s,1,s.parts&&s.parts.pincer,pose.clawOpen||0.2,pose.claws&&pose.claws.pincer))return;drawClaw(ctx,s,1,parts.pincer||{broken:pi},false,pose.clawOpen||0.2,pose.claws&&pose.claws.pincer,m);});
    if(!opts.onlyLayer && s.mode==='stagger'){
       var intensity=clamp((s.staggerRemaining||0)/1.05,0,1);
       for(var q=0;q<5;q++){var theta=q*1.256;glow(ctx,Math.cos(theta)*40,Math.sin(theta)*34,9,'rgba(254,193,102,'+(.15*intensity)+')');}
@@ -453,5 +457,5 @@ function drawAmbientDetails(ctx,s,t){
 function drawHitboxes(ctx,s){withSave(ctx,function(){var claws=s.pose&&s.pose.claws||{};for(var id in claws){var tp=claws[id].tip;ctx.fillStyle=id==='crusher'?'#62e8ff':'#ffcf75';ctx.beginPath();ctx.arc(tp.x,tp.y,3.3,0,Math.PI*2);ctx.fill();}var hb=s.attackHitboxes||[];ctx.strokeStyle='#ff7c6c';ctx.lineWidth=1.8;for(var i=0;i<hb.length;i++){ctx.beginPath();ctx.arc(hb[i].x,hb[i].y,hb[i].r,0,Math.PI*2);ctx.stroke();}var pb=s.partHurtboxes||[];for(var j=0;j<pb.length;j++){ctx.strokeStyle=pb[j].broken?'#8e8588':'#f7c979';ctx.beginPath();ctx.arc(pb[j].x,pb[j].y,pb[j].r,0,Math.PI*2);ctx.stroke();}});}
 function draw(ctx,s,opts){opts=opts||{};if(!opts.onlyLayer){drawFields(ctx,s);drawTelegraphs(ctx,s);drawInertiaTrail(ctx,s,secondaryMotion(s,opts),false);}drawBody(ctx,s,opts);if(!opts.onlyLayer && !opts.reduceEffects){drawAmbientFX(ctx,s,opts);drawWindupFX(ctx,s,opts);drawImpactFX(ctx,s,opts);drawRecoveryFX(ctx,s,opts);}if(!opts.onlyLayer && opts.showHitboxes)drawHitboxes(ctx,s);if(opts.showRig && typeof globalThis!=='undefined' && globalThis.CragclawRig)globalThis.CragclawRig.markers(ctx,'cragclaw',s,{showLabels:!!opts.showRigLabels,selectedBone:opts.selectedBone});}
 function drawQuestIcon(ctx,size,variant){withSave(ctx,function(){ctx.clearRect(0,0,size,size);var b=ctx.createLinearGradient(0,0,0,size);b.addColorStop(0,'#183745');b.addColorStop(1,'#0c1823');ctx.fillStyle=b;ctx.fillRect(0,0,size,size);var z=size/128;var s={variant:variant||'stone',x:size*.44,y:size*.55,r:size*.225,dir:-.24,phase:3,pose:{bodyBob:0,clawOpen:.45,legCycle:0},parts:{crusher:{broken:false},pincer:{broken:false}}};drawBody(ctx,s,{reduceMotion:true});ctx.strokeStyle='#72d8ee';ctx.lineWidth=3*z;ctx.strokeRect(2*z,2*z,size-4*z,size-4*z);});}
-return {version:'1.4-art',draw:draw,drawQuestIcon:drawQuestIcon,drawLayer:function(ctx,s,id,opts){var o=Object.assign({},opts||{},{onlyLayer:id,reduceEffects:true,showHitboxes:false});return draw(ctx,s,o);},getRigPose:function(s,opts){var R=typeof globalThis!=='undefined'&&globalThis.CragclawRig;return R?R.pose('cragclaw',s,opts):null;}};
+return {setSprite:setSprite,version:'1.4-art',draw:draw,drawQuestIcon:drawQuestIcon,drawLayer:function(ctx,s,id,opts){var o=Object.assign({},opts||{},{onlyLayer:id,reduceEffects:true,showHitboxes:false});return draw(ctx,s,o);},getRigPose:function(s,opts){var R=typeof globalThis!=='undefined'&&globalThis.CragclawRig;return R?R.pose('cragclaw',s,opts):null;}};
 });

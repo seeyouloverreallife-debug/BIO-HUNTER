@@ -1,0 +1,36 @@
+{
+  "version": "3.0.0",
+  "title": "BIO Hunter Adaptive Exploration - Near Nest / Combat Transition",
+  "durationSeconds": 80.0,
+  "synthesizedNature": true,
+  "sampleRate": 32000,
+  "compatibleWith": "BIO Hunter Exploration Biomes v2",
+  "biomes": {
+    "dense_forest": {
+      "bed": "BH_dense_forest_bed.ogg",
+      "fauna": "BH_dense_forest_fauna.ogg",
+      "tension": "BH_dense_forest_tension.ogg",
+      "alert": "BH_dense_forest_alert.ogg",
+      "music": "BH_dense_forest_MUSIC_LOOP.ogg"
+    },
+    "serpent_marsh": {
+      "bed": "BH_serpent_marsh_bed.ogg",
+      "fauna": "BH_serpent_marsh_fauna.ogg",
+      "tension": "BH_serpent_marsh_tension.ogg",
+      "alert": "BH_serpent_marsh_alert.ogg",
+      "music": "BH_serpent_marsh_MUSIC_LOOP.ogg"
+    },
+    "night_grove": {
+      "bed": "BH_night_grove_bed.ogg",
+      "fauna": "BH_night_grove_fauna.ogg",
+      "tension": "BH_night_grove_tension.ogg",
+      "alert": "BH_night_grove_alert.ogg",
+      "music": "BH_night_grove_MUSIC_LOOP.ogg"
+    }
+  },
+  "spatial": {
+    "nearStartMeters": 72,
+    "nearFullMeters": 12,
+    "awarenessAlertThreshold": 0.72
+  }
+}

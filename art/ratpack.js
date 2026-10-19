@@ -1112,6 +1112,8 @@ function createTransitionLayer(options){
   inspect:function(id){var s=records[String(id)];return s?{state:s.key,elapsed:s.elapsed,duration:s.duration,transitioning:s.duration>s.elapsed}:null;}};
 }
 
+/* BIO Hunter host patch: optional sprite painter for the articulated body (host sets it via setSprite; returns true when it drew legs/body/head). */
+var _sprite=null;function setSprite(fn){_sprite=typeof fn==='function'?fn:null;}
 function drawRat(ctx,entity,v,quality){
  var r=entity.r||29,skin=getArt(v),pose=entity.pose||{},body=pose.body||{},feet=pose.feet||{};
  var t=entity.animT||0,detail=quality!=='low',m=secondary(entity),style=(entity.visualBlend&&entity.visualBlend.motion)||inspectMotion(entity,v),an=(entity.visualBlend&&entity.visualBlend.anatomy)||inspectAnatomy(entity,v),idle=entity.mode==='idle',dead=['dead','captured','downed','reanimating'].indexOf(entity.mode)>=0;
@@ -1128,6 +1130,7 @@ function drawRat(ctx,entity,v,quality){
  // Shadow anchors body to scene; no fake shadow attacking outside hitbox.
  ell(ctx,-r*.04,r*.32+m.breath*r*.018,r*1.10,r*.55,-.07,'rgba(3,10,8,.35)');
  // Tail extends behind body and is anatomically banded in the enhanced painter.
+ var _sp=_sprite?_sprite(ctx,entity,v,r,style,an,m,pose,body,feet,t):false;if(!_sp){
  ctx.save();ctx.translate(0,style.tailDrag*r);drawTail(ctx,r,t,pose,skin,v,detail);ctx.restore();
  // Four separate articulated legs, with claws and contrasting wrist planes.
  // Hind first, forelegs last: joints are attached to shoulders and hips.
@@ -1149,7 +1152,7 @@ function drawRat(ctx,entity,v,quality){
  livingSurface(ctx,r,entity,v,m,skin,detail,style);drawFurSpikes(ctx,r,skin,v,detail);
  dorsalQuills(ctx,r,v,m,skin,detail);mutationMarkings(ctx,r,entity,skin);addWounds(ctx,r,entity,v,skin);
  ctx.restore();
- earsAndHead(ctx,r,pose,skin,v,entity.role,detail,m,entity,style,an);
+ earsAndHead(ctx,r,pose,skin,v,entity.role,detail,m,entity,style,an);}
  strikeAccent(ctx,r,entity,pose,skin);
  eliteFx(ctx,r,entity,v);
  if(entity.feint){ctx.save();ctx.strokeStyle='rgba(101,209,245,.82)';ctx.lineWidth=2;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(0,0,r*1.25,-Math.PI/2,-Math.PI/2+TAU*(entity.feint.progress||0));ctx.stroke();ctx.setLineDash([]);ctx.restore();}
@@ -1267,5 +1270,5 @@ function drawQuestIcon(ctx,variant,size){
  }
  ctx.restore();
 }
-return {version:C.version,styleVersion:'0.9.5',draw:draw,drawTelegraphs:drawTelegraphs,drawQuestIcon:drawQuestIcon,inspectMotion:inspectMotion,inspectAnatomy:inspectAnatomy,createTransitionLayer:createTransitionLayer};
+return {version:C.version,styleVersion:'0.9.5',draw:draw,drawTelegraphs:drawTelegraphs,drawQuestIcon:drawQuestIcon,setSprite:setSprite,inspectMotion:inspectMotion,inspectAnatomy:inspectAnatomy,createTransitionLayer:createTransitionLayer};
 });
