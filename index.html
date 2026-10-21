@@ -228,6 +228,46 @@ body.tale-scan #t_scan { box-shadow: 0 0 0 3px #7fe0b5; }
 #title { background:#07110b url(art/scene/scene_trio.webp) 20% center / cover no-repeat; }
 @media (max-aspect-ratio:1/1) { #title { background-position:62% center; } }
 #panel .hub-ban { height:clamp(84px,17vh,168px); margin:2px 0 10px; border-radius:10px; border:1px solid var(--line); background-size:cover; background-position:50% 19%; box-shadow:inset 0 -26px 28px -18px rgba(8,12,9,.75); }
+#panel .hub-ban.shop-banner { height:clamp(160px,28vh,240px); background-position:50% 32%; }
+#panel .shop-nav { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:8px 0 12px; flex-wrap:wrap; }
+body #panel .shop-nav button,body #panel .bond-page>.hdr-row button { min-height:44px; }
+#panel .shop-nav button { font-size:13px; padding:8px 12px; }
+#panel .bond-page>.hdr-row { flex-wrap:wrap; }
+@media (max-height:420px) { #panel .hub-ban.shop-banner { height:112px; background-position:50% 30%; } #panel .shop-nav { margin:4px 0 8px; } }
+#panel .shop-scenes { margin:0 0 16px; padding:8px; border:1px solid var(--line); border-radius:10px; background:rgba(8,14,10,.8); }
+#panel .shop-scene-main { display:block; position:relative; width:100%; padding:0; overflow:hidden; border:0; border-radius:6px; background:#080c09; cursor:zoom-in; }
+#panel .shop-scene-img { display:block; width:100%; height:auto; aspect-ratio:2128/912; object-fit:contain; }
+#panel .shop-scene-zoom { position:absolute; right:8px; bottom:8px; padding:5px 9px; border-radius:5px; background:rgba(5,10,7,.85); color:#f3ecd7; font-size:12px; }
+#panel .shop-scene-caption { padding:7px 2px; color:#e3dcc9; font-size:13px; }
+#panel .shop-scene-thumbs { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
+#panel .shop-scene-thumbs button { position:relative; min-width:0; min-height:44px; padding:2px; border:2px solid transparent; border-radius:6px; background:#111b14; overflow:hidden; }
+#panel .shop-scene-thumbs button[aria-pressed="true"] { border-color:#8bd9ab; }
+#panel .shop-scene-thumbs img { display:block; width:100%; height:auto; aspect-ratio:2128/912; object-fit:contain; border-radius:3px; }
+#panel .shop-scene-thumbs span { position:absolute; right:3px; bottom:3px; padding:1px 5px; border-radius:3px; background:rgba(4,9,6,.85); color:#fff; font-size:11px; }
+#panel .shop-scenes button:focus-visible { outline:2px solid #ffe49b; outline-offset:2px; }
+#panel .shop-scene-note { margin:0 2px 10px; color:#d1d7cc; font-size:13px; line-height:1.65; }
+#panel .bond-card { margin:4px 0 12px; padding:14px; border:1px solid #695648; border-radius:10px; background:rgba(21,23,16,.94); }
+#panel .bond-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+#panel .bond-head h2 { margin:0; font-size:17px; } #panel .bond-head>b { color:#f0c99d; white-space:nowrap; }
+#panel .bond-steps { display:flex; flex-wrap:wrap; gap:5px; margin:10px 0 12px; }
+#panel .bond-step { flex:1; padding:6px 5px; min-width:32px; border:1px solid #41483a; border-radius:6px; text-align:center; color:#98a08f; font-size:12px; }
+#panel .bond-step.done { border-color:#b58765; color:#ffe1b5; background:#45342a; }
+#panel .bond-request p,#panel .bond-date p { font-size:14px; line-height:1.65; margin:7px 0; }
+#panel .bond-hint { color:#aab29f; font-size:12px; line-height:1.55; } #panel small.bond-hint { display:block; margin-top:5px; }
+#panel .bond-reward { color:#e7c99a; } #panel .bond-cost { padding:8px; background:rgba(255,255,255,.035); border-radius:5px; font-size:13px; }
+#panel .bond-goal { margin:10px 0; padding:9px; border:1px solid #4b5841; border-radius:7px; background:rgba(33,48,31,.3); font-size:13px; }
+#panel .bond-goal p { font-size:12px; } #panel .bond-goal button { font-size:12px; padding:8px 11px; }
+#panel .bond-memories { margin-top:13px; border-top:1px solid #4d4938; padding-top:10px; }
+#panel .bond-memories summary { color:#eed4ae; cursor:pointer; font-size:14px; }
+#panel .bond-memory { margin-top:8px; } #panel .bond-memory button { width:100%; }
+#panel .bond-memory small { display:block; margin:4px 2px; color:#b3bca9; font-size:12px; }
+#panel .bond-memory.locked { opacity:.6; }
+#panel .bond-latest { margin:4px 0 14px; } #panel .bond-latest button { width:100%; border-color:#a6855e; background:#443729; color:#ffe5bb; }
+body #panel .bond-card button { min-height:44px; } #panel .bond-date small { display:block; margin-top:6px; color:#b4bca9; }
+body #panel .shop-scene-thumbs button { min-height:44px; }
+#panel .shop-scenes-locked { padding:15px; color:#b3bda8; } #panel .shop-scenes-locked p { font-size:13px; }
+#panel .bond-locked-pages { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
+#panel .bond-locked-pages span { padding:14px 3px; background:#131d16; border:1px dashed #48533e; border-radius:6px; text-align:center; }
 .forgecut { position:absolute; inset:0; z-index:40; background:#050605; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; animation:tkIn .25s ease-out both; }
 .forgecut video { width:100%; max-height:84%; object-fit:contain; background:#000; }
 .forgecut .fc-cap { position:absolute; left:0; right:0; top:14px; text-align:center; color:#ffe9c0; font-size:15px; letter-spacing:.04em; text-shadow:0 2px 8px #000; pointer-events:none; }
@@ -335,6 +375,12 @@ body:not(.touch) .talk .tk-box { zoom:var(--uis,1); }
 /* ฉากเล่าเรื่องสั้น */
 .storycard { position:fixed; inset:0; z-index:88; background:#000 center 18% / cover no-repeat; cursor:pointer; display:flex; align-items:flex-end; justify-content:center; padding:0 0 5vh; transition:opacity .25s; }
 .storycard.out { opacity:0; pointer-events:none; }
+.storycard.sc-date { box-sizing:border-box; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:12px; background:#060a07 !important; }
+.storycard.sc-date::before { display:none; }
+.storycard.sc-date .sc-date-art { display:block; width:100%; min-height:0; flex:1 1 0; object-fit:contain; }
+.storycard.sc-date .sc-box { flex:0 1 auto; box-sizing:border-box; max-height:48%; overflow:auto; }
+.storycard.sc-date .sc-next { min-height:44px; }
+@media (max-height:420px) { .storycard.sc-date { padding:6px; gap:4px; } .storycard.sc-date .sc-box { padding:8px 12px; max-height:50%; } .storycard.sc-date .sc-head { font-size:14px; } .storycard.sc-date .sc-txt { margin:4px 0; font-size:13px; line-height:1.5; min-height:0; } }
 .storycard::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.78) 100%); pointer-events:none; }
 .storycard .sc-box { position:relative; zoom:var(--uis,1); width:min(780px,92vw); padding:16px 22px 12px; border:1px solid var(--line); border-radius:14px; background:rgba(10,15,11,.82); backdrop-filter:blur(3px); }
 .storycard .sc-head { display:flex; align-items:baseline; gap:10px; font-size:17px; color:var(--acc); } .storycard .sc-head span { font-size:12px; color:#a9b4ab; }
@@ -483,6 +529,78 @@ body:not(.touch) .talk .tk-box { zoom:var(--uis,1); }
 .gear-node.is-equipped { outline:2px solid #7fe0b5; background:rgba(127,224,181,.08); }
 .gear-node.is-owned { border-color:rgba(127,224,181,.45); }
 .gear-fx { font-size:12px; color:#ffd9a0; margin:4px 0; }
+/* Fern Hollow · หมู่บ้านและเมนูผู้พิทักษ์ */
+#game-menu-button { position:fixed; top:calc(8px + env(safe-area-inset-top)); right:calc(60px + env(safe-area-inset-right)); z-index:52; display:flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:8px 16px; background:rgba(11,23,17,.94); border-color:#6c9479; box-shadow:0 4px 20px #0004; font-weight:650; }
+body[data-mode="title"] #game-menu-button { display:none; }
+body.touch #t_pause { display:none !important; }
+body.game-menu-open #touch,body.fawn-brief-open #touch,body.game-menu-open #prac_exit,body.game-menu-open #t_fs,body.fawn-brief-open #game-menu-button { visibility:hidden !important; }
+#game-menu-button:focus-visible, .game-menu button:focus-visible, .fawn-briefing button:focus-visible, #quest-tracker button:focus-visible, #village-status button:focus-visible { outline:3px solid #f2d38b; outline-offset:3px; }
+#village-status { position:absolute; top:12px; left:14px; z-index:3; display:none; align-items:center; gap:22px; padding:8px 14px; border:1px solid #93b19345; border-radius:12px; background:linear-gradient(120deg,#0c1b14ee,#12251be0); box-shadow:0 5px 25px #0003; }
+body[data-mode="village"] #village-status { display:flex; }
+#village-status button { background:transparent; border:0; padding:0; min-height:44px; display:grid; gap:1px; }
+#village-status button small { margin:0; letter-spacing:.18em; font-size:9px; color:#a6ba9c; }
+#village-status button b { font-size:16px; color:#f5edd6; }
+#village-status button span { font-size:10px; color:#afc7b4; }
+#village-status i { padding:0 5px; font-style:normal; }
+.town-coin { color:#efd48e; font-weight:700; white-space:nowrap; }
+#quest-tracker { position:absolute; top:72px; right:12px; z-index:4; width:264px; display:none; border:1px solid #c0bc8c60; border-radius:12px; overflow:hidden; background:#0b1713ed; box-shadow:0 8px 24px #0003; }
+body[data-mode="village"] #quest-tracker,body[data-mode="field"] #quest-tracker { display:block; }
+.qt-toggle { display:flex; align-items:center; gap:10px; width:100%; border:0; border-radius:0; padding:9px 12px; min-height:48px; background:transparent; }
+.qt-toggle>span:nth-child(2) { flex:1; min-width:0; }
+.qt-toggle small { display:block; margin:0; font-size:10px; color:#d7c78f; }
+.qt-toggle b { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px; }
+.qt-toggle em { display:block; color:#a4b59e; font-size:9px; font-style:normal; margin-top:3px; }
+.qt-mark { font-size:24px; color:#f0d795; }
+#quest-track-body { padding:0 8px 8px; }
+#quest-track-body[hidden] { display:none; }
+.qt-card { position:relative; display:grid; gap:3px; width:100%; margin-top:5px; padding:8px 10px; border-radius:7px; border:0; border-left:2px solid #e6c979; background:#d7d8a609; }
+.qt-card.qt-side { border-left-color:#8fc7d7; }.qt-card.qt-bond { border-left-color:#dbafc8; }
+.qt-card .qt-kind { color:#d7c994; font-size:9px; letter-spacing:.04em; }.qt-side .qt-kind { color:#a9cfdb; }.qt-bond .qt-kind { color:#ddb8ce; }
+.qt-card b { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.qt-card small { font-size:10px; color:#b8c3b7; margin:0; line-height:1.5; }
+.qt-all { width:100%; border:0; padding:9px 4px 2px; background:transparent; text-align:center; font-size:11px; color:#b7d4bd; min-height:36px; }
+body[data-mode="field"] #quest-tracker { top:auto; bottom:8px; right:8px; width:230px; }
+body.game-menu-open #quest-tracker,body.fawn-brief-open #quest-tracker { visibility:hidden; }
+.game-menu[hidden] { display:none !important; }
+.game-menu { position:fixed; inset:0; z-index:78; display:flex; align-items:stretch; justify-content:flex-end; color:#e8ece3; }
+.gm-scrim { position:absolute; inset:0; width:100%; height:100%; border:0; border-radius:0; background:#030b08a8; backdrop-filter:blur(4px); }
+.gm-scrim:hover { background:#030b08a8; }
+.gm-drawer { position:relative; display:flex; flex-direction:column; width:min(340px,88vw); min-height:0; padding:calc(22px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom)); border-left:1px solid #6b8a6b; background:linear-gradient(150deg,#203426,#101d16 65%); box-shadow:-16px 0 70px #0005; }
+.gm-drawer header,.gm-detail>header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.gm-drawer header small { display:block; color:#adbb94; font-size:10px; letter-spacing:.2em; }.gm-drawer h2 { margin:3px 0 12px; font-size:23px; font-weight:650; }
+.gm-drawer header button,.gm-detail>header button { min-width:44px; min-height:44px; padding:0; text-align:center; font-size:23px; background:#ffffff08; border-color:#91aa8050; }
+.gm-resume { width:100%; display:flex; justify-content:space-between; align-items:center; min-height:48px; padding:12px; color:#e9dfb5; border-color:#c7bc8155; background:#e0c8870a; }
+.gm-resume kbd { font-size:10px; border:1px solid #c7bc8155; padding:2px 5px; border-radius:4px; }
+.gm-drawer nav { flex:1; min-height:0; overflow:auto; display:flex; flex-direction:column; gap:4px; margin:16px -8px 10px 0; padding-right:8px; scrollbar-width:thin; scrollbar-color:#6b886a transparent; touch-action:pan-y; }
+.gm-drawer nav button { display:flex; align-items:center; gap:13px; min-height:60px; width:100%; padding:9px 10px; border:1px solid transparent; background:transparent; flex:none; }
+.gm-drawer nav button:hover,.gm-drawer nav button[aria-current="page"] { background:#b8d0a812; border-color:#a2bd9840; }
+.gm-icon { width:26px; text-align:center; font-size:22px; color:#bcd5a8; }.gm-drawer nav b { font-size:14px; font-weight:600; }.gm-drawer nav small { margin:1px 0 0; font-size:10px; color:#a6b6a2; }.gm-drawer nav i { margin-left:auto; font-style:normal; color:#8caa8b; }
+.gm-drawer footer { flex:none; border-top:1px solid #78916b40; padding-top:12px; }.gm-save { display:block; font-size:10px; color:#a9bd9d; margin:0 4px 9px; }.gm-exit { width:100%; min-height:44px; text-align:center; color:#e8bfa9; border-color:#c69a7a66; background:#dba27d09; }
+.gm-detail[hidden] { display:none; }.gm-detail { position:absolute; top:24px; bottom:24px; right:364px; width:min(680px,calc(100vw - 390px)); padding:20px; border:1px solid #6b886a; border-radius:14px; background:#111e17; display:flex; flex-direction:column; box-shadow:0 16px 80px #0006; }
+.gm-detail>header h2 { margin:0; font-size:21px; }.gm-detail-body { overflow:auto; min-height:0; margin-top:16px; touch-action:pan-y; }.gm-detail-body p { font-size:13px; line-height:1.7; color:#bbc7b7; }.gm-detail-body button { min-height:44px; }.gm-detail-body button:disabled { opacity:.5; cursor:default; }
+.gm-setting { width:100%; margin:6px 0; }.gm-confirm { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }.gm-field-note { padding:12px; border:1px solid #88977255; border-radius:8px; }body.game-menu-open #albumview { z-index:90; }body.game-menu-open #albumview .av-replay { display:none; }
+.qj-intro>span { font-size:10px; letter-spacing:.18em; color:#bdc798; }.qj-intro h2 { margin:4px 0 6px; }.qj-intro p { color:#a6b6a5; }
+.qj-section { margin-top:18px; padding:18px; border:1px solid #839a6e50; border-left:3px solid #ddc27b; border-radius:9px; background:#b9c49706; }.qj-section.side { border-left-color:#8dc4d3; }.qj-section.bond { border-left-color:#d5adc6; }
+.qj-label { display:block; color:#d7c68d; font-size:11px; letter-spacing:.05em; }.qj-section h3 { margin:8px 0; font-size:17px; }.qj-section h3 small { color:#9eb396; font-size:11px; }
+.qj-goal { display:flex; align-items:baseline; gap:12px; justify-content:space-between; margin:9px 0; padding-bottom:9px; border-bottom:1px solid #8eab7b22; font-size:13px; color:#becbb9; }.qj-goal span { flex:1; }.qj-goal b { flex:none; color:#e7d49e; }.qj-goal.done span,.qj-goal.done b { color:#9cdbb1; }
+.qj-bond+.qj-bond { border-top:1px solid #9d86964a; margin-top:18px; padding-top:10px; }.qj-cost { font-size:12px !important; }.qj-section>button,.qj-bond>button { min-height:44px; margin-top:8px; }
+.qj-inventory { display:grid; gap:6px; }.qj-inventory>div { display:flex; justify-content:space-between; gap:12px; padding:9px 12px; background:#b6c59109; border:1px solid #91a58025; border-radius:6px; font-size:13px; }
+.bond-directory { display:grid; gap:14px; margin-top:18px; }.bond-directory-card { display:flex; align-items:center; gap:18px; min-height:160px; overflow:hidden; border:1px solid #79856b66; border-radius:12px; padding:14px; background:linear-gradient(110deg,#31443166,#17271c55); }.bond-directory-card>img { width:90px; height:145px; object-fit:contain; object-position:bottom; }.bond-directory-card h3 { margin:3px 0; }.bond-directory-card small { color:#e0ca94; }.bond-directory-card p { font-size:12px !important; }.bond-directory-card button { min-height:44px; }
+.fawn-briefing { position:fixed; inset:0; z-index:82; display:flex; justify-content:center; align-items:center; padding:24px; background:radial-gradient(ellipse at 25% 55%,#264d3699,#040b08e8); backdrop-filter:blur(5px); }
+.fawn-brief-card { display:grid; grid-template-columns:minmax(200px,.85fr) minmax(320px,1.2fr); width:min(920px,100%); max-height:calc(100dvh - 48px); overflow:auto; border:1px solid #bcbd8870; border-radius:18px; background:linear-gradient(130deg,#273e2c,#122219 60%); box-shadow:0 24px 100px #0007; }
+.fb-portrait { position:relative; min-height:430px; display:flex; align-items:flex-end; justify-content:center; overflow:hidden; background:radial-gradient(ellipse at 50% 55%,#79905f60,transparent 70%); }.fb-portrait img { width:100%; height:100%; position:absolute; object-fit:contain; object-position:center bottom; padding-top:18px; }.fb-portrait>span { position:relative; width:100%; padding:44px 22px 22px; background:linear-gradient(transparent,#0d1b13ed); color:#f0e6c7; font-size:19px; }.fb-portrait small { display:block; font-size:11px; color:#becba9; }
+.fb-copy { padding:34px 30px; }.fb-copy h2 { font-size:27px; line-height:1.3; color:#f5ead0; margin:10px 0 14px; }.fb-copy p { color:#c7d3be; font-size:14px; line-height:1.8; }.fb-copy ol { list-style:none; padding:0; counter-reset:brief; margin:20px 0; }.fb-copy li { position:relative; counter-increment:brief; padding:0 0 16px 42px; }.fb-copy li::before { content:counter(brief); position:absolute; left:0; top:0; width:28px; height:28px; display:grid; place-items:center; border:1px solid #d4bf7870; border-radius:50%; color:#e9d294; font-size:13px; }.fb-copy li b { display:block; font-size:14px; color:#eee8d3; }.fb-copy li span { display:block; margin-top:4px; font-size:12px; color:#adc0a5; line-height:1.6; }
+.fb-actions { display:flex; flex-wrap:wrap; gap:8px; }.fb-actions button { min-height:46px; font-size:13px; }.fb-actions button:first-child { background:#a5c27c; color:#152318; border-color:#cbdba6; font-weight:700; }.fb-actions button:last-child { border-color:#a6ba8a55; background:transparent; }.fb-note { display:block; color:#a9b79b; margin-top:12px; font-size:10px; line-height:1.6; }
+@media(max-width:1100px) { #quest-tracker { width:226px; } .gm-detail { inset:16px; width:auto; z-index:2; }.gm-detail>header { flex:none; } }
+@media(max-width:700px) { #village-status { top:10px; left:10px; padding:7px 10px; gap:12px; max-width:calc(100% - 24px); } #village-status button b { font-size:13px; } #village-status button span { font-size:9px; }.town-coin { font-size:13px; } #quest-tracker { top:84px; right:10px; width:210px; }.gm-drawer { padding:16px 16px 12px; }.gm-drawer h2 { font-size:20px; }.gm-detail { inset:10px; padding:14px; }.qj-section { padding:14px; }.fawn-briefing { padding:12px; }.fawn-brief-card { grid-template-columns:1fr; max-height:calc(100dvh - 24px); }.fb-portrait { min-height:140px; height:140px; }.fb-portrait img { width:150px; left:10px; padding:6px 0 0; }.fb-portrait>span { padding:15px 12px 15px 165px; font-size:17px; }.fb-copy { padding:20px; }.fb-copy h2 { font-size:23px; } }
+@media(max-height:500px) { #village-status { top:8px; padding:5px 10px; } #village-status button small { display:none; } #village-status button { min-height:32px; } #quest-tracker { top:62px; width:220px; max-height:calc(100% - 70px); overflow:auto; } .gm-drawer { padding:12px 16px; }.gm-drawer h2 { font-size:19px; margin-bottom:6px; }.gm-drawer header small { font-size:9px; }.gm-drawer nav { margin-top:8px; }.gm-drawer nav button { min-height:50px; }.gm-drawer footer { padding-top:8px; }.gm-save { font-size:9px; margin-bottom:6px; }.gm-detail { inset:10px; }.fawn-briefing { padding:10px; }.fawn-brief-card { grid-template-columns:minmax(160px,.55fr) minmax(340px,1.4fr); max-height:calc(100dvh - 20px); }.fb-portrait { min-height:300px; height:auto; }.fb-portrait img { width:100%; left:0; }.fb-portrait>span { padding:40px 14px 16px; }.fb-copy { padding:18px 22px; }.fb-copy h2 { font-size:22px; margin:5px 0; }.fb-copy p { font-size:12px; margin:6px 0; }.fb-copy ol { margin:12px 0 6px; }.fb-copy li { padding-bottom:10px; }.fb-copy li b { font-size:12px; }.fb-copy li span { font-size:11px; margin-top:2px; }.fb-note { margin-top:6px; } }
+@media(prefers-reduced-motion:reduce) { .gm-scrim,.fawn-briefing { backdrop-filter:none; } }
+.fawn-brief-card { height:min(500px,calc(100dvh - 48px)); }
+.fb-copy { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+.fb-instructions { flex:1 1 auto; min-height:0; overflow:auto; padding-right:6px; touch-action:pan-y; scrollbar-width:thin; scrollbar-color:#6d8a69 transparent; }
+.fb-actions,.fb-note { flex:none; }
+@media(max-width:700px) and (min-height:501px) { .fawn-brief-card { height:min(680px,calc(100dvh - 24px)); grid-template-rows:140px minmax(0,1fr); } }
+@media(max-height:500px) { .fawn-brief-card { height:calc(100dvh - 20px); } .fb-copy { padding:14px 20px; } .fb-copy h2 { font-size:21px; }.fb-actions { margin-top:8px; } }
 </style>
 </head>
 <body>
@@ -490,7 +608,11 @@ body:not(.touch) .talk .tk-box { zoom:var(--uis,1); }
   <canvas id="game" width="960" height="600"></canvas>
   <div id="ov"><div id="panel"></div></div>
   <div id="title"></div>
+  <div id="village-status" aria-label="สถานะหมู่บ้าน"></div>
+  <section id="quest-tracker" aria-label="เควสที่กำลังติดตาม"></section>
 </div>
+<button id="game-menu-button" type="button" aria-label="เปิดเมนูเกม" aria-haspopup="dialog" aria-controls="game-menu" aria-expanded="false">☰ <span>เมนู</span></button>
+<div id="game-menu" class="game-menu" role="dialog" aria-modal="true" aria-labelledby="gm-title" hidden></div>
 <button id="tskip" title="ข้ามบทสอน">ข้ามบทสอน</button><button id="t_fs" title="เต็มจอ">⛶</button><button id="t_pause" title="พัก">❚❚</button><button id="prac_exit" type="button" title="กลับหมู่บ้านจากลานซ้อม" aria-label="ออกจากลานซ้อมกลับหมู่บ้าน">↩ ออกจากลานซ้อม</button>
 <button id="te_exit" type="button">✕ เสร็จ / ออก</button>
 <div id="tedit"><span id="te_sel" style="color:#ffd666">ลากปุ่มเพื่อย้าย · แตะปุ่มเพื่อเลือก</span><button class="tab on" data-te="done">เสร็จ</button><button class="tab" data-te="view">มุมมอง: ต่อสู้</button><button class="tab" data-te="bar">ย้ายแถบ</button><span class="gap"></span><button class="tab" data-te="s-">ทุกปุ่ม −</button><button class="tab" data-te="s+">ทุกปุ่ม +</button><button class="tab" data-te="k-">ปุ่มที่เลือก −</button><button class="tab" data-te="k+">ปุ่มที่เลือก +</button><span class="gap"></span><button class="tab" data-te="o">ความโปร่ง</button><button class="tab" data-te="mirror">สลับซ้าย/ขวา</button><button class="tab" data-te="reset">รีเซ็ต</button></div>
@@ -1044,7 +1166,8 @@ function penAdd(M0, kind, due) {
   S.pen.push({ kind: pk, ail: M0.ail, cond: cond, dx: !!M0.diagKnown, dxTry: 0, bond: 0, ap: penApMax(), apAt: S.hunts, log: [], hints: [], clues: (M0.diagKnown ? [] : HUNT_CLUES.slice(0, 8)), last: -1, mut: !!M0.mut, vr: M0.variant === 1 ? 1 : 0, id: (S.hunts || 0) + '-' + S.pen.length, due: coin, dueXp: xp, extra: extra });
   return '<p class="good">นำ ' + penName(pk) + ' กลับไปคอกแล้ว (สภาพ ' + cond + '%' + (boss ? ' · ตัวใหญ่ ดูแลยากกว่า' : '') + ')</p><p>ขั้นต่อไป: วินิจฉัยจากสมุดหลักฐาน → ให้ยาตรงโรค' + ' จนสภาพ 100%' + ' → ปล่อยกลับป่า หรือแต่งตั้งเป็นผู้ช่วย' + (coin ? ' · ค่าจ้างรักษาค้าง <b>' + coin + ' บาท</b>' + (xp ? ' และ XP ' + xp : '') + ' จ่ายตอนนั้น' : '') + (extra ? ' · เงื่อนไขพิเศษของเคสนี้ผ่านตอนมันหาย' : '') + '</p>';
 }function penRelease(i, early) {
-  var pt = S.pen[i], boss = isPenBoss(pt.kind), fk = boss ? spOf(pt.kind) : pt.kind, f0 = forestOf(fk), msg;
+  var pt = S.pen[i]; if (!pt) return '';
+  var boss = isPenBoss(pt.kind), fk = boss ? spOf(pt.kind) : pt.kind, f0 = forestOf(fk), msg;
   S.pen.splice(i, 1);
   if (early) { S.forest[fk] = clamp(f0 + 3, 0, 100); if (!boss) trustAdd(fk, 2); S.xp += 5; return 'ปล่อย ' + penName(pt.kind) + ' กลับป่าก่อนหาย (ป่า +3' + (boss ? '' : ' · ไว้ใจ +2') + ')' + ((pt.due || 0) > 0 ? ' · ค่าจ้างรักษาที่ค้าง ' + pt.due + ' บาทหายไปด้วย' : '') + (pt.extra ? ' · เงื่อนไขพิเศษของเคสนี้ยังไม่ผ่าน' : ''); }
   var g = { blood: 2, saliva: 2, crystal: 1 }; if (pt.mut) { g.crystal += 1; g.hide = 1; } var spm0 = SP_MATS[pt.kind] || SP_MATS[fk]; if (spm0) { g[spm0.common] = boss ? 2 : 1; if (pt.mut || boss) g[spm0.rare] = 1; }
@@ -1053,7 +1176,8 @@ function penAdd(M0, kind, due) {
   if (boss) { for (var bi = 0; bi < SPECIES.length; bi++) S.forest[SPECIES[bi]] = clamp(forestOf(SPECIES[bi]) + 4, 0, 100); } else { S.forest[fk] = clamp(f0 + 8, 0, 100); trustAdd(fk, 8); }
   S.xp += boss ? 60 : 30; S.released = (S.released || 0) + 1; S.favor = Math.min(3, (S.favor || 0) + 1);
   var paid = penPayCure(pt);
-  return penName(pt.kind) + ' หายดีแล้ว ปล่อยกลับป่า! ' + (boss ? 'ป่าทุกเขต +4 ผู้ล่าสงบ' : 'ป่า +8 · ไว้ใจ +8') + ' · ได้ ' + costStr(g) + ' · XP +' + (boss ? 60 : 30) + ' · ได้ "พรป่า" 1 ครั้ง (ใช้ในภารกิจถัดไป)' + paid;
+  var careNote = pt.healed && pt.cond >= 100 ? bondCareEvent('release', pt, 0) : '';
+  return penName(pt.kind) + ' หายดีแล้ว ปล่อยกลับป่า! ' + (boss ? 'ป่าทุกเขต +4 ผู้ล่าสงบ' : 'ป่า +8 · ไว้ใจ +8') + ' · ได้ ' + costStr(g) + ' · XP +' + (boss ? 60 : 30) + ' · ได้ "พรป่า" 1 ครั้ง (ใช้ในภารกิจถัดไป)' + paid + careNote;
 }
 var ALLY = null;
 var ALLY_NAMES = ['ใบไม้', 'หมอก', 'ตะวัน', 'ลำธาร', 'ดอกหญ้า', 'เมฆ', 'พายุ', 'น้ำค้าง'];
@@ -1843,6 +1967,24 @@ var BREW = {
 var GARDEN_GROW = 2;
 var SELL_PRICE = { moss: 3, bark: 3, sage: 3, poppy: 3, blood: 4, saliva: 5, crystal: 8, hide: 6, antler: 6, velvet: 14, tusk: 6, bristle: 14, fur: 6, ear: 14, fang: 8, mane: 16, chitin: 9, jelly: 18 };
 function freshSave() { return { v: 3, xp: 0, mats: { cshard:0,ccrest:0,rtooth:0,rwhisker:0,nscale:0,nfang:0,dscale:0,dfin:0,ascale:0,aridge:0,plate:0,mossheart:0,blood: 0, saliva: 0, crystal: 0, hide: 0, antler: 0, velvet: 0, tusk: 0, bristle: 0, fur: 0, ear: 0, fang: 0, mane: 0, chitin: 0, jelly: 0, moss: 0, bark: 0, sage: 0, poppy: 0, coin: 60 }, res: {}, wk: 1, skills: {}, hunts: 0, wins: 0, bestRank: '', tut: 0, weapon: 'lance', forest: { stag: 40, boar: 40, rabbit: 40, crystal: 40, ash: 40, marsh: 40 }, trust: { stag: 20, boar: 20, rabbit: 20 }, daily: null, dclears: 0, gift: {}, ld: ldAll(), dstreak: { n: 0, last: '' }, jr: jrAll(), pen: [], released: 0, favor: 0, allies: [], ally: -1, quest: '', qclear: {}, qextra: {}, cuts: {}, coach: {}, pity: {}, wt: {}, eco: {}, plots: [], cards: { keen: { r: 0 }, thick: { r: 0 }, eye: { r: 0 } }, deck: ['keen', '', '', 'thick', '', 'eye', '', ''], dust: 0, inv: { salve: 3, dart: 3, solvent: 3, antiinf: 3, antibio: 3, antiparasite: 2, antidote: 2, febrifuge: 2, bait: 1, snare: 1 }, cleared: { stag: 0, boar: 0, rabbit: 0, wolf: 0, hive: 0, mossplate:0, naka:0, rat:0 }, sev: { stag: false, boar: false, rabbit: false }, verdant: { stag: false, boar: false, rabbit: false }, eq: { head: '', chest: '', arms: '', legs: '' }, set: { shake: 2, stop: 2, vol: 2, music: 2, nature: 2, diff: 1 }, log: [] }; }
+function cleanRelationships(raw) {
+  var out = {}, ids = ['trader', 'doc', 'armorer', 'captain', 'keeper', 'elder', 'smith'];
+  ids.forEach(function (id) {
+    var r = raw && typeof raw === 'object' && !Array.isArray(raw) && raw[id];
+    if (!r || typeof r !== 'object' || Array.isArray(r)) return;
+    var lv = Number(r.level), level = isFinite(lv) ? clamp(Math.floor(lv), 0, 5) : 0;
+    var quest = typeof r.quest === 'string' && /^[a-z0-9_]{1,40}$/.test(r.quest) ? r.quest : '', task = Number(r.task);
+    out[id] = { level: level, extra: level === 5 && r.extra === true, quest: quest, task: quest && isFinite(task) ? clamp(Math.floor(task), 0, 9999) : 0 };
+    if (r.progress && typeof r.progress === 'object' && !Array.isArray(r.progress)) {
+      out[id].progress = {};
+      if (quest) ['heal', 'release_stag', 'release_boar', 'release_rabbit', 'heal_boar', 'heal_wolf', 'release_boss', 'release'].forEach(function (key) {
+        var value = Number(r.progress[key]);
+        if (Object.prototype.hasOwnProperty.call(r.progress, key) && isFinite(value)) out[id].progress[key] = clamp(Math.floor(value), 0, 9999);
+      });
+    }
+  });
+  return out;
+}
 var DIFF_NAME = ['ปกติ', 'ยาก', 'โหด'];
 var DF = { hp: [1, 1.2, 1.4], dmg: [1, 1.25, 1.5], tele: [1, .88, .78], rec: [1, .9, .8], think: [1, .8, .65], extra: [0, .1, .2], stag: [1, 1.2, 1.4], xp: [1, 1.25, 1.5] };
 function diffLv() { var v = S && S.set ? Math.round(+S.set.diff) : 1; return v >= 0 && v <= 2 ? v : 1; }
@@ -1901,6 +2043,7 @@ function normalizeSave(o) {
   if (o.pity && typeof o.pity === 'object') for (var pk = 0; pk < PITY_SP.length; pk++) for (var pt2 = 0; pt2 < 2; pt2++) { var pkk = PITY_SP[pk] + (pt2 ? '_r' : '_c'); s.pity[pkk] = clamp(Math.round(+o.pity[pkk]) || 0, 0, 9); }
   if (o.cuts && typeof o.cuts === 'object') for (var cuk in o.cuts) if (o.cuts[cuk] === true && /^[a-z0-9_]{1,40}$/.test(cuk)) s.cuts[cuk] = true; /* รวมคัทซีนใหม่ (prologue, spirit1, bi_*, rites*) */ /* คัทซีนเรื่องที่ดูแล้ว (เล่นครั้งเดียวต่อเซฟ) */
   if (o.coach && typeof o.coach === 'object') for (var cok in { tele: 1, heal: 1, stam: 1, open: 1 }) if (o.coach[cok] === true) s.coach[cok] = true;
+  s.relationships = cleanRelationships(o.relationships);
   if (o.qextra && typeof o.qextra === 'object') for (var qj = 0; qj < QUESTS.length; qj++) if (o.qextra[QUESTS[qj].id] === true) s.qextra[QUESTS[qj].id] = true;
   if (o.sev && typeof o.sev === 'object') { s.sev.stag = !!o.sev.stag; s.sev.boar = !!o.sev.boar; s.sev.rabbit = !!o.sev.rabbit; }
   if (Array.isArray(o.allies)) for (var ai = 0; ai < o.allies.length && s.allies.length < 3; ai++) { var ao = o.allies[ai]; if (ao && typeof ao === 'object' && (ao.kind === 'stag' || ao.kind === 'boar' || ao.kind === 'rabbit' || ao.kind === 'wolf' || ao.kind === 'hive' || ao.kind === 'mossplate' || ao.kind === 'naka' || ao.kind === 'rat')) s.allies.push({ id: String(ao.id || ai).slice(0, 12), kind: ao.kind, mut: !!ao.mut, sev: !!ao.sev, bond: clamp(Math.round(+ao.bond || 0), 0, 999), stance: (ao.stance === 'guard' || ao.stance === 'aggro') ? ao.stance : 'assist', fed: !!ao.fed, name: String(ao.name || ALLY_NAMES[ai % ALLY_NAMES.length]).replace(/[<>&"']/g, '').slice(0, 12) || 'ผู้ช่วย' }); }
@@ -2293,7 +2436,7 @@ function sfx(n) {
 /* ================= DOM ================= */
 var canvas = document.getElementById('game'), ctx = canvas.getContext('2d', { alpha: false });
 var ov = document.getElementById('ov'), panelEl = document.getElementById('panel'), titleEl = document.getElementById('title');
-var GAME_VER = '18.10.49-adaptive-audio', titleArm = 0;
+var GAME_VER = '18.10.59-village-ux', titleArm = 0;
 
 /* ================= STATE ================= */
 var mode = 'title', paused = false;
@@ -2515,6 +2658,8 @@ function updatePods(dt) {
   if (m.kx || m.ky) { m.kx *= Math.max(0, 1 - 14 * dt); m.ky *= Math.max(0, 1 - 14 * dt); if (Math.abs(m.kx) + Math.abs(m.ky) < .2) { m.kx = 0; m.ky = 0; } }
 }
 function initWorld() {
+  if (typeof GAME_MENU !== 'undefined' && GAME_MENU && GAME_MENU.open) menuClose(false);
+  if (typeof FAWN_BRIEF !== 'undefined' && FAWN_BRIEF) fawnBriefingClose();
   P = makePlayer(); M = makeMonster(); ALLY = null; CARD_ORBS = []; CARD_LOG = []; initPods(); initHareHoles(M);
   darts = []; clouds = []; FIRES = []; SHRINE = null; PRAC = null; try { document.body.removeAttribute('data-prac'); } catch (e0) {} parts = []; texts = []; rings = []; decals = []; slashes = []; cannonVisuals = []; BUGS = []; flashA = 0; punch = 0; hitChain = 0; hitChainT = 0; chainPop = 0; bestChain = 0;
   stats = { hareVaultEvasions18109:0, hareVaultSlams18109:0, hareVaultHits18109:0, earlyPressureResets: 0, earlyPressureSeconds: 0, hareBriarCasts: 0, hareBriarHits: 0, hareSlipSteps: 0, boarOrbitCasts: 0, boarOrbitHits: 0, hiveRelayCasts: 0, hiveRelayInterrupts: 0, hiveRelayHits: 0, hivePerimeterCasts: 0, hivePerimeterDashes: 0, hivePerimeterInterrupts: 0, hivePerimeterHits: 0, hiveFlankCasts: 0, hiveFeintCasts: 0, hiveFeintFakes: 0, hiveReadSamples: 0, hiveReadCasts: 0, hiveReadDashes: 0, hareLockdowns: 0, hareLockdownSeconds: 0, hareEchoCasts: 0, hareEchoFollowups: 0, hareHoleCasts: 0, hareHoleEmerges: 0, hareHoleSealHits: 0, hareSeals: 0, hareSealInterrupts: 0, dodges: 0, blocks: 0, heavies: 0, fires: 0, counters: 0, flowMax: 0, finishers: 0, time: 0, taken: 0, hits: 0, attempts: 0, connected: 0, dealt: 0, lowStSecs: 0, telegraphs: 0, teleMin: 99, teleShort: 0, teleBy: {}, parry: 0, perfect: 0, scans: 0, rock: 0, darts: 0, chains: 0, dmgBy: { briar: 0, boarside: 0, hiverelay: 0, hivepulse: 0, hivepincer: 0, swarm: 0, breath: 0, nova: 0, fire: 0, charge: 0, sweep: 0, stomp: 0, spore: 0, kick: 0, leap: 0, infect: 0, shards: 0, bash: 0, spit: 0, roll: 0, howl: 0, tusk: 0, rake: 0, lash: 0, ensnare: 0, sprout: 0, burrow: 0, pollen: 0 } };
@@ -2935,8 +3080,8 @@ function pressKey(k) {
   // The old exit in pracUpdate never ran during Pause/hit-stop. Dispatch immediately.
   if (k === 'x' && PRAC && mode === 'playing') { keys[k] = false; leavePractice(); return; }
   if (k === 'escape' && mode === 'field' && FIELD && FIELD.mapOpen && !paused) { FIELD.mapOpen = false; clearInput(false); return; }
-  if (k === 'escape' && !isTouch) { if (QUIT.open) { quitStay(); return; } if ((mode === 'village' && V && !paused) || mode === 'title') { openQuit(mode === 'title' ? 'title' : 'village'); return; } }
-  if (k === 'escape' && mode === 'hub') { var bk = document.querySelector('#panel [data-act="village"]'); if (bk) { bk.click(); return; } } /* คอม: Esc = ปุ่ม ← กลับหมู่บ้าน ของเมนู */
+  if (k === 'escape') { if (QUIT.open) { quitStay(); return; } if (GAME_MENU.open) menuEscape(); else menuOpen(); return; }
+  if (GAME_MENU.open || FAWN_BRIEF) return;
   if (k === 'p' || k === 'escape') { togglePause(); return; }
   if (k === 'm') { muted = !muted; return; }
   if (k === 'h' && (mode === 'playing' || mode === 'field')) { hudToggle(); return; }
@@ -3034,7 +3179,8 @@ function gpPad() {
 function gpPanelOpen() { return !!(ov && ov.style && ov.style.display && ov.style.display !== 'none'); }
 function gpVisible(e) { return e.offsetParent !== null || (e.getClientRects && e.getClientRects().length > 0); }
 function gpFocusMove(dx, dy) {
-  var els = [].slice.call(document.querySelectorAll('#panel button:not([disabled]), #panel summary')).filter(gpVisible), cur = GPAD.focus && els.indexOf(GPAD.focus) >= 0 ? GPAD.focus : null, best = null, bs = 1e12, i, r, cr, cx, cy, ex, ey, along, perp, s;
+  var scope = GAME_MENU && GAME_MENU.open ? '#game-menu button:not([disabled]):not(.gm-scrim), #game-menu summary' : '#panel button:not([disabled]), #panel summary';
+  var els = [].slice.call(document.querySelectorAll(scope)).filter(gpVisible), cur = GPAD.focus && els.indexOf(GPAD.focus) >= 0 ? GPAD.focus : null, best = null, bs = 1e12, i, r, cr, cx, cy, ex, ey, along, perp, s;
   if (!els.length) return;
   if (!cur) { for (i = 0; i < els.length; i++) { if (els[i].classList.contains('big')) { cur = els[i]; break; } } best = cur || els[0]; }
   else {
@@ -3058,11 +3204,12 @@ function gamepadPoll() {
   if (pr(14)) ax = -1; else if (pr(15)) ax = 1; if (pr(12)) ay = -1; else if (pr(13)) ay = 1;
   var mag = Math.hypot(ax, ay), dz = .28;
   var overlay = document.getElementById('stillcut') || document.getElementById('loadov') || document.getElementById('forgecut');
-  var panel = !overlay && gpPanelOpen() && mode !== 'playing' && mode !== 'field';
+  var menu = GAME_MENU && GAME_MENU.open;
+  var panel = !overlay && (menu || gpPanelOpen() && mode !== 'playing' && mode !== 'field');
   for (i = 0; i < 16; i++) { down = pr(i); was = !!GPAD.prev[i]; GPAD.prev[i] = down;
     if (overlay) { if (down && !was && (i === 0 || i === 1 || i === 9)) gpUiClick('#stillcut .st-skip, #loadov .lo-skip, #forgecut .fc-skip'); continue; }
     if (panel) {
-      if (down && !was) { if (i === 0) { if (GPAD.focus && gpVisible(GPAD.focus)) GPAD.focus.click(); else gpFocusMove(0, 1); } else if (i === 1 || i === 9) { if (!gpUiClick('#panel [data-act="quitstay"], #panel [data-act="village"]')) pressKey('escape'); } }
+      if (down && !was) { if (i === 0) { if (GPAD.focus && gpVisible(GPAD.focus)) GPAD.focus.click(); else gpFocusMove(0, 1); } else if (i === 1 || i === 9) { if (menu || !gpUiClick('#panel [data-act="quitstay"], #panel [data-act="village"]')) pressKey('escape'); } }
       continue; }
     if (mode === 'title') { if (down && !was && (i === 0 || i === 9)) pressKey('enter'); continue; }
     if (GP_HOLD[i]) { if (down && !was) pressKey(GP_HOLD[i]); else if (!down && was) releaseKey(GP_HOLD[i]); continue; }
@@ -3084,7 +3231,8 @@ function gamepadPoll() {
     else if (GPAD.mv) { joyAxis.x = 0; joyAxis.y = 0; GPAD.mv = false; }
   }
 }
-window.addEventListener('gamepadconnected', function () { try { showHint('ตรวจพบจอยคอนโทรลเลอร์ — เล่นได้เลย', 3); GPAD.on = true; } catch (e) {} });/* ================= COACH — คำแนะนำสั้น ๆ ครั้งแรกที่เจอสถานการณ์ในไฟต์ (ครั้งเดียวต่อเซฟ · ไม่ซ้อนกับข้อความที่กำลังแสดง) ================= */
+window.addEventListener('gamepadconnected', function () { try { showHint('ตรวจพบจอยคอนโทรลเลอร์ — เล่นได้เลย', 3); GPAD.on = true; } catch (e) {} });
+/* ================= COACH — คำแนะนำสั้น ๆ ครั้งแรกที่เจอสถานการณ์ในไฟต์ (ครั้งเดียวต่อเซฟ · ไม่ซ้อนกับข้อความที่กำลังแสดง) ================= */
 function coachSay(id, text) {
   if (!S || !hint || hint.t > 0) return false;
   if (!S.coach) S.coach = {};
@@ -10105,24 +10253,24 @@ function ptLabHtml() {
 var V = null;
 /* v17.9: อาคาร/NPC ใช้ภาพจริง — (x,y,w,h) = ฐานที่ชน · (ax,ay) = จุดกึ่งกลางล่างของภาพ · aw = ความกว้างที่วาด · วาดเรียงตามความลึก (y) */
 var VIL_RECTS = [
-  { x: 104, y: 214, w: 132, h: 68, roof: '#8a4a3a', sign: 'โรงเครื่องมือ', art: 'vil_workshop', ax: 170, ay: 282, aw: 165 },
-  { x: 104, y: 440, w: 132, h: 68, roof: '#4a6a8a', sign: 'ร้านเกราะ', art: 'vil_armorer', ax: 170, ay: 508, aw: 165 },
-  { x: 394, y: 214, w: 132, h: 68, roof: '#4a8a6a', sign: 'ห้องวิจัย', art: 'vil_lab', ax: 460, ay: 282, aw: 165 },
-  { x: 635, y: 450, w: 110, h: 50, roof: '#8a7a3a', sign: 'ร้านค้า', art: 'vil_shop', ax: 690, ay: 500, aw: 135 },
-  { x: 665, y: 140, w: 140, h: 50, roof: '#6a8a4a', sign: 'คอกฟื้นฟู', art: 'vil_rehab_pen', ax: 735, ay: 190, aw: 190 }
+  { x: 94, y: 192, w: 132, h: 68, roof: '#8a4a3a', sign: 'โรงเครื่องมือ', art: 'vil_workshop', ax: 160, ay: 260, aw: 165 },
+  { x: 94, y: 407, w: 132, h: 68, roof: '#4a6a8a', sign: 'ร้านเกราะ', art: 'vil_armorer', ax: 160, ay: 475, aw: 165 },
+  { x: 394, y: 177, w: 132, h: 68, roof: '#4a8a6a', sign: 'ห้องวิจัย', art: 'vil_lab', ax: 460, ay: 245, aw: 165 },
+  { x: 665, y: 440, w: 110, h: 50, roof: '#8a7a3a', sign: 'ร้านค้า', art: 'vil_shop', ax: 720, ay: 490, aw: 135 },
+  { x: 665, y: 170, w: 140, h: 50, roof: '#6a8a4a', sign: 'คอกฟื้นฟู', art: 'vil_rehab_pen', ax: 735, ay: 220, aw: 190 }
 ];
 var VIL_NPCS = [
-  { id: 'smith', name: 'ช่างบราน', role: 'ช่างเครื่องมือ · อาวุธ', x: 170, y: 314, col: '#e0904a', view: 'forge', pic: 'npc_bran' },
-  { id: 'armorer', name: 'ช่างมีรา', role: 'ช่างเกราะ · ชุดเกราะ', x: 274, y: 498, col: '#6ab0e8', view: 'armor', pic: 'npc_mira' },
-  { id: 'doc', name: 'ดร.น้อย', role: 'นักนิเวศ · ห้องวิจัย', x: 460, y: 314, col: '#7fe0b5', view: 'lab', pic: 'npc_noi' },
-  { id: 'elder', name: 'ยายตา', role: 'แคมป์ · ทักษะและตั้งค่า', x: 520, y: 455, col: '#c8b8e8', view: 'skills', pic: 'npc_ta' },
-  { id: 'trader', name: 'แม่ค้าพิม', role: 'ร้านค้า · เสบียง', x: 596, y: 506, col: '#e8d86a', view: 'shop', pic: 'npc_pim' },
+  { id: 'smith', name: 'ช่างบราน', role: 'ช่างเครื่องมือ · อาวุธ', x: 160, y: 300, col: '#e0904a', view: 'forge', pic: 'npc_bran' },
+  { id: 'armorer', name: 'ช่างมีรา', role: 'ช่างเกราะ · ชุดเกราะ', x: 160, y: 520, col: '#6ab0e8', view: 'armor', pic: 'npc_mira' },
+  { id: 'doc', name: 'ดร.น้อย', role: 'นักนิเวศ · ห้องวิจัย', x: 460, y: 286, col: '#7fe0b5', view: 'lab', pic: 'npc_noi' },
+  { id: 'elder', name: 'ยายตา', role: 'แคมป์ · ทักษะ', x: 565, y: 485, col: '#c8b8e8', view: 'skills', pic: 'npc_ta' },
+  { id: 'trader', name: 'แม่ค้าพิม', role: 'ร้านค้า · เสบียง', x: 720, y: 534, col: '#e8d86a', view: 'shop', pic: 'npc_pim' },
   { id: 'captain', name: 'กัปตันเรน', role: 'แผนที่ป่า · ออกพิทักษ์', x: 800, y: 380, col: '#e86a5a', view: 'main', pic: 'npc_ren' },
-  { id: 'keeper', name: 'ป้าแก้ว', role: 'ผู้ดูแลคอก · ฟื้นฟูสัตว์', x: 735, y: 226, col: '#f0a8c8', view: 'pen', pic: 'npc_kaew' },
-  { id: 'board', name: 'กระดานภารกิจ', role: 'เลือกเควส', x: 318, y: 212, col: '#c89a5a', view: 'board', obj: true, art: 'vil_quest_board', aw: 92 },
-  { id: 'garden', name: 'ลานเพาะปลูก', role: 'ปลูกสมุนไพร', x: 384, y: 504, col: '#7a5a34', view: 'garden', obj: true },
+  { id: 'keeper', name: 'ป้าแก้ว', role: 'ผู้ดูแลคอก · ฟื้นฟูสัตว์', x: 735, y: 266, col: '#f0a8c8', view: 'pen', pic: 'npc_kaew' },
+  { id: 'board', name: 'กระดานภารกิจ', role: 'เลือกเควส', x: 305, y: 306, col: '#c89a5a', view: 'board', obj: true, art: 'vil_quest_board', aw: 88 },
+  { id: 'garden', name: 'ลานเพาะปลูก', role: 'ปลูกสมุนไพร', x: 345, y: 520, col: '#7a5a34', view: 'garden', obj: true },
   { id: 'dojo', name: 'ลานซ้อม', role: 'ลองคอมโบ · วัด DPS', x: 840, y: 512, col: '#b8504a', view: 'dojo', obj: true, art: 'vil_training_yard', aw: 150 },
-  { id: 'kid', name: 'เด็กน้อย', role: 'ชาวบ้าน', x: 330, y: 300, col: '#f0f0f0', view: null, pic: 'npc_child' }
+  { id: 'kid', name: 'เด็กน้อย', role: 'ชาวบ้าน', x: 278, y: 400, col: '#f0f0f0', view: null, pic: 'npc_child' }
 ];
 /* ภาพพอร์เทรตใหม่ (ครึ่งตัว พื้นโปร่ง) ใช้ในการ์ดสนทนา/ป้ายพูด — สไปรต์เดินในหมู่บ้านยังใช้ pic เดิม */
 var VIL_PORT = { smith: 'port_bran', armorer: 'port_mira', doc: 'port_noi', elder: 'port_ta', trader: 'port_pim', captain: 'port_ren', keeper: 'port_kaew', kid: 'port_kid' };
@@ -10150,13 +10298,13 @@ function vilForestAvg() {
 var VIL3 = ['ground_tile', 'path_tile', 'path_edge', 'fence_h', 'fence_v', 'lamp', 'barrel', 'crates', 'haystack', 'well', 'signpost', 'clothesline', 'stump_log', 'garden_plot', 'garden_plot_bloom', 'campfire_big', 'camp_tent_a', 'camp_tent_b', 'flowers_a', 'flowers_b', 'flowers_c', 'vines_wall', 'spore_patch', 'banner_good', 'banner_bad', 'treeline_top', 'treeline_bottom', 'cliff_left', 'base_dirt_a', 'base_dirt_b', 'base_stone', 'base_shadow'];
 /* ของตกแต่ง: k = ภาพ · (x,y) = กึ่งกลางฐาน · w = ความกว้างที่วาด · s = รัศมีชน (0 = เดินผ่านได้) · need = เงื่อนไขป่า (ถ้ามี) */
 var VIL_DECOR = [
-  { k: 'lamp', x: 258, y: 346, w: 40 }, { k: 'lamp', x: 420, y: 356, w: 40 }, { k: 'lamp', x: 612, y: 302, w: 40 }, { k: 'lamp', x: 772, y: 404, w: 40 },
-  { k: 'barrel', x: 655, y: 532, w: 40, s: 12 }, { k: 'crates', x: 716, y: 538, w: 64, s: 22 }, { k: 'haystack', x: 636, y: 238, w: 56, s: 17 },
-  { k: 'stump_log', x: 264, y: 264, w: 66, s: 17 }, { k: 'well', x: 395, y: 394, w: 92, s: 27 }, { k: 'signpost', x: 738, y: 398, w: 54, s: 8 },
-  { k: 'clothesline', x: 352, y: 574, w: 112, s: 0 }, { k: 'fence_h', x: 400, y: 114, w: 124 }, { k: 'fence_h', x: 520, y: 114, w: 124 },
+  { k: 'lamp', x: 242, y: 322, w: 34 }, { k: 'lamp', x: 390, y: 310, w: 34 }, { k: 'lamp', x: 655, y: 300, w: 34 }, { k: 'lamp', x: 768, y: 416, w: 34 },
+  { k: 'barrel', x: 655, y: 500, w: 34, s: 10 }, { k: 'crates', x: 785, y: 525, w: 54, s: 18 }, { k: 'haystack', x: 795, y: 260, w: 48, s: 14 },
+  { k: 'stump_log', x: 240, y: 240, w: 54, s: 14 }, { k: 'well', x: 440, y: 375, w: 76, s: 23 }, { k: 'signpost', x: 900, y: 398, w: 44, s: 7 },
+  { k: 'clothesline', x: 320, y: 578, w: 94, s: 0 }, { k: 'fence_h', x: 570, y: 118, w: 104 }, { k: 'fence_h', x: 672, y: 118, w: 104 },
   { k: 'fence_v', x: 56, y: 340, w: 96, s: 14 }, { k: 'fence_v', x: 56, y: 438, w: 96, s: 14 },
-  { k: 'vines_wall', x: 400, y: 120, w: 92, up: 70 }, { k: 'vines_wall', x: 524, y: 120, w: 92, up: 70 },
-  { k: 'banner', x: 606, y: 360, w: 40, s: 6 }
+  { k: 'vines_wall', x: 570, y: 122, w: 78, up: 70 }, { k: 'vines_wall', x: 672, y: 122, w: 78, up: 70 },
+  { k: 'banner', x: 610, y: 405, w: 32, s: 5 }
 ];
 function vilArtWant() { for (var i = 0; i < VIL3.length; i++) visualWant('vil3_' + VIL3[i]); }
 function vilArtReady() { return !!(VIS.images.vil3_ground_tile && VIS.images.vil3_path_tile); }
@@ -10209,9 +10357,10 @@ function vilRestoreDraw() {
 }
 /* v18.10.28 ฉากหมู่บ้านใหม่: ใช้พื้นหญ้า/ต้นไม้/พุ่มไม้/เต็นท์/กองไฟจากภาพสนามที่มีอยู่ (BH_VISUAL fld_*) · ภาพยังไม่โหลด = ใช้แบบเดิม */
 var VIL_PATHS = [
-  [[955, 352], [800, 378], [700, 330], [480, 320], [300, 300], [170, 318]],
-  [[300, 300], [278, 400], [256, 520], [190, 542]], [[480, 320], [460, 314]], [[480, 320], [500, 440]],
-  [[700, 330], [690, 430], [690, 530]], [[800, 378], [836, 520]], [[700, 330], [738, 228]]
+  [[955, 380], [800, 378], [650, 365], [500, 350], [325, 365], [160, 300]],
+  [[325, 365], [270, 450], [160, 520]], [[325, 365], [305, 306]], [[500, 350], [460, 286]],
+  [[650, 365], [700, 430], [720, 534]], [[800, 378], [840, 512]], [[650, 365], [735, 266]],
+  [[500, 350], [520, 440], [565, 485]], [[270, 450], [345, 520]]
 ];
 var VIL_BUSH_AT = null;
 function vilBushSpots() {
@@ -10223,7 +10372,10 @@ function vilBushSpots() {
     for (j = 0; ok && j < VIL_RECTS.length; j++) { var b = VIL_RECTS[j]; if (x > b.x - 40 && x < b.x + b.w + 40 && y > b.y - 120 && y < b.y + b.h + 50) ok = false; }
     for (j = 0; ok && j < VIL_NPCS.length; j++) if (Math.abs(x - VIL_NPCS[j].x) < 60 && Math.abs(y - VIL_NPCS[j].y) < 60) ok = false;
     if (ok && Math.abs(x - VIL_GATE.ax) < 120 && Math.abs(y - VIL_GATE.ay) < 110) ok = false;
-    if (ok) for (i = 0; ok && i < VIL_PATHS.length; i++) for (j = 0; ok && j < VIL_PATHS[i].length; j++) if (Math.hypot(x - VIL_PATHS[i][j][0], y - VIL_PATHS[i][j][1]) < 46) ok = false;
+    if (ok) for (i = 0; ok && i < VIL_PATHS.length; i++) for (j = 1; ok && j < VIL_PATHS[i].length; j++) {
+      var a = VIL_PATHS[i][j - 1], z = VIL_PATHS[i][j], dx = z[0] - a[0], dy = z[1] - a[1], t = clamp(((x - a[0]) * dx + (y - a[1]) * dy) / (dx * dx + dy * dy || 1), 0, 1);
+      if (Math.hypot(x - a[0] - dx * t, y - a[1] - dy * t) < 40) ok = false;
+    }
     if (ok) out.push({ x: x, y: y, r: 10 + r() * 9, k: Math.floor(r() * 3) });
   }
   VIL_BUSH_AT = out; return out;
@@ -10311,6 +10463,7 @@ function vilScenery() {  var i, j, g;
   ctx.fillStyle = g; ctx.fillRect(-OFFX, 0, VW + OFFX, H);
 }
 function vilCamp() {
+  ctx.save(); ctx.translate(520, 452); ctx.scale(.82, .82); ctx.translate(-470, -440);
   var fl = .82 + .18 * Math.sin(V.t * 6), fg = ctx.createRadialGradient(470, 440, 2, 470, 440, 70), ta = VIS.images.vil3_camp_tent_a, tb = VIS.images.vil3_camp_tent_b, cf = VIS.images.vil3_campfire_big;
   fg.addColorStop(0, 'rgba(255,170,70,' + (.5 * fl) + ')'); fg.addColorStop(1, 'rgba(255,170,70,0)'); ctx.fillStyle = fg; ctx.beginPath(); ctx.arc(470, 440, 70, 0, TAU); ctx.fill();
   if (ta && tb) {
@@ -10325,6 +10478,7 @@ function vilCamp() {
     ctx.fillStyle = '#3a2a20'; ctx.beginPath(); ctx.arc(470, 440, 14, 0, TAU); ctx.fill();
     ctx.fillStyle = '#ffb040'; ctx.beginPath(); ctx.arc(470, 436, 6 + 2 * fl, 0, TAU); ctx.fill();
   }
+  ctx.restore();
 }function npcLine(id) {
   var w = S.wins, h = S.hunts, n = S.log && S.log.length ? S.log[0] : null;
   var tl = taleNpcLine(id); if (tl) return tl;
@@ -10345,7 +10499,7 @@ function vilCamp() {
 }
 
 /* ===== หน้าจอก่อนเข้าเกม ===== */
-function hasProgress() { return !!(S && (S.hunts > 0 || S.wins > 0 || S.xp > 0 || S.tut)); }
+function hasProgress() { return !!(S && (S.hunts > 0 || S.wins > 0 || S.xp > 0 || S.tut || S.cuts && S.cuts.fawn_briefing)); }
 function titleSlot() {
   var ks = ['stag'], i, sum = 0;
   if (S.wins >= 1) ks.push('boar'); if (S.wins >= 2) ks.push('rabbit');
@@ -10369,7 +10523,7 @@ function renderTitle() {
   h += '</div><div class="tt-foot">v' + GAME_VER + ' · เซฟอยู่ในเครื่องนี้เท่านั้น</div>';
   titleEl.innerHTML = h;
 }
-function enterTitle() { QUIT.open = false; mode = 'title'; paused = false; titleArm = 0; initWorld(); hidePanel(); renderTitle(); }
+function enterTitle() { if (GAME_MENU && GAME_MENU.open) menuClose(false); if (FAWN_BRIEF) fawnBriefingClose(); QUIT.open = false; mode = 'title'; paused = false; titleArm = 0; initWorld(); hidePanel(); renderTitle(); }
 function giftCollect() {
   var out = [], k, i, day = todayKey(), tr, n, sm;
   if (!S.gift) S.gift = {};
@@ -10409,6 +10563,8 @@ function enterVillage(note) {
     if (S && S.hunts === 0 && !S.log.length && !taleOpen()) { V.note = 'เริ่มที่นี่: ไปคุยกับกัปตันเรน (มีเครื่องหมาย !) แล้วกด เตรียมออกล่า · ' + (isTouch ? 'จอยสติ๊กเดิน · ปุ่ม ตรวจ/เก็บ เพื่อคุย' : 'WASD เดิน · F คุย'); V.noteT = 12; } /* ผู้เล่นใหม่: บอกก้าวแรกชัด ๆ */
     else { V.note = 'เดินด้วย WASD / จอยสติ๊ก · เข้าใกล้ NPC แล้วกด F (หรือปุ่ม ตรวจ/เก็บ) เพื่อคุย'; V.noteT = 7; }
   }
+  if (taleOpen() && !(S.cuts && S.cuts.fawn_briefing)) fawnBriefingOpen();
+  questRefresh(true);
 }
 function pushRect(o, rx, ry, rw, rh, pad) {
   var cx = clamp(o.x, rx, rx + rw), cy = clamp(o.y, ry, ry + rh), dx = o.x - cx, dy = o.y - cy, d = Math.hypot(dx, dy), r = 14 + (pad || 0);
@@ -10425,10 +10581,10 @@ function updateVillage(dt) {
   for (var i = 0; i < VIL_RECTS.length; i++) pushRect(V, VIL_RECTS[i].x, VIL_RECTS[i].y, VIL_RECTS[i].w, VIL_RECTS[i].h);
   pushRect(V, 760, 334, 170, 14); /* ฐานประตูป่า */
   if (vilArtReady()) { /* ของตกแต่ง V3 ที่ชนได้ (รั้วบนเป็นกำแพงเตี้ย) */
-    pushRect(V, 338, 98, 246, 16);
+    pushRect(V, 518, 102, 206, 16);
     var dcs = vilDecorList(); for (var dk = 0; dk < dcs.length; dk++) if (dcs[dk].s) pushOut(V, dcs[dk].x, dcs[dk].y - dcs[dk].s * .5, dcs[dk].s);
   }
-  pushOut(V, 470, 440, 26);
+  pushOut(V, 520, 452, 22);
   var best = null, bd = 70;
   for (i = 0; i < VIL_NPCS.length; i++) { var n = VIL_NPCS[i], d = Math.hypot(n.x - V.x, n.y - V.y); if (d < 22) pushOut(V, n.x, n.y, 18); if (d < bd) { bd = d; best = n; } }
   var tf = taleSpot();
@@ -10604,7 +10760,7 @@ function vilNpc(n, i) {
     }
     if (n.view && !S.log.length && n.id === 'captain') txt('!', n.x, n.y - hh - 6 + Math.sin(V.t * 5) * 2, 20, '#ffd45a', 'center', true);
   }
-  vilNameTag(n.name, n.x, n.y + 28, near); }
+  if (n.obj || near || n.id === 'doc' && taleOpen()) vilNameTag(n.name, n.x, n.y + 28, near); }
 function vilPlayer() {
   var im = vimg('warden'), mv = V.walk, hop = Math.abs(Math.sin(mv)) * 2.2, lean = Math.sin(mv) * .04, vA, ax, ay, hh = 62, ww;
   ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(V.x, V.y + 11, 15, 6, 0, 0, TAU); ctx.fill();
@@ -10677,7 +10833,7 @@ function drawVillage(backdrop) {
   // camp
   vilCamp();
   vst('camp');
-  vilNameTag('แคมป์', 470, 478, false);
+  vilNameTag('แคมป์ · ยายตา', 520, 498, false);
   for (di = 0; di < VIL_RECTS.length; di++) (function (b) { dl.push({ y: b.ay, t: 'building', f: function () { vilBuilding(b); } }); })(VIL_RECTS[di]);
   dl.push({ y: VIL_GATE.ay, t: 'gate', f: vilGate });
   if (vilArtReady()) { var dcl = vilDecorList(); for (di = 0; di < dcl.length; di++) (function (d) { dl.push({ y: d.y + (d.k === 'vines_wall' ? .5 : 0), t: 'decor', f: function () { vilDecorDraw(d); } }); })(dcl[di]); }
@@ -10695,35 +10851,7 @@ function drawVillage(backdrop) {
   // HUD (v17.1: ก้อนซ้ายขยายตามจอเล็ก + พื้นหลังโปร่งกันตัวหนังสือทับตึก · เหรียญอยู่ในเฟรมที่มองเห็น · แถวไม่ทับกัน)
   TXK = 1;
   { var vg0 = hudGeom(), vk = vg0.k, vx = isTouch ? vg0.hl : 24, vr = vg0.hr, vy;
-    var vextra = []; for (i = 4; i < MAT_KEYS.length; i++) if (S.mats[MAT_KEYS[i]] && MAT_KEYS[i] !== 'coin') vextra.push(MATS[MAT_KEYS[i]] + ' ×' + S.mats[MAT_KEYS[i]]);
-    if (vextra.length > 2) { var vmore = vextra.length - 2; vextra.length = 2; vextra.push('+' + vmore + ' ชนิด · I ดูทั้งหมด'); } /* การ์ดหมู่บ้านไม่ยาวเกินไป: โชว์วัสดุอื่นไม่เกิน 2 ชนิด ที่เหลือดูในหน้าตัวละคร/กระเป๋า */
-    hudBlock(vx, 14, vk, function () { /* v18.10.28: การ์ดเล็กโปร่งแสง กว้างตามเนื้อหา — ไม่บังตึกด้านบนซ้าย */
-      var title = 'Fern Hollow', sub = RANK_NAME[rankIdx()] + ' · ' + curW().name + ' · ' + armorName(), chips = [], cw = 0, fr = [], fw = 0, pen = 'คอก ' + S.pen.length + '/' + penCap() + (S.favor ? ' · พรป่า ×' + S.favor : '');
-      for (i = 0; i < 4; i++) chips.push(MATS[MAT_KEYS[i]] + ' ' + S.mats[MAT_KEYS[i]]);
-      for (i = 0; i < vextra.length; i++) chips.push(vextra[i].replace(' ×', ' '));
-      for (i = 0; i < chips.length; i++) cw += tw(chips[i], 11, true) + 14;
-      var ks = ['stag']; if (S.wins >= 1) ks.push('boar'); if (S.wins >= 2) ks.push('rabbit');
-      for (i = 0; i < ks.length; i++) { var fv = Math.round(forestOf(ks[i])); fr.push({ n: REGIONS[ks[i]].name.split(' ')[0], v: fv }); }
-      var coinTxt = 'เหรียญ ' + S.mats.coin, hintTxt = isTouch ? 'แตะดูตัวละคร ▸' : 'I · ตัวละคร ▸';
-      var W = Math.max(tw(title, 15, true) + tw(coinTxt, 14, true) + 40, tw(sub, 11, true) + tw(hintTxt, 10, true) + 20, Math.min(cw, 560), 3 * 96 + tw(pen, 11, true)) + 22, H0 = 98;
-      var rowsN = 1, cpos = [], cxp = 0, mxW = W - 22;
-      for (i = 0; i < chips.length; i++) { var cwi = tw(chips[i], 11, true) + 14; if (cxp > 0 && cxp + cwi > mxW) { rowsN++; cxp = 0; } cpos.push({ x: cxp, r: rowsN - 1 }); cxp += cwi; }
-      var ex = (rowsN - 1) * 15, H0 = 98 + ex;
-      V.cardRect = { x: vx - 10 * vk + OFFX, y: 14 + (8 - 14) * vk, w: W * vk, h: H0 * vk };
-      ctx.save(); ctx.globalAlpha = .9; ctx.fillStyle = 'rgba(8,14,10,.5)'; vilRR(vx - 10, 8, W, H0, 8); ctx.fill();
-      ctx.strokeStyle = 'rgba(214,190,130,.28)'; ctx.lineWidth = 1; vilRR(vx - 9.5, 8.5, W - 1, H0 - 1, 8); ctx.stroke(); ctx.restore();
-      txt(title, vx, 27, 15, '#f1ecd9', 'left', true);
-      txt(coinTxt, vx - 10 + W - 12, 27, 14, '#ffd45a', 'right', true);
-      txt(sub, vx, 44, 11, '#9fe8ff', 'left', true);
-      txt(hintTxt, vx - 10 + W - 12, 44, 10, '#c9bfa0', 'right', true);
-      for (i = 0; i < chips.length; i++) txt(chips[i], vx + cpos[i].x, 63 + cpos[i].r * 15, 11, i < 4 ? '#d9dccf' : '#c8d8b8', 'left', true);
-      var fx0 = vx; for (i = 0; i < fr.length; i++) {
-        var col = fr[i].v >= 70 ? '#7fe0b5' : (fr[i].v >= 35 ? '#e8d86a' : '#e8806a');
-        txt(fr[i].n + ' ' + fr[i].v + '%', fx0, 82 + ex, 10, col, 'left', true);
-        ctx.fillStyle = 'rgba(255,255,255,.14)'; ctx.fillRect(fx0, 87 + ex, 84, 4); ctx.fillStyle = col; ctx.fillRect(fx0, 87 + ex, 84 * clamp(fr[i].v / 100, 0, 1), 4); fx0 += 96;
-      }
-      txt(pen, fx0, 82 + ex, 11, S.pen.length ? '#f0a8c8' : '#9fa89f', 'left', true);
-    });
+    V.cardRect = null; /* สถานะและกระเป๋าย้ายไปแถบ DOM เพื่ออ่านง่ายและกดได้ทุกจอ */
     if (V.near) hudBlock(CX, H - 36, Math.min(vk, 1.3), function () { var nn = V.near; ctx.fillStyle = 'rgba(14,20,16,.82)'; ctx.fillRect(CX - 190, H - 76, 380, 40); txt((nn.tale ? (isTouch ? 'แตะ ตรวจ/เก็บ — ดู' : 'F — ดู') : nn.obj ? (isTouch ? 'แตะ ตรวจ/เก็บ — เข้าไปที่' : 'F — เข้าไปที่') : (nn.view ? (isTouch ? 'แตะ ตรวจ/เก็บ — คุยกับ ' : 'F — คุยกับ ') : (isTouch ? 'แตะ ตรวจ/เก็บ — ทักทาย ' : 'F — ทักทาย '))) + nn.name + ' (' + nn.role + ')', CX, H - 51, 14, '#ffe9a0', 'center', true); });
     if (V.bubT > 0 && V.bubble) hudBlock(CX, 90, vk, function () {
       var bim = V.bubNpc && (V.bubNpc.portrait || V.bubNpc.pic) ? (vimg(V.bubNpc.portrait) || vimg(V.bubNpc.pic)) : null, bhh = 62, bww;
@@ -10816,8 +10944,8 @@ function taleFinish(which) {
 }
 function taleSpot() {
   if (!S) return null;
-  if (taleOpen()) return { tale: true, act: 'start', obj: true, name: 'ลูกกวางเฟิร์น', role: 'ป่วย', x: 575, y: 165, sick: true };
-  if (S.tale === 'heal') return { tale: true, act: 'talk', obj: true, name: 'ลูกกวางเฟิร์น', role: 'สงบแล้ว', x: 580, y: 168, sick: false, line: 'มันสูดลมที่รั้ว แล้วไม่หนี' };
+  if (taleOpen()) return { tale: true, act: 'start', obj: true, name: 'ลูกกวางเฟิร์น', role: 'ป่วย', x: 595, y: 220, sick: true };
+  if (S.tale === 'heal') return { tale: true, act: 'talk', obj: true, name: 'ลูกกวางเฟิร์น', role: 'สงบแล้ว', x: 595, y: 220, sick: false, line: 'มันสูดลมที่รั้ว แล้วไม่หนี' };
   if (S.tale === 'pen') return { tale: true, act: 'talk', obj: true, name: 'ลูกกวางเฟิร์น', role: 'ในคอก', x: 690, y: 268, sick: false, line: 'มันนอนในคอกของป้าแก้ว กินหญ้าได้แล้ว' };
   return null;
 }
@@ -10846,12 +10974,10 @@ function taleSporePaint() {
   txt('สปอร์', 585, 119, 11, '#c9a0e0', 'center', true);
 }
 function enterTale() {
-  enterVillage('ดร.น้อยขอให้ไปที่รั้วด้านบน อย่าเพิ่งฆ่า');
-  V.x = 470; V.y = 330; V.face = -1.2; V.noteT = 8;
-  V.bubNpc = null;
-  for (var i = 0; i < VIL_NPCS.length; i++) if (VIL_NPCS[i].id === 'doc') V.bubNpc = VIL_NPCS[i];
-  V.bubble = 'ดร.น้อย: ลูกกวางป่วยมาตั้งแต่เช้า ขาหลังสั่น ตาขุ่น — ดูอาการก่อน แล้วค่อยตัดสินใจ';
-  V.bubT = 8;
+  if (!VILLAGE_READY && mode === 'title') { villageGo(enterTale); return; }
+  enterVillage('เควสหลัก: ช่วยลูกกวางข้างห้องวิจัย · เปิดแถบเควสเพื่อดูคำแนะนำจากดร.น้อย');
+  V.x = 530; V.y = 330; V.face = -1.2; V.noteT = 6;
+  V.bubNpc = null; V.bubble = null; V.bubT = 0;
 }
 /* บทพูดของ NPC ตามผลของบทเปิด (npcLine เรียกก่อนบทพูดปกติ) — คืน null ถ้าไม่เกี่ยว */
 function taleNpcLine(id) {
@@ -10935,6 +11061,7 @@ var TALK_DEF = {
 function talkGreeting(id) {
   var d = TALK_DEF[id], tl = typeof taleNpcLine === 'function' ? taleNpcLine(id) : null;
   if (tl) return tl;
+  if (id === 'trader' && bondState(id).level >= 1) return 'กลับมาแล้วเหรอ? ฉันเก็บที่นั่งข้างเคาน์เตอร์ไว้ให้เธอเหมือนเดิมนะ';
   return d.greet[(S.hunts + S.wins + id.length) % d.greet.length];
 }
 function talkPic(id) {
@@ -10951,6 +11078,7 @@ function talkHtml(n, line, mood) {
     '<div class="tk-box"><div class="tk-name"><b>' + n.name + '</b><span>' + n.role + '</span></div>' +
     '<div class="tk-say"><p>“' + line + '”</p>' + (mood === 'chat' ? '' : '<p class="tk-ask">' + d.ask + '</p>') + '</div><div class="tk-opts">';
   for (i = 0; i < d.opts.length; i++) h += '<button class="tk-opt" data-act="talkgo" data-arg="' + n.id + ':' + d.opts[i].view + '">' + d.opts[i].t + '<small>' + d.opts[i].s + '</small></button>';
+  if (bondKnown(n.id)) h += '<button class="tk-opt" data-act="bond" data-arg="open:' + n.id + '">ความสัมพันธ์<small>คำขอส่วนตัวและเรื่องราวที่ได้ใช้เวลาด้วยกัน</small></button>';
   h += '<button class="tk-opt chat" data-act="talkchat" data-arg="' + n.id + '">คุยเล่น<small>ไม่มีธุระ — แค่อยากฟังเธอพูด</small></button>' +
     '<button class="tk-opt bye" data-act="village">ไว้ค่อยคุยใหม่</button></div></div></div>';
   return h;
@@ -11003,7 +11131,8 @@ function quitGo() {
   QUIT.open = false;
   showPanel('<div class="talk quit" data-talk="1"><div class="tk-box"><div class="tk-say"><p>“บันทึกเรียบร้อยแล้ว — ไว้เจอกันใหม่นะ”</p><p class="tk-ask">ถ้าหน้าต่างไม่ปิดเอง ปิดแท็บ/หน้าต่างนี้ได้เลย</p></div></div></div>');
   setTimeout(function () { try { window.close(); } catch (e) {} }, 350);
-}/* เนื้อเรื่องเควส (QLORE: ชื่อไทย/ผู้ว่าจ้าง/สถานที่/เรื่องเล่า/สิ่งที่ควรฝึก) + บทเรื่อง (STORY_CH) — เรียบเรียงจากบิลด์ naka50 · ปรับชื่อตัวละครให้ตรงเกมเรา (ยายตา/แม่ค้าพิม) */
+}
+/* เนื้อเรื่องเควส (QLORE: ชื่อไทย/ผู้ว่าจ้าง/สถานที่/เรื่องเล่า/สิ่งที่ควรฝึก) + บทเรื่อง (STORY_CH) — เรียบเรียงจากบิลด์ naka50 · ปรับชื่อตัวละครให้ตรงเกมเรา (ยายตา/แม่ค้าพิม) */
 var QLORE = {
   q1_stag: { th: 'บุปผาแรกที่ทุ่งข้าว', mon: 'กวางเขาเรือง Rothorn Stag', place: 'นาเฟิร์นฮอลโลว์', client: 'กัปตันเรน', stars: 1, teach: 'เดินเข้าหา · ตีคอมโบ · หลบพื้นที่แดง · สแกนก่อนเลือก', story: 'หลังเรื่องลูกกวางที่รั้ว กัปตันเรนส่งคุณไปดูตัวผู้ใหญ่ที่บุกนา เขาของมันเรืองแสงม่วง — ฆ่าแล้วคืนนี้จบ ถ้าจับกลับไปรักษาที่คอก ป่าอาจได้ผู้เฝ้าทุ่งคืนมา' },
   q1_boar: { th: 'หลังหนามที่คันดิน', mon: 'หมูป่า Thornback Boar', place: 'คันดินเหนือหมู่บ้าน', client: 'แม่ค้าพิม', stars: 2, teach: 'หลบหรือกันตอนปาด · ทุบเกราะหลังก่อนตีหัว', story: 'หมูป่าเกราะหลังพังรั้วมันสำปะหลังทั้งคืน พิมอยากให้จบเร็ว แต่รอยหนองที่สีข้างบอกว่ามันไม่ได้ดุมาแต่กำเนิด' },
@@ -11061,11 +11190,230 @@ function storyJournalHtml() { /* สมุดเรื่องราว: บท
     h += '<div class="sc-ch' + (un ? '' : ' lock') + '"><b>' + ch.n + ' · ' + (un ? ch.th : '???') + '</b><p>' + (un ? ch.line : 'ยังไม่ถึงตอนนี้ — ทำเควสในบทก่อนหน้าให้ผ่านก่อน') + '</p></div>';
   }
   return '<details class="hg"><summary>เรื่องราวที่ผ่านมา · ' + n + '/' + STORY_CH.length + ' บท</summary><div style="padding:2px 12px 10px">' + h + '</div></details>';
-}/* ================= ALBUM — อัลบั้มภาพของเกม (ฉากเรื่อง/คัทซีนปลดล็อกเมื่อดูแล้ว · ที่เหลือดูได้เลย) ================= */
+}/* ความสัมพันธ์ 5 ขั้น + Extra: เพิ่มบท/คำขอของแต่ละคนในข้อมูลนี้เมื่อมีเนื้อหา */
+var BOND_CHARACTERS = {
+  trader: { chapters: [{
+    title: 'เดทในร้าน', scene: 'pim_date',
+    quest: { id: 'pim_supplies', title: 'สมุนไพรสำหรับเวลาว่าง', cost: { moss: 2, sage: 1 },
+      line: 'ถ้าเธอผ่านป่า ช่วยเก็บมอสน้ำค้าง 2 กับใบเสจป่า 1 มาให้หน่อยได้ไหม? ฉันจะได้จัดยาชุดสุดท้ายเสร็จไว แล้วเรามานั่งคุยกันในร้านนะ',
+      hint: 'เก็บสมุนไพรระหว่างลาดตระเวน หรือปลูกที่ลานเพาะปลูก แล้วกลับมาส่งให้พิม' }
+  }, {
+    title: 'เดินชมป่า', scene: 'pim_walk',
+    quest: { id: 'pim_forest_path', title: 'เปิดทางเดินที่ปลอดภัย', cost: { moss: 3, sage: 3, bark: 4 }, battle: { quest: 'q1_boar', count: 1 },
+      line: 'ฉันอยากเห็นป่าที่เธอเล่าให้ฟังด้วยตาตัวเอง ช่วยเตรียมสมุนไพรสำหรับเดินทาง แล้วจัดการเคสหมูป่า Thornback ให้เส้นทางปลอดภัยก่อน เราค่อยไปเดินด้วยกันนะ',
+      hint: 'เก็บมอสน้ำค้าง ใบเสจ และเปลือกวิลโลว์ แล้วจบภารกิจ Thornback ระดับ 1 หลังรับคำขอนี้' }
+  }, {
+    title: 'พักใต้ร่มไม้', scene: 'pim_rest',
+    quest: { id: 'pim_quiet_glade', title: 'ของหายากจากป่าลึก', cost: { fang: 6, mane: 2, sage: 6 }, battle: { quest: 'q2_wolf', count: 1 },
+      line: 'ฉันกำลังทำชุดยาสำหรับคนเดินป่าลึก ต้องใช้ตัวอย่างจากหมาป่าที่หาไม่ง่ายเลย ช่วยรับมือ Ashfang Wolf แล้วนำเขี้ยวกับแผงคอกลับมาให้หน่อย เสร็จแล้วเราไปพักตรงร่มไม้ที่ฉันชอบกัน',
+      hint: 'เขี้ยวและแผงคอได้จากเคสหมาป่า แผงคอเป็นวัสดุหายาก — ทำส่วนหัวร้าวในระดับ 2 ขึ้นไป แล้วจบภารกิจ Ashfang Wolf ระดับ 2 หลังรับคำขอ' }
+  }, {
+    title: 'คำสัญญากลางป่า', scene: 'pim_promise',
+    quest: { id: 'pim_royal_remedy', title: 'ยาสำหรับวันที่ยากลำบาก', cost: { chitin: 8, jelly: 3, poppy: 8 }, battle: { quest: 'q3_hive', count: 1 },
+      line: 'ยาชุดนี้ต้องใช้เยลลี่หลวงที่หายากกว่าเดิม ฉันรู้ว่าเคสราชินีรังระยะวิกฤตอันตราย ถ้าเธอพร้อมค่อยรับนะ ฉันอยากให้เธอกลับมาอย่างปลอดภัย แล้วมีเวลานั่งคุยกันอีก',
+      hint: 'เก็บไคตินกับเยลลี่หลวงจากราชินีรัง และปลูกหรือเก็บป๊อปปี้ จบ Crisis: Hivemother Swarm ระดับ 3 หลังรับคำขอ — เคสวิกฤตมีโอกาสได้ของหายากมากขึ้น' }
+  }, {
+    title: 'ค่ำคืนที่บ้านพิม', scene: 'pim_home',
+    quest: { id: 'pim_home_promise', title: 'คำขอสำคัญของพิม', cost: { chitin: 12, jelly: 5, crystal: 8 }, battle: { quest: 'q4_sov', count: 1 },
+      line: 'นี่เป็นยาชุดใหญ่ที่สุดที่ฉันเคยเตรียม ต้องใช้เยลลี่หลวงกับผลึกจำนวนมาก และเคสผู้ครองรังที่ไว้ใจให้เธอดูแลได้ เมื่อทุกอย่างเสร็จ ฉันอยากชวนเธอมาพักที่บ้าน กินชาร้อน ๆ แล้วฟังเรื่องของเธอทั้งคืน',
+      hint: 'สะสมไคติน เยลลี่หลวง และผลึก แล้วจบ Hivemother Sovereign ระดับ 4 หลังรับคำขอ — ปลดเส้นเรื่องราชินีวิกฤตและยศที่ต้องใช้ก่อน' }
+  }], extraChapter: null },
+  doc: { chapters: [], extraChapter: null },
+  armorer: { chapters: [], extraChapter: null },
+  captain: { chapters: [], extraChapter: null },
+  keeper: { chapters: [{
+    title: 'เพื่อนใหม่ในคอก', scene: 'kaew_leaves',
+    quest: { id: 'kaew_first_care', title: 'ชีวิตเล็ก ๆ ที่ฝากไว้', cost: { moss: 2, bark: 1 },
+      goals: [{ key: 'heal', event: 'heal', count: 1, label: 'รักษาสัตว์ในภารกิจสำเร็จเต็มที่ 1 ตัว' }],
+      line: 'ช่วยรักษาสัตว์ที่ป่วยให้หายดีสักตัว แล้วเอามอสน้ำค้างกับเปลือกวิลโลว์มาช่วยเตรียมที่พักฟื้นหน่อยนะ เสร็จงานแล้วฉันจะพาไปทักทายเพื่อนในคอกด้วยกัน',
+      hint: 'จบภารกิจด้วย Treat สำเร็จเต็มที่หลังรับคำขอ ไม่นับด่านฝึก รักษาบางส่วน หรือกำจัดสัตว์' }
+  }, {
+    title: 'พักเวรข้างกองฟาง', scene: 'kaew_friends',
+    quest: { id: 'kaew_second_chance', title: 'ให้โอกาสกวางและหมูป่า', cost: { moss: 3, sage: 2, bark: 2 },
+      goals: [{ key: 'release_stag', event: 'release', kind: 'stag', count: 1, label: 'ฟื้นฟูกวางจนสภาพ 100% แล้วปล่อยคืนป่า 1 ตัว' },
+        { key: 'release_boar', event: 'release', kind: 'boar', count: 1, label: 'ฟื้นฟูหมูป่าจนสภาพ 100% แล้วปล่อยคืนป่า 1 ตัว' }],
+      line: 'กวางกับหมูป่าที่คอกต้องการเวลาไม่เหมือนกัน ช่วยดูแลให้ทั้งสองหายดีแล้วค่อยปล่อยกลับบ้านนะ ฉันอยากให้เธอได้เห็นวันที่พวกมันเดินอย่างมั่นใจอีกครั้ง',
+      hint: 'จับกวางและหมูป่ากลับคอก วินิจฉัยและดูแลจนสภาพ 100% แล้วกดปล่อยคืนป่าหลังรับคำขอ ปล่อยก่อนหายหรือแต่งตั้งผู้ช่วยไม่นับ' }
+  }, {
+    title: 'คนที่อยากให้อยู่ใกล้', scene: 'kaew_rest',
+    quest: { id: 'kaew_safe_haven', title: 'เวรดูแลที่ยาวนานขึ้น', cost: { moss: 4, sage: 3, bark: 3 },
+      goals: [{ key: 'heal', event: 'heal', minTier: 1, count: 3, label: 'Treat สำเร็จเต็มที่ในภารกิจระดับ 1 ขึ้นไป 3 ตัว' },
+        { key: 'release_rabbit', event: 'release', kind: 'rabbit', count: 1, label: 'ฟื้นฟูกระต่ายจนสภาพ 100% แล้วปล่อยคืนป่า 1 ตัว' }],
+      line: 'วันนี้มีเคสรอหลายตัว ช่วยรับงานรักษาระดับหนึ่งขึ้นไปสามเคส แล้วดูแลกระต่ายที่คอกให้กลับป่าได้ด้วยนะ เสร็จแล้วมาช่วยฉันตรวจคอกเป็นรอบสุดท้าย เราจะได้มีเวลานั่งพักด้วยกันสักหน่อย',
+      hint: 'นับเฉพาะ Treat เต็มที่ตั้งแต่ระดับ 1 และปล่อยกระต่ายที่หายดีหลังรับคำขอ เตรียมยาให้ตรงโรคและออกพิทักษ์เพื่อฟื้นแรงดูแลคอก' }
+  }, {
+    title: 'เวลาพักของคนดูแล', scene: 'kaew_watch',
+    quest: { id: 'kaew_critical_watch', title: 'ไม่ทิ้งเคสที่ยากไว้ข้างหลัง', cost: { bark: 5, sage: 4, poppy: 3 },
+      goals: [{ key: 'heal_boar', event: 'heal', kind: 'boar', minTier: 2, count: 1, label: 'Treat หมูป่าระดับ 2 ขึ้นไปสำเร็จเต็มที่ 1 ตัว' },
+        { key: 'heal_wolf', event: 'heal', kind: 'wolf', minTier: 2, count: 1, label: 'Treat หมาป่าระดับ 2 ขึ้นไปสำเร็จเต็มที่ 1 ตัว' },
+        { key: 'release_boss', event: 'release', boss: true, count: 1, label: 'ฟื้นฟูสัตว์ใหญ่จนสภาพ 100% แล้วปล่อยคืนป่า 1 ตัว' }],
+      line: 'หมูป่าอาการหนักกับหมาป่าต้องใช้มือที่นิ่งกว่าครั้งก่อน ช่วยรักษาพวกมันให้เต็มที่ แล้วฟื้นฟูสัตว์ใหญ่ที่คอกอีกตัวนะ พอหมดเวร ฉันอยากชวนเธอมาพักและดูแลตัวเองบ้าง',
+      hint: 'Treat หมูป่าและหมาป่าระดับ 2 ขึ้นไปอย่างละตัว ส่วนสัตว์ใหญ่ที่ปล่อยเลือกหมาป่า ราชินีรัง Mossplate นาคา หรือหัวหน้าฝูงหนู ทุกเป้าหมายนับหลังรับคำขอ' }
+  }, {
+    title: 'บ้านที่มีคนรอ', scene: 'kaew_home',
+    quest: { id: 'kaew_forest_promise', title: 'คำสัญญาของผู้ดูแลป่า', cost: { moss: 6, bark: 6, sage: 6, poppy: 4 },
+      goals: [{ key: 'heal', event: 'heal', minTier: 3, count: 3, label: 'Treat เคสระดับ 3 ขึ้นไปสำเร็จเต็มที่ 3 ตัว' },
+        { key: 'release', event: 'release', count: 3, label: 'ฟื้นฟูจนสภาพ 100% แล้วปล่อยคืนป่า 3 ตัว' },
+        { key: 'release_boss', event: 'release', boss: true, count: 2, label: 'ในสัตว์ที่ปล่อย ต้องเป็นสัตว์ใหญ่ 2 ตัว' }],
+      line: 'คราวนี้เป็นเวรหนักที่สุดแล้ว ช่วยรักษาเคสวิกฤตสามตัว และดูแลคอกจนส่งสัตว์กลับบ้านได้สามตัว โดยมีสัตว์ใหญ่สองตัวด้วยนะ เมื่อทุกชีวิตปลอดภัย ฉันอยากชวนเธอมาพักที่บ้านบ้าง',
+      hint: 'Treat เต็มที่ระดับ 3 ขึ้นไป 3 ครั้ง และปล่อยสัตว์ที่หายดี 3 ตัว ซึ่งรวมสัตว์ใหญ่ 2 ตัว นับหลังรับคำขอเท่านั้น สมุนไพรทั้งหมดเก็บหรือปลูกได้ ไม่ต้องกำจัดสัตว์เพื่อส่งของ' }
+  }], extraChapter: {
+    title: 'ความทรงจำพิเศษ', scene: 'kaew_extra',
+    quest: { id: 'kaew_extra_promise', title: 'คำสัญญาสุดท้ายของผู้ดูแลป่า', cost: { moss: 8, bark: 8, sage: 8, poppy: 6 },
+      goals: [{ key: 'heal', event: 'heal', minTier: 4, count: 1, label: 'Treat เคสระดับ 4 ขึ้นไปสำเร็จเต็มที่ 1 ตัว' },
+        { key: 'release', event: 'release', count: 5, label: 'ฟื้นฟูจนสภาพ 100% แล้วปล่อยคืนป่า 5 ตัว' },
+        { key: 'release_boss', event: 'release', boss: true, count: 3, label: 'ในสัตว์ที่ปล่อย ต้องเป็นสัตว์ใหญ่ 3 ตัว' }],
+      line: 'ยังมีเคสยากที่รอความช่วยเหลือ ช่วยรักษาเคสระดับสี่ให้เต็มที่ และดูแลสัตว์กลับคืนป่าให้ได้ห้าตัว โดยมีสัตว์ใหญ่สามตัวด้วยนะ ฉันจะเตรียมสมุนไพรสำหรับเวรต่อไปไว้รอ',
+      hint: 'นับผลงานหลังรับคำขอเท่านั้น ปลดภารกิจระดับ 4 ก่อนออก Treat และฟื้นฟูสัตว์ให้หายดีครบ 100% ก่อนปล่อย สัตว์ใหญ่ 3 ตัวนับรวมในยอดปล่อยทั้งหมด 5 ตัว' }
+  } },
+  elder: { chapters: [], extraChapter: null },
+  smith: { chapters: [], extraChapter: null }
+};
+function bondKnown(id) { return Object.prototype.hasOwnProperty.call(BOND_CHARACTERS, id); }
+function bondState(id) {
+  if (!bondKnown(id) || !S) return { level: 0, extra: false, quest: '' };
+  if (!S.relationships) S.relationships = {};
+  if (!S.relationships[id]) S.relationships[id] = { level: 0, extra: false, quest: '', task: 0 };
+  return S.relationships[id];
+}
+function bondChapter(id) {
+  var d = BOND_CHARACTERS[id], s = bondState(id);
+  return d ? (s.level < 5 ? d.chapters[s.level] : (!s.extra && d.extraChapter)) || null : null;
+}
+function bondReady(id) {
+  var s = bondState(id), ch = bondChapter(id), q = ch && ch.quest;
+  return !!(q && s.quest === q.id && canAfford(q.cost) && (!q.battle || (s.task || 0) >= q.battle.count) &&
+    (!q.goals || q.goals.every(function (g) { return ((s.progress || {})[g.key] || 0) >= g.count; })));
+}
+/* เหตุการณ์จาก Treat เต็มที่ หรือปล่อยสัตว์ที่ฟื้นฟูหายดีจริงเท่านั้น */
+function bondCareEvent(event, animal, tier) {
+  if (!S || !S.relationships || !animal || animal.kind === 'fawn') return '';
+  var note = '';
+  Object.keys(BOND_CHARACTERS).forEach(function (id) {
+    if (!S.relationships[id]) return;
+    var s = bondState(id), ch = bondChapter(id), q = ch && ch.quest;
+    if (!q || s.quest !== q.id || !q.goals) return;
+    var wasDone = q.goals.every(function (g) { return ((s.progress || {})[g.key] || 0) >= g.count; });
+    if (!s.progress) s.progress = {};
+    q.goals.forEach(function (g) {
+      if (g.event !== event || (g.kind && g.kind !== animal.kind) || (g.boss && !isPenBoss(animal.kind)) || (g.minTier && tier < g.minTier)) return;
+      s.progress[g.key] = Math.min(g.count, (s.progress[g.key] || 0) + 1);
+    });
+    if (!wasDone && q.goals.every(function (g) { return (s.progress[g.key] || 0) >= g.count; })) note += '<p class="good">♥ ทำเป้าหมายดูแลสัตว์ของ' + talkNpc(id).name + 'ครบแล้ว — เตรียมสมุนไพรแล้วกลับไปส่งคำขอ</p>';
+  });
+  return note;
+}
+/* เรียกจากผลภารกิจสำเร็จจริงเท่านั้น: ไม่นับชัยชนะก่อนรับคำขอ */
+function bondQuestCleared(questId) {
+  if (!S || !S.relationships) return '';
+  var note = '';
+  Object.keys(BOND_CHARACTERS).forEach(function (id) {
+    if (!S.relationships[id]) return;
+    var s = bondState(id), ch = bondChapter(id), q = ch && ch.quest;
+    if (!q || s.quest !== q.id || !q.battle || q.battle.quest !== questId) return;
+    var before = s.task || 0; s.task = Math.min(q.battle.count, before + 1);
+    if (before < q.battle.count && s.task >= q.battle.count) note += '<p class="good">♥ ทำเป้าหมายต่อสู้ของ' + talkNpc(id).name + 'สำเร็จแล้ว — เตรียมวัสดุให้ครบแล้วกลับไปส่งคำขอ</p>';
+  });
+  return note;
+}
+function bondAlbumItems(id) {
+  if (!bondKnown(id)) return [];
+  var s = bondState(id), it = [];
+  BOND_CHARACTERS[id].chapters.forEach(function (ch, index) {
+    var def = STORY_CARDS[ch.scene]; if (!def) return;
+    (def.imgs || [def.img]).forEach(function (src, page) { it.push({ cat: 'bond', name: talkNpc(id).name + ' · ขั้น ' + (index + 1) + ' · ' + ch.title + ' · ภาพที่ ' + (page + 1), src: src, lock: s.level < index + 1, replay: ch.scene, kind: 'bond', bondId: id }); });
+  });
+  var extra = BOND_CHARACTERS[id].extraChapter, def = extra && STORY_CARDS[extra.scene];
+  if (def) (def.imgs || [def.img]).forEach(function (src, page) {
+    it.push({ cat: 'bond', name: talkNpc(id).name + ' · Extra · ' + extra.title + ' · ภาพที่ ' + (page + 1), src: src, lock: s.level < 5 || !s.extra, replay: extra.scene, kind: 'bond', bondId: id });
+  });
+  return it;
+}
+function bondReplay(id, scene) {
+  if (mode !== 'hub' || !bondKnown(id) || STORYC || STILL || BINTRO) return false;
+  var chapters = BOND_CHARACTERS[id].chapters, extra = BOND_CHARACTERS[id].extraChapter, s = bondState(id), found = -1;
+  for (var i = 0; i < chapters.length; i++) if (chapters[i].scene === scene) found = i;
+  if (extra && extra.scene === scene) { if (s.level < 5 || !s.extra) return false; }
+  else if (found < 0 || s.level < found + 1) return false;
+  albumClose();
+  return storyCard(scene, function () { if (!S.cuts) S.cuts = {}; S.cuts[scene] = true; persist(); }, true);
+}
+function bondHtml(id) {
+  if (!bondKnown(id)) return '';
+  var s = bondState(id), n = talkNpc(id), d = BOND_CHARACTERS[id], ch = bondChapter(id), h = '';
+  h += '<section class="bond-card" data-bond="' + id + '" aria-label="ความสัมพันธ์กับ' + n.name + '">' +
+    '<div class="bond-head"><h2>ความสัมพันธ์กับ' + n.name + '</h2><b>' + s.level + '/5' + (s.extra ? ' + Extra' : '') + '</b></div>' +
+    '<div class="bond-steps" aria-label="ความสัมพันธ์ 5 ขั้นและขั้นลับ">';
+  for (var i = 1; i <= 5; i++) h += '<span class="bond-step' + (s.level >= i ? ' done' : '') + '" title="' + (d.chapters[i - 1] ? d.chapters[i - 1].title : 'ยังไม่มีเรื่องราว') + '">' + (s.level >= i ? '♥ ' : '♡ ') + i + '</span>';
+  h += '<span class="bond-step' + (s.extra ? ' done' : '') + '" title="ขั้นลับหลังขั้น 5">Extra</span></div>';
+  var latestExtra = s.level === 5 && s.extra && d.extraChapter, latest = latestExtra || d.chapters[s.level - 1];
+  if (s.level >= 1 && latest) h += '<div class="bond-latest"><button type="button" data-act="bond" data-arg="date:' + id + (latestExtra ? ':extra' : (s.level > 1 ? ':' + s.level : '')) + '">♥ ดูความทรงจำล่าสุด · ' + (latestExtra ? 'Extra · ' : '') + latest.title + '</button></div>';
+  if (ch && ch.quest) {
+    var q = ch.quest, accepted = s.quest === q.id, ready = bondReady(id), goal = q.battle && qDef(q.battle.quest), pages = STORY_CARDS[ch.scene] && STORY_CARDS[ch.scene].lines.length;
+    h += '<div class="bond-request"><b>คำขอของ' + n.name + ' · ' + q.title + '</b><p>“' + q.line + '”</p>' +
+      '<div class="bond-cost">ของที่ต้องส่ง: ' + costHave(q.cost) + '</div><p class="bond-hint">' + q.hint + '</p>' +
+      (goal ? '<div class="bond-goal"><b>จบภารกิจ ' + goal.name + ' · ' + QTIER_NAME[goal.tier] + '</b><p>หลังรับคำขอ: ' + (accepted ? Math.min(q.battle.count, s.task || 0) : 0) + '/' + q.battle.count + ' ครั้ง · จับหรือรักษาสำเร็จก็นับ</p>' + (!qUnlocked(goal) ? '<p class="bond-hint">เป้าหมายยังล็อก: ' + qReqText(goal) + '</p>' : '') + '<button type="button" data-act="hub" data-arg="board">ดูกระดานภารกิจ</button></div>' : '') +
+      (q.goals ? '<div class="bond-goal"><b>ผลงานหลังรับคำขอ</b>' + q.goals.map(function (g) { return '<p>' + g.label + ' <b>' + (accepted ? Math.min(g.count, (s.progress || {})[g.key] || 0) : 0) + '/' + g.count + '</b></p>'; }).join('') + '<div class="row"><button type="button" data-act="hub" data-arg="board">กระดานภารกิจ</button><button type="button" data-act="hub" data-arg="pen">ไปคอกฟื้นฟู</button></div></div>' : '') +
+      '<p class="bond-reward">เมื่อสำเร็จ: ' + (s.level === 5 ? 'Extra' : 'ขั้น ' + (s.level + 1)) + ' · ' + ch.title + ' · ภาพ ' + pages + ' หน้า</p>' +
+      (ch.pendingArt ? '<p class="bond-hint">เตรียมช่องภาพเพิ่มเติมไว้ ' + ch.pendingArt + ' ภาพ</p>' : '') +
+      '<button type="button" data-act="bond" data-arg="' + (accepted ? 'submit' : 'accept') + ':' + id + ':' + q.id + '"' + (accepted && !ready ? ' disabled' : '') + '>' +
+      (accepted ? (ready ? (id === 'trader' && s.level === 0 ? 'ส่งสมุนไพรให้พิม' : 'ส่งคำขอให้' + (id === 'trader' ? 'พิม' : n.name)) : 'รับคำขอแล้ว · รอครบทุกเงื่อนไข') : 'รับคำขอ') + '</button>' +
+      '<small class="bond-hint">ส่งของเมื่อกดปุ่มเท่านั้น</small></div>';
+  }
+  if (d.chapters.length && s.level >= 1) {
+    h += '<details class="bond-memories"><summary>เลือกดูความทรงจำทั้งหมด · ' + s.level + '/5 บท' + (s.level === 5 && s.extra && d.extraChapter ? ' + Extra' : '') + '</summary>';
+    d.chapters.forEach(function (chapter, index) {
+      var unlocked = s.level >= index + 1, def = STORY_CARDS[chapter.scene], label = chapter.scene === 'pim_date' && !(S.cuts && S.cuts.pim_date) ? 'เริ่มเดทในร้าน' : 'ขั้น ' + (index + 1) + ' · ' + chapter.title + (S.cuts && S.cuts[chapter.scene] ? ' · ดูอีกครั้ง' : '');
+      h += '<div class="bond-memory' + (unlocked ? '' : ' locked') + '"><button type="button" data-act="bond" data-arg="date:' + id + (index ? ':' + (index + 1) : '') + '"' + (unlocked ? '' : ' disabled') + '>' + (unlocked ? '♥ ' : '🔒 ') + label + '</button><small>' + def.lines.length + ' ภาพ' + (chapter.pendingArt ? ' + ช่องรอเพิ่ม ' + chapter.pendingArt + ' ภาพ' : '') + ' · ' + (unlocked ? 'กดถัดไปเองได้ทุกหน้า' : 'ทำคำขอขั้นนี้ก่อน') + '</small></div>';
+    });
+    if (d.extraChapter && STORY_CARDS[d.extraChapter.scene]) {
+      var extraUnlocked = s.level === 5 && s.extra, extraDef = STORY_CARDS[d.extraChapter.scene];
+      h += '<div class="bond-memory' + (extraUnlocked ? '' : ' locked') + '"><button type="button" data-act="bond" data-arg="date:' + id + ':extra"' + (extraUnlocked ? '' : ' disabled') + '>' + (extraUnlocked ? '♥ ' : '🔒 ') + 'Extra · ' + d.extraChapter.title + '</button><small>' + extraDef.lines.length + ' ภาพ · ' + (extraUnlocked ? 'กดถัดไปเองได้ทุกหน้า' : 'ผ่านขั้น 5 แล้วทำคำขอ Extra ให้สำเร็จ') + '</small></div>';
+    }
+    h += '</details>';
+  }
+  if (!ch) h += '<p class="bond-hint">' + (d.chapters.length === 5 && s.level === 5 ? (s.extra && d.extraChapter ? 'ครบทั้ง 5 ขั้นและ Extra แล้ว · เปิดดูความทรงจำซ้ำได้ทุกเมื่อ' : 'ครบทั้ง 5 ขั้นแล้ว · ขั้นลับ Extra รอเรื่องราวต่อไป') : 'ยังไม่มีคำขอส่วนตัวในตอนนี้ · เรื่องราวของตัวละครนี้จะเพิ่มภายหลัง') + '</p>';
+  return h + '</section>';
+}
+function bondOpen(id, note) {
+  if (!bondKnown(id)) return;
+  var n = talkNpc(id); if (!n) return;
+  if (id === 'trader' || id === 'keeper') {
+    var trader = id === 'trader';
+    showPanel('<div class="bond-page"><div class="hdr-row"><button type="button" class="tab" data-bond-back="1" data-act="hub" data-arg="' + (trader ? 'shop' : 'pen') + '">' + (trader ? '← กลับไปซื้อขาย' : '← กลับคอกฟื้นฟู') + '</button><b>ความสัมพันธ์กับ' + (trader ? 'พิม' : n.name) + '</b><span class="hdr-sp"></span><button type="button" class="tab" data-act="village">หมู่บ้าน</button></div>' +
+      (note ? '<div class="note" role="status">' + note + '</div>' : '') + (trader ? shopSceneHtml() : bondHtml(id)) + '</div>');
+    ov.setAttribute('data-bg', trader ? 'shop' : 'pen'); return;
+  }
+  showPanel('<div class="hdr-row"><button type="button" data-bond-back="1" data-act="bond" data-arg="back:' + id + '">← กลับไปคุย</button><b>' + n.name + '</b></div>' + bondHtml(id));
+}
+function bondAction(arg) {
+  var a = String(arg || '').split(':'), op = a[0], id = a[1];
+  if (mode !== 'hub' || !bondKnown(id)) return;
+  if (op === 'open') { bondOpen(id); return; }
+  if (op === 'back') { openTalk(talkNpc(id)); return; }
+  if (!panelEl.querySelector('.bond-card[data-bond="' + id + '"]')) return;
+  var s = bondState(id), ch = bondChapter(id);
+  if (op === 'date') {
+    var stage = a[2] === undefined ? 1 : Number(a[2]), date = a[2] === 'extra' ? BOND_CHARACTERS[id].extraChapter : Number.isInteger(stage) && BOND_CHARACTERS[id].chapters[stage - 1];
+    if (date) bondReplay(id, date.scene);
+    return;
+  }
+  if (!ch || !ch.quest || a[2] !== ch.quest.id) return;
+  var q = ch.quest;
+  if (op === 'accept') { if (s.quest === q.id) return; s.quest = q.id; s.task = 0; if (q.goals) s.progress = {}; persist(); sfx('scan'); bondOpen(id, 'รับคำขอของ' + talkNpc(id).name + 'แล้ว'); }
+  else if (op === 'submit') {
+    if (!bondReady(id)) return;
+    for (var k in q.cost) S.mats[k] -= q.cost[k];
+    if (s.level < 5) s.level++; else s.extra = true;
+    s.quest = ''; s.task = 0; if (s.progress) s.progress = {}; persist(); sfx('chime'); SHOP_SCENE_IDX = 0;
+    bondOpen(id, talkNpc(id).name + 'ยิ้มรับคำขอบคุณ — ปลดล็อก' + (s.extra ? ' Extra' : 'ขั้น ' + s.level) + ' “' + ch.title + '” แล้ว');
+  }
+}
+/* ================= ALBUM — อัลบั้มภาพของเกม (ฉากเรื่อง/คัทซีนปลดล็อกเมื่อดูแล้ว · ที่เหลือดูได้เลย) ================= */
 function albumItems() {
   var cuts = (S && S.cuts) || {}, ui = window.BH_UI || {}, it = [], i, n;
   function seen(ids) { for (var j = 0; j < ids.length; j++) if (cuts[ids[j]]) return true; return false; }
-  function add(cat, name, src, o) { o = o || {}; it.push({ cat: cat, name: name, src: src, lock: o.need ? !seen(o.need) : false, replay: o.replay || '', kind: o.kind || '' }); }
+  function add(cat, name, src, o) { o = o || {}; it.push({ cat: cat, name: name, src: src, lock: o.lock === true || (o.need ? !seen(o.need) : false), replay: o.replay || '', kind: o.kind || '', bondId: o.bondId || '' }); }
   add('story', 'ห้องวิจัยของ ดร.น้อย', 'art/scene/story_lab.webp', { need: ['scanner2', 'notes', 'antidote'], replay: 'scanner2', kind: 'story' });
   add('story', 'ดร.น้อยสอนพิธีธรรมชาติ · ไฟ', 'art/scene/story_rites.webp', { need: ['rites'], replay: 'rites', kind: 'story' });
   add('story', 'ดร.น้อยสอนพิธีธรรมชาติ · น้ำ', 'art/scene/story_rites_spring.webp', { need: ['rites'], replay: 'rites', kind: 'story' });
@@ -11079,6 +11427,7 @@ function albumItems() {
   Object.keys(BOSS_INTRO).forEach(function (k) { add('cut', 'ฉากเปิดตัว · ' + BOSS_INTRO[k].name, 'art/scene/intro_' + k + '.webp', { need: ['bi_' + k], replay: k, kind: 'boss' }); });
   var bg = [['lab', 'ห้องวิจัย'], ['shop', 'ร้านค้า'], ['forge', 'โรงตีเหล็ก'], ['armor', 'ร้านเกราะ'], ['pen', 'คอกฟื้นฟู']];
   for (i = 0; i < bg.length; i++) add('bg', bg[i][1], 'art/scene/bg_' + bg[i][0] + '.webp');
+  Object.keys(BOND_CHARACTERS).forEach(function (id) { bondAlbumItems(id).forEach(function (o) { add('bond', o.name, o.src, { lock: o.lock, replay: o.replay, kind: 'bond', bondId: id }); }); });
   add('bg', 'หมู่บ้านเฟิร์นฮอลโลว์', 'art/scene/scene_village.webp'); add('bg', 'แคมป์', 'art/scene/scene_camp.webp'); add('bg', 'ผู้พิทักษ์สามสาว (หน้าชื่อเกม)', 'art/scene/scene_trio.webp');
   add('load', 'หน้าโหลด · ออกล่า', 'art/scene/loading_pim.webp'); add('load', 'หน้าโหลด · เข้าหมู่บ้าน', 'art/scene/loading_village.webp'); add('load', 'โลโก้ BIO HUNTER', 'art/scene/logo.webp');
   var np = [['ren', 'กัปตันเรน'], ['noi', 'ดร.น้อย'], ['kaew', 'ป้าแก้ว'], ['mira', 'ช่างมีรา'], ['ta', 'ยายตา'], ['pim', 'แม่ค้าพิม'], ['bran', 'ช่างบราน'], ['kid', 'เด็กน้อย']];
@@ -11095,7 +11444,7 @@ function albumItems() {
   for (i = 0; i < lr.length; i++) add('lair', lr[i][1], 'art/visual/lair_' + lr[i][0] + '.webp');
   return it;
 }
-var ALBUM_CATS = [['story', 'ฉากเล่าเรื่อง'], ['cut', 'คัทซีน'], ['npc', 'ผู้คนในหมู่บ้าน'], ['mon', 'มอนสเตอร์'], ['lair', 'รังและที่อยู่'], ['bg', 'ฉากและสถานที่'], ['load', 'หน้าโหลดและโลโก้']];
+var ALBUM_CATS = [['story', 'ฉากเล่าเรื่อง'], ['cut', 'คัทซีน'], ['bond', 'ความทรงจำและความสัมพันธ์'], ['npc', 'ผู้คนในหมู่บ้าน'], ['mon', 'มอนสเตอร์'], ['lair', 'รังและที่อยู่'], ['bg', 'ฉากและสถานที่'], ['load', 'หน้าโหลดและโลโก้']];
 var ALBUM = { list: [], idx: -1, el: null };
 function albumHtml() {
   var it = albumItems(), c, i, n, got = 0, h = '';
@@ -11121,7 +11470,7 @@ function albumShow(i) {
     el.querySelector('.av-prev').onclick = function (e) { e.stopPropagation(); albumShow(ALBUM.idx - 1 < 0 ? it.length - 1 : ALBUM.idx - 1); };
     el.querySelector('.av-next').onclick = function (e) { e.stopPropagation(); albumShow(ALBUM.idx + 1); };
     el.querySelector('.av-x').onclick = function (e) { e.stopPropagation(); albumClose(); };
-    el.querySelector('.av-replay').onclick = function (e) { e.stopPropagation(); var r = ALBUM.list[ALBUM.idx]; if (!r || !r.replay) return; if (r.kind === 'story') storyCard(r.replay, null, true); else if (r.kind === 'boss') bossIntro(r.replay, null, true); else stillCutscene(r.replay, null, true); };
+    el.querySelector('.av-replay').onclick = function (e) { e.stopPropagation(); var r = ALBUM.list[ALBUM.idx]; if (!r || !r.replay) return; if (r.kind === 'bond') bondReplay(r.bondId || 'trader', r.replay); else if (r.kind === 'story') storyCard(r.replay, null, true); else if (r.kind === 'boss') bossIntro(r.replay, null, true); else stillCutscene(r.replay, null, true); };
     ALBUM.onKey = function (e) { var k = (e.key || '').toLowerCase(); if (STILL || STORYC) return; if (k === 'escape') { e.preventDefault(); e.stopPropagation(); albumClose(); } else if (k === 'arrowright') { e.preventDefault(); albumShow(ALBUM.idx + 1); } else if (k === 'arrowleft') { e.preventDefault(); albumShow(ALBUM.idx - 1); } };
     document.addEventListener('keydown', ALBUM.onKey, true); document.body.appendChild(el); ALBUM.el = el;
   }
@@ -11130,6 +11479,7 @@ function albumShow(i) {
   ALBUM.el.querySelector('.av-replay').style.display = o.replay ? '' : 'none';
 }
 document.addEventListener('click', function (e) { var b = e.target && e.target.closest ? e.target.closest('[data-albidx]') : null; if (!b) return; var i = +b.getAttribute('data-albidx'); if (ALBUM.list[i] && !ALBUM.list[i].lock) albumShow(i); });
+
 /* ================= SCENES — ภาพฉากประกอบเมนู + คัทซีนตีอาวุธ (v18.10.31-scene1) =================
    art/scene/scene_*.webp  แบนเนอร์หัวหน้าเมนู (กัปตันเรน/ป้าแก้ว/ยายตา/ช่างบราน) · ภาพ trio ใช้ที่หน้าชื่อเกมผ่าน CSS
    art/scene/forge_cut.mp4 / armor_cut.mp4 คัทซีน 6 วินาที — ตีอาวุธ (buyItem หมวด forge · wtree up) / เย็บเกราะ (buyItem หมวด armor · nakaup)
@@ -11137,9 +11487,48 @@ document.addEventListener('click', function (e) { var b = e.target && e.target.c
 var HUB_SCENE = { main: 'trio', pen: 'pen', skills: 'camp', forge: 'forge', armor: 'armor', lab: 'lab', shop: 'shop', guide: 'village' };
 /* คัทซีนต่อประเภท: forge = ช่างบรานตีอาวุธ · armor = ช่างมีราเย็บเกราะ (ภาพปกวิดีโอ = scene_<poster>.webp) */
 var CUTS = { forge: { src: 'art/scene/forge_cut.mp4', poster: 'art/scene/scene_forge.webp', cap: 'ช่างบรานกำลังตีอาวุธ…' }, armor: { src: 'art/scene/armor_cut.mp4', poster: 'art/scene/scene_armor2.webp', cap: 'ช่างมีรากำลังเย็บเกราะ…' } };
+/* ภาพร้านแม่ค้าพิมจากผู้เล่น — เลือกเอง ไม่มีการเปลี่ยนภาพอัตโนมัติ */
+var SHOP_SCENES = [
+  { src: 'art/scene/shop_pim_01.jpg', name: 'หน้าเคาน์เตอร์' },
+  { src: 'art/scene/shop_pim_02.jpg', name: 'ชั้นสมุนไพร' },
+  { src: 'art/scene/shop_pim_03.jpg', name: 'ค้าขาย' },
+  { src: 'art/scene/shop_pim_04.jpg', name: 'จัดวัตถุดิบ' },
+  { src: 'art/scene/shop_pim_05.jpg', name: 'ดูแลร้าน' }
+];
+var SHOP_SCENE_IDX = 0;
+function shopSceneItems() {
+  var locked = bondState('trader').level < 1;
+  return SHOP_SCENES.map(function (o, i) { return { cat: 'bond', name: 'เดทในร้านกับพิม · ภาพที่ ' + (i + 1), src: o.src, lock: locked, replay: 'pim_date', kind: 'bond' }; });
+}
+function shopSceneHtml() {
+  var bond = bondHtml('trader');
+  if (bondState('trader').level < 1) return bond + '<section class="shop-scenes shop-scenes-locked" aria-label="เดทในร้านยังไม่ปลดล็อก"><b>♡ ขั้น 1 · เดทในร้าน</b><p>ทำคำขอของพิมให้สำเร็จ เพื่อปลดล็อกเรื่องราวพร้อมภาพทั้ง 5</p><div class="bond-locked-pages" aria-label="ภาพที่ยังไม่ปลดล็อก">' + SHOP_SCENES.map(function (_, i) { return '<span>🔒 ' + (i + 1) + '</span>'; }).join('') + '</div></section>';
+  var o = SHOP_SCENES[SHOP_SCENE_IDX], h = bond + '<section class="shop-scenes" aria-label="ภาพร้านแม่ค้าพิม">' +
+    '<button type="button" class="shop-scene-main" data-act="shopscene" data-arg="zoom" aria-label="เปิดภาพร้านแม่ค้าพิมขนาดใหญ่">' +
+    '<img class="shop-scene-img" src="' + o.src + '" alt="ร้านแม่ค้าพิม · ' + o.name + '" decoding="async" width="2128" height="912">' +
+    '<span class="shop-scene-zoom">ดูภาพใหญ่ ⤢</span></button>' +
+    '<div class="shop-scene-caption" aria-live="polite">' + o.name + ' · ' + (SHOP_SCENE_IDX + 1) + '/' + SHOP_SCENES.length + '</div><p class="shop-scene-note">' + STORY_CARDS.pim_date.lines[SHOP_SCENE_IDX] + '</p>' +
+    '<div class="shop-scene-thumbs" role="group" aria-label="เลือกภาพร้านค้า">';
+  SHOP_SCENES.forEach(function (s, i) {
+    h += '<button type="button" data-act="shopscene" data-arg="' + i + '" aria-label="ภาพที่ ' + (i + 1) + ' · ' + s.name + '" aria-pressed="' + (i === SHOP_SCENE_IDX) + '">' +
+      '<img src="' + s.src + '" alt="" loading="lazy" decoding="async" width="2128" height="912"><span>' + (i + 1) + '</span></button>';
+  });
+  return h + '</div></section>';
+}
+function shopSceneSelect(arg) {
+  var el = panelEl.querySelector('.shop-scenes'); if (mode !== 'hub' || !el || bondState('trader').level < 1) return;
+  if (arg === 'zoom') { albumClose(); ALBUM.list = shopSceneItems(); albumShow(SHOP_SCENE_IDX); return; }
+  var i = Number(arg); if (!Number.isInteger(i) || !SHOP_SCENES[i]) return;
+  SHOP_SCENE_IDX = i;
+  var o = SHOP_SCENES[i], image = el.querySelector('.shop-scene-img');
+  image.src = o.src; image.alt = 'ร้านแม่ค้าพิม · ' + o.name;
+  el.querySelector('.shop-scene-caption').textContent = o.name + ' · ' + (i + 1) + '/' + SHOP_SCENES.length;
+  el.querySelector('.shop-scene-note').textContent = STORY_CARDS.pim_date.lines[i];
+  el.querySelectorAll('.shop-scene-thumbs button').forEach(function (b, n) { b.setAttribute('aria-pressed', String(n === i)); });
+}
 function sceneBannerHtml(view) {
   var k = HUB_SCENE[view];
-  return k ? '<div class="hub-ban" style="background-image:url(art/scene/scene_' + k + '.webp)"></div>' : '';
+  return k ? '<div class="hub-ban' + (view === 'shop' ? ' shop-banner' : '') + '" style="background-image:url(art/scene/scene_' + k + '.webp)"></div>' : '';
 }
 var FORGE_CUT = null;
 function forgeCutOff() { try { return window.localStorage && window.localStorage.getItem('bh-nocut') === '1'; } catch (e) { return false; } }
@@ -11318,6 +11707,66 @@ function endingReady() { return !!(S && S.qclear && S.qclear.q4_aggro && S.qclea
 var HUB_BG = { lab: 'lab', shop: 'shop', forge: 'forge', armor: 'armor', pen: 'pen' };
 /* ===== ฉากเล่าเรื่องสั้น ๆ (ภาพเดียว + ข้อความเป็นหน้า ๆ) — เล่นครั้งเดียวต่อเซฟ · คลิก/Space/Enter = หน้าถัดไป · Esc = ข้ามทั้งหมด ===== */
 var STORY_CARDS = {
+  kaew_extra: { date: true, img: 'art/scene/kaew_extra_01.jpg', imgs: ['art/scene/kaew_extra_01.jpg', 'art/scene/kaew_extra_02.jpg', 'art/scene/kaew_extra_03.jpg', 'art/scene/kaew_extra_04.jpg', 'art/scene/kaew_extra_05.jpg'], head: 'Extra · ความทรงจำพิเศษ', who: 'ป้าแก้ว', lines: [
+    'Extra · ภาพที่ 1 / 5',
+    'Extra · ภาพที่ 2 / 5',
+    'Extra · ภาพที่ 3 / 5',
+    'Extra · ภาพที่ 4 / 5',
+    'Extra · ภาพที่ 5 / 5'
+  ] },
+  kaew_leaves: { date: true, img: 'art/scene/kaew_bond_02_01.jpg', imgs: ['art/scene/kaew_bond_02_01.jpg'], head: 'ขั้น 1 · เพื่อนใหม่ในคอก', who: 'ป้าแก้ว', lines: [
+    'หลังจบงานรักษา ป้าแก้วพาเธอมาทักทายกวางกับหมูป่าที่คอก กวางแวะมาสะกิดแก้มคนดูแลจนป้าหัวเราะ “เห็นไหม เขาจำคนใจดีได้” เธอช่วยถือตะกร้าใบไม้ให้ ส่วนป้าหันมายิ้ม “พรุ่งนี้มาช่วยกันอีกนะ เพื่อนใหม่ของเธอคงรออยู่”'
+  ] },
+  kaew_friends: { date: true, img: 'art/scene/kaew_bond_03_01.jpg', imgs: ['art/scene/kaew_bond_03_01.jpg', 'art/scene/kaew_bond_03_02.jpg'], head: 'ขั้น 2 · พักเวรข้างกองฟาง', who: 'ป้าแก้ว', lines: [
+    'เวรยาวจบลงพร้อมแสงบ่ายที่ลอดหน้าต่าง ป้าแก้ววางหมวกไว้บนตักแล้วตบกองฟางข้างตัว “พักตรงนี้สักหน่อยสิ วันนี้เธอวิ่งช่วยทุกคอกจนฉันตามแทบไม่ทัน” เสียงไก่คุ้ยฟางกลายเป็นเพลงเบา ๆ ระหว่างที่ทั้งสองเล่าเรื่องเคสที่เพิ่งผ่านไป',
+    'ก่อนกลับ ป้าแก้วแวะตรวจรั้วเป็นรอบสุดท้าย เธอเดินตามไปช่วยถือของ ป้าหันมาถามยิ้ม ๆ “พรุ่งนี้จะมาเวลาเดิมไหม?” แค่ได้ยินคำตอบว่าเจอกันตอนเช้า เหนื่อยจากทั้งวันก็ดูเบาลงทันที'
+  ] },
+  kaew_rest: { date: true, img: 'art/scene/kaew_bond_04_01.jpg', imgs: ['art/scene/kaew_bond_04_01.jpg', 'art/scene/kaew_bond_03_fill_01.jpg', 'art/scene/kaew_bond_03_fill_02.jpg'], head: 'ขั้น 3 · คนที่อยากให้อยู่ใกล้', who: 'ป้าแก้ว', lines: [
+    'ป้าแก้วตรวจกลอนคอกเป็นครั้งสุดท้าย ก่อนเงยหน้ามายิ้มให้คนที่ช่วยอยู่ข้าง ๆ “วันนี้จะรีบกลับเลยไหม หรืออยู่เป็นเพื่อนฉันอีกหน่อย?” น้ำเสียงหยอกเบา ๆ ทำให้เธอชะงัก ป้าหัวเราะอย่างรู้ทันแล้ววางเครื่องมือลง เหมือนตั้งใจเก็บเวลาช่วงนี้ไว้ให้กัน',
+    'หลังเก็บของเสร็จ ป้าแก้วนั่งพักบนพื้นไม้แล้วเว้นที่ข้างตัวให้ “ตรงนี้ว่างนะ คนขยัน” พอเธอนั่งใกล้ ป้ากลับเป็นฝ่ายหลบตาอยู่ครู่หนึ่ง ก่อนหันมายิ้มแกล้งถาม “เหนื่อยจนพูดไม่ออก หรือมีอะไรทำให้เขินกันแน่?” เสียงหัวเราะของทั้งคู่เบาลงพร้อมระยะห่างที่น้อยลง',
+    'พื้นไม้เย็นสบายจนป้าแก้วเอนพักแล้วเหยียดแขนเหนือศีรษะ พอสบตากันนานขึ้น แก้มป้าก็ค่อย ๆ ขึ้นสี “มองแบบนั้น ฉันก็เขินเป็นนะ” เธอถามยิ้ม ๆ ว่าอยากพักต่อไหม ป้าพยักหน้าแล้วตอบเบา ๆ “อีกสักหน่อยก็ได้ ถ้าเธอยังอยู่เป็นเพื่อน” เย็นนี้จึงไม่ต้องรีบจบลงเหมือนทุกวัน'
+  ] },
+  kaew_watch: { date: true, img: 'art/scene/kaew_bond_04_new_01.jpg', imgs: ['art/scene/kaew_bond_04_new_01.jpg', 'art/scene/kaew_bond_04_new_02.jpg', 'art/scene/kaew_bond_04_new_03.jpg', 'art/scene/kaew_bond_04_new_04.jpg', 'art/scene/kaew_bond_04_new_05.jpg', 'art/scene/kaew_bond_04_new_06.jpg', 'art/scene/kaew_bond_04_new_07.jpg', 'art/scene/kaew_bond_04_new_08.jpg'], head: 'ขั้น 4 · เวลาพักของคนดูแล', who: 'ป้าแก้ว', lines: [
+    'เมื่อเคสยากทุกตัวปลอดภัย ป้าแก้วจึงยอมวางสมุดเวรลงบ้าง เธอหยิบผ้าสะอาดมาช่วยเตรียมของสำหรับดูแลรอยถลอกจากงานคอก ป้าหันมายิ้ม “คอยเตือนแต่ให้เธอพัก วันนี้กลับเป็นฉันที่ต้องฟังบ้างแล้วนะ”',
+    'ป้าแก้วสาธิตวิธีจัดผ้าให้เรียบและไม่รัดแน่นเกินไป “มือเบา ๆ แบบตอนดูแลพวกเขานั่นแหละ” เธอตั้งใจจำจนป้าหัวเราะ “ไม่ต้องทำหน้าเหมือนกำลังสอบก็ได้ ฉันอยู่ตรงนี้ ค่อย ๆ ทำไปด้วยกัน”',
+    'เตรียมผ้าผืนสุดท้ายเสร็จ ป้าแก้วตรวจปมแล้วพยักหน้าพอใจ “เรียบร้อย คราวนี้เก็บของแล้วพักจริง ๆ ได้แล้ว” เธอรับตะกร้าผ้าไปวางให้ ป้ามองตามพร้อมรอยยิ้มเล็ก ๆ ที่ไม่ต้องรีบร้อนเหมือนตอนเข้าเวร',
+    'ไอน้ำอุ่นลอยอยู่ในห้องอาบน้ำหลังบ้าน ป้าแก้วหยิบผ้าขนหนูที่เธอช่วยเตรียมไว้ “ขอบคุณนะ วันนี้ฉันไม่ต้องวิ่งกลับไปดูคอกทุกห้านาทีแล้ว” แสงเทียนและเสียงน้ำเบา ๆ ทำให้บ่ายที่วุ่นวายค่อย ๆ สงบลง',
+    'ป้าแก้วแง้มประตูมาบอกว่าจัดที่พักเรียบร้อยแล้ว “ตะกร้าผ้าฉันเก็บเอง เธอวางสมุดเวรไว้ก่อนก็ได้” เธอหัวเราะเมื่อถูกจับได้ว่ายังห่วงงานอยู่ ป้ายิ้มตอบ “เราฝึกพักกันทั้งคู่เลยนะวันนี้”',
+    'กลิ่นสบู่อ่อน ๆ แทนที่กลิ่นฟางจากทั้งวัน ป้าแก้วปล่อยไหล่ที่เกร็งจากงานดูแลให้ผ่อนลง “พอไม่มีเสียงเรียกจากคอก ฉันเพิ่งรู้ว่าวันนี้เหนื่อยแค่ไหน” เธอรับปากว่าจะช่วยแบ่งเวรในวันต่อไป ป้าจึงยิ้มอย่างวางใจ',
+    'ฟองสบู่ลอยตามผิวน้ำ ป้าแก้วยื่นมือมาขอผ้าผืนเล็กที่วางไว้ใกล้ ๆ “คนที่คอยช่วยแม้แต่เรื่องจิ๊บจ๊อยนี่น่าขอบคุณเป็นพิเศษเลยนะ” เธอส่งให้พร้อมหัวเราะ วันพักธรรมดาจึงมีเรื่องเล็ก ๆ ให้ทั้งคู่เก็บไปยิ้มได้อีกเรื่อง',
+    'ก่อนหมดช่วงพัก ป้าแก้วหันมาบอกว่าเย็นนี้ไม่ต้องกลับไปทำงานเพิ่มแล้ว “เราช่วยทุกชีวิตที่รออยู่เสร็จแล้ว คราวนี้เก็บเวลานิดหน่อยไว้ให้ตัวเองบ้าง” เธอพยักหน้ารับ ป้าจึงยิ้มพร้อมนัดว่าจะมาดื่มชาด้วยกันหลังพักเสร็จ'
+  ] },
+  kaew_home: { date: true, img: 'art/scene/kaew_bond_05_01.jpg', imgs: ['art/scene/kaew_bond_05_01.jpg', 'art/scene/kaew_bond_05_02.jpg', 'art/scene/kaew_bond_05_03.jpg', 'art/scene/kaew_bond_05_04.jpg', 'art/scene/kaew_bond_05_05.jpg', 'art/scene/kaew_bond_05_06.jpg'], head: 'ขั้น 5 · บ้านที่มีคนรอ', who: 'ป้าแก้ว', lines: [
+    'หลังส่งสัตว์ตัวสุดท้ายกลับป่า ป้าแก้วล้างฝุ่นจากงานคอกแล้วเปลี่ยนเป็นชุดสบาย ๆ พอเปิดประตูเห็นเธอ ป้าก็ยิ้มกว้าง “วันนี้ช่วยทุกชีวิตเสร็จแล้ว ถึงเวลาช่วยตัวเองพักบ้างนะ เข้ามาสิ ฉันเตรียมชาไว้แล้ว”',
+    'ป้าแก้วยื่นมือมารับของที่เธอถือ “คืนนี้ไม่มีเวรแล้ว ไม่ต้องคอยฟังเสียงกระดิ่งคอกก็ได้” เธอส่งตะกร้าให้พร้อมหัวเราะ ป้าส่ายหน้ายิ้ม ๆ แล้วชวนเข้าไปนั่งด้วยกัน',
+    'บ้านเล็กหลังคอกมีกลิ่นชาอุ่นกับแสงเย็นอ่อน ๆ ป้าแก้วพาเธอผ่านประตูไปยังมุมพัก “ตรงนี้ฉันชอบนั่งฟังเสียงป่า วันนี้มีคนมาฟังด้วยกันแล้ว” ที่นั่งว่างอีกหนึ่งที่ดูมีความหมายขึ้นมาทันที',
+    'ทั้งสองเปิดสมุดเคสบนพรม แล้วผลัดกันเล่าเรื่องสัตว์แต่ละตัวที่กลับบ้านได้ ป้าแก้วฟังโดยไม่เร่งสักคำ “เรื่องเล็ก ๆ พวกนี้ฉันอยากจำไว้นาน ๆ” เธอขยับสมุดให้ใกล้กันขึ้น เพื่อเติมบันทึกหน้าสุดท้ายของวันนี้',
+    'หลังยกฟางและดูแลคอกมาหลายวัน ป้าแก้วชวนพักยืดแขนคลายหลัง เธอทำตามอย่างเก้ ๆ กัง ๆ จนทั้งคู่หัวเราะ “เก่งตอนช่วยสัตว์อย่างเดียวไม่พอนะ ต้องดูแลตัวเองให้เป็นด้วย” ป้าพูดพร้อมเตือนให้ค่อย ๆ ทำ',
+    'ก่อนค่ำ ป้าแก้วหันมาถามว่าชาที่เตรียมไว้ถูกใจไหม แล้วเว้นที่ในสมุดสำหรับเรื่องราววันต่อไป “วันไหนเหนื่อยก็แวะมา ไม่ต้องรอให้มีเควสหรอก” เธอรับปากว่าจะกลับมา บ้านหลังเล็กจึงมีความหมายว่าเป็นที่ที่มีคนรออีกแห่งหนึ่ง'
+  ] },
+  pim_walk: { date: true, img: 'art/scene/pim_bond_02_01.jpg', imgs: ['art/scene/pim_bond_02_01.jpg'], head: 'ขั้น 2 · เดินชมป่า', who: 'แม่ค้าพิม', lines: [
+    'ระหว่างเดินชมป่า พิมสะดุดรากไม้แล้วนั่งแปะลงกับทาง เธอรีบยื่นมือไปช่วย พิมเงยหน้ามองก่อนหัวเราะเขิน ๆ “ร้านฉันเดินแค่สามก้าวก็ถึงทุกชั้น ไม่เคยมีรากไม้ขวางแบบนี้นี่นา” พอลุกขึ้นได้ เธอก็ยังไม่ยอมปล่อยมือ “เดินช้า ๆ ด้วยกันอีกหน่อยนะ”'
+  ] },
+  pim_rest: { date: true, img: 'art/scene/pim_bond_03_01.jpg', imgs: ['art/scene/pim_bond_03_01.jpg'], head: 'ขั้น 3 · พักใต้ร่มไม้', who: 'แม่ค้าพิม', lines: [
+    'ใต้ร่มไม้ที่แสงแดดลอดลงมา พิมชวนเธอหยุดพักและแบ่งน้ำดื่มกัน “แต่ก่อนฉันรู้จักป่าจากของที่คนเอามาขาย วันนี้ได้รู้จักมันจากเธอ” เธอเล่าเรื่องร้านตั้งแต่ยังมีชั้นวางอยู่ไม่กี่ใบ ก่อนยิ้มบาง ๆ “เรื่องเล็ก ๆ แบบนี้ ฉันไม่ค่อยได้เล่าให้ใครฟังหรอกนะ”'
+  ] },
+  pim_promise: { date: true, img: 'art/scene/pim_bond_04_01.jpg', imgs: ['art/scene/pim_bond_04_01.jpg'], head: 'ขั้น 4 · คำสัญญากลางป่า', who: 'แม่ค้าพิม', lines: [
+    'พิมเอนตัวพักบนทางป่าที่เงียบสงบ แล้วชวนเธอมองท้องฟ้าผ่านช่องใบไม้ “ฉันชอบวันที่ได้มองฟ้า โดยไม่ต้องคอยนับขวดยา” เธอเอื้อมมาจับมือไว้หลวม ๆ “ครั้งหน้าถ้าเหนื่อย ก็กลับมาหาฉันได้เลยนะ ไม่ต้องเก่งตลอดเวลาก็ได้” คำสัญญาเรียบง่ายนั้นทำให้ทางกลับบ้านดูใกล้ขึ้นกว่าเดิม'
+  ] },
+  pim_home: { date: true, img: 'art/scene/pim_bond_05_01.jpg', imgs: ['art/scene/pim_bond_05_01.jpg', 'art/scene/pim_bond_05_02.jpg', 'art/scene/pim_bond_05_03.jpg', 'art/scene/pim_bond_05_04.jpg', 'art/scene/pim_bond_05_05.jpg'], head: 'ขั้น 5 · ค่ำคืนที่บ้านพิม', who: 'แม่ค้าพิม', lines: [
+    'หลังปิดร้าน พิมเปิดประตูบ้านต้อนรับ แสงโคมอุ่น ๆ ส่องออกมาถึงระเบียง “มาถึงแล้วเหรอ ฉันต้มน้ำรออยู่พอดี” น้ำเสียงของเธอนุ่มกว่าตอนอยู่หลังเคาน์เตอร์ และรอยยิ้มก็ทำให้ความเหนื่อยจากการเดินทางค่อย ๆ จางลง',
+    'พิมยื่นมือมาหา “คืนนี้ไม่ต้องยืนเกรงใจอยู่หน้าประตูแล้วนะ เข้ามาสิ” เธอจับมือนั้นไว้ พิมบีบตอบเบา ๆ แล้วหัวเราะ “คราวนี้ฉันไม่สะดุดรากไม้แน่นอน สัญญา”',
+    'พิมพาเธอเดินผ่านประตูเข้าไปในบ้าน “ตรงนี้ฉันอ่านสมุดบันทึก ส่วนมุมโน้นไว้เก็บของที่ยังไม่กล้าทิ้ง” เธอหันมายิ้ม “ไม่เคยคิดเลยว่าการพาใครสักคนดูบ้าน จะทำให้ตื่นเต้นขนาดนี้”',
+    'ทั้งสองนั่งลงบนโซฟา แก้วชาสองใบวางอยู่ข้างกัน พิมยังจับมือเธอไว้ระหว่างฟังเรื่องการเดินทาง “คืนนี้ฉันไม่ได้อยากฟังแต่เรื่องบอสหรอกนะ เรื่องของเธอเอง ฉันก็อยากรู้เหมือนกัน”',
+    'เมื่อบทสนทนาค่อย ๆ เงียบลง พิมขยับมานั่งใกล้และยิ้มอย่างสบายใจ “ขอบคุณที่กลับมาหาทุกครั้งนะ” ด้านนอกมีเพียงเสียงลมเบา ๆ ผ่านหน้าต่าง คืนธรรมดาคืนหนึ่งกลายเป็นความทรงจำที่ทั้งสองอยากเก็บไว้ด้วยกัน'
+  ] },
+  pim_date: { date: true, img: 'art/scene/shop_pim_01.jpg', imgs: ['art/scene/shop_pim_01.jpg', 'art/scene/shop_pim_02.jpg', 'art/scene/shop_pim_03.jpg', 'art/scene/shop_pim_04.jpg', 'art/scene/shop_pim_05.jpg'], head: 'ขั้น 1 · เดทในร้าน', who: 'แม่ค้าพิม', lines: [
+    'หลังจัดยาขวดสุดท้ายเสร็จ พิมก็เลื่อนแก้วชาอุ่น ๆ มาให้ “วันนี้ไม่ต้องรีบไปไหนก็ได้นะ ที่นั่งข้างฉันว่างพอดี” เสียงกระดิ่งหน้าร้านเบาลง จนได้ยินเสียงหัวเราะของกันและกันชัดขึ้น',
+    'พิมเอื้อมหาขวดบนชั้น ก่อนหันมายิ้มเมื่อเธอช่วยรับไว้ “รู้ใจจัง แบบนี้คงต้องชวนมาช่วยบ่อย ๆ แล้วสิ” เธอแกล้งนับขวดยาช้า ๆ ราวกับยังไม่อยากให้เวลานี้หมดลง',
+    'ระหว่างเก็บเหรียญ พิมแอบวางเหรียญหนึ่งไว้ข้างแก้วชาของเธอ “ค่าแรงวันนี้ค่ะ” แล้วก็หัวเราะ “ล้อเล่นน่า แค่อยู่เป็นเพื่อน ฉันก็ดีใจแล้ว”',
+    'ทั้งสองช่วยกันเรียงสมุนไพรและม้วนกระดาษจนเป็นระเบียบ พิมมองชั้นที่เพิ่งจัดเสร็จแล้วพูดเบา ๆ “ร้านเดิมทุกวัน แต่พอมีเธออยู่ด้วย วันนี้กลับน่าจำเป็นพิเศษเลย”',
+    'ก่อนกลับ เธอช่วยพิมเก็บผ้าผืนสุดท้าย พิมหันมายิ้มพร้อมชี้แก้วชาสองใบ “คราวหน้าไม่ต้องมีธุระก็แวะมาได้นะ ฉันจะเตรียมชาเผื่อไว้ให้” คืนนี้จบลงด้วยคำสัญญาเล็ก ๆ ว่าจะได้พบกันอีก'
+  ] },
   rites: { img: 'art/scene/story_rites.webp', fb: 'art/scene/bg_lab.webp', imgs: ['art/scene/story_rites.webp', 'art/scene/story_rites_spring.webp', 'art/scene/story_rites_thorn.webp', 'art/scene/story_rites.webp'], head: 'พิธีธรรมชาติและการเคลือบธาตุ', who: 'ดร.น้อย', lines: ['ดร.น้อยวางสมุดบันทึกเก่าของคณะ Warden ลงบนโต๊ะ หน้าที่เปิดค้างไว้มีรูปวงกลมสามวง เขียนกำกับด้วยลายมือเรียวเล็ก', '“ตอนนี้เธอสู้กับตัวที่แรงขึ้นแล้ว เลยถึงเวลาเรียนสิ่งที่คณะเก่าเรียกว่า พิธีธรรมชาติ” เธอพูด “กดปุ่ม V กลางสนาม จะเกิดวงธาตุตรงหน้า — ถ่านไฟ น้ำพุ หรือเถาหนาม ค้าง V ไว้เพื่อสลับธาตุ”', '“ถ้ายืนในวงของธาตุนั้นสักครู่ อาวุธจะเคลือบธาตุนานประมาณ 20 วินาที ถ่านไฟทำให้ไหม้ต่อเนื่อง น้ำพุคืนสตามินาเวลาตีโดน เถาหนามสะสมรากพันศัตรู”', '“ประกายธรรมชาติได้จากการหลบแม่นกับปัดสำเร็จ — อ่านท่าบอสให้ออก แล้วธาตุจะตามมาเอง และอย่าลืมว่าวงน้ำดับไฟ วงเถาถูกไฟเผาได้นะ”'] },
   spirit1: { img: 'art/scene/story_prologue.webp', fb: 'art/scene/scene_camp.webp', head: 'ประกายสีเขียวที่ชายป่า', who: 'Warden', lines: ['ตอนที่ตัวนั้นลุกขึ้นยืนได้ ลมพัดใบไม้ไหวไปทั้งชายป่า และในเงาไกล ๆ มีประกายสีเขียวอ่อนวาบขึ้นแวบหนึ่ง', 'เธอเงยหน้าตามทัน แต่ไม่เห็นอะไรเลย — มีแค่ดอกไม้ป่าดอกเล็ก ๆ ที่เพิ่งบานตรงที่ว่างเปล่านั้น', '“มันยังอยู่” เธอคิด “และมันกำลังดูอยู่ว่าฉันทำถูกหรือเปล่า”'] },
   prologue: { img: 'art/scene/story_prologue.webp', fb: 'art/scene/scene_camp.webp', imgs: ['art/scene/story_prologue_1.webp', 'art/scene/story_prologue_2.webp', 'art/scene/story_prologue_3.webp', 'art/scene/story_prologue_4.webp', 'art/scene/story_prologue_5.webp', 'art/scene/story_prologue_6.webp', 'art/scene/story_prologue.webp', 'art/scene/story_prologue.webp'], head: 'คืนที่หมู่บ้านเดิมล่มสลาย', who: 'ความทรงจำ', lines: ['หมู่บ้านเล็ก ๆ ริมป่าที่เธอเกิดมา สงบสุขเสมอ — ควันจากปล่องไฟ กลิ่นขนมปังอบ เสียงพ่อตีเหล็กตอนบ่าย และเสียงแม่เรียกกินข้าวตอนเย็น', 'จนเย็นวันหนึ่ง นกทุกตัวเงียบพร้อมกัน ท้องฟ้าเปลี่ยนเป็นสีเขียวขุ่น สัตว์เลี้ยงตื่นตระหนก และในเงาของชายป่า มีบางอย่างที่ใหญ่เกินกว่าสัตว์ใดที่เธอเคยเห็นกำลังมองลงมา', 'มันพุ่งออกมาโดยไม่มีใครทันตั้งตัว ไม่มีใครเห็นรูปร่างมันชัด รู้แต่ว่ารั้วหักเป็นแถว หลังคาพังทีละหลัง และไฟลามไปทั่วหมู่บ้าน', 'เธอวิ่งไปตามตรอกที่คุ้นเคย แต่ขาเล็ก ๆ ของเธอไม่ทัน เธอสะดุดล้มกลางทาง เงามหึมานั้นทอดทับลงมา', 'พ่อกับแม่วิ่งมาจากกลางไฟ ผลักเธอไปหลังโอ่งน้ำ แล้วยืนขวางไว้ด้วยมือเปล่ากับตะเกียงดวงเดียว “หลับตาไว้นะลูก” — คือสิ่งสุดท้ายที่เธอได้ยินจากพวกท่าน', 'แล้วแสงสีเขียวอ่อนก็ปรากฏขึ้น สัตว์ตัวหนึ่งกระโจนเข้ามาขวางระหว่างเธอกับเงานั้น ที่ที่เท้าของมันแตะ ดอกไม้ผลิบานท่ามกลางเถ้า และเงานั้นก็ถอยกลับเข้าป่าไป', 'รุ่งเช้า เธอตื่นท่ามกลางซากบ้าน มีสัตว์ตัวนั้นนอนขดอยู่ข้างตัว ขนอ่อนนุ่มเรืองแสงสีเขียวจาง ๆ ลมหายใจของมันอุ่น และที่ใดที่มันแตะ ดอกไม้ก็งอกขึ้นมาจากเถ้า', '“มันคือสัตว์แห่งธาตุไม้ ผู้ฟื้นฟู” ภายหลังคนในคณะบอกเธอ เธอไม่เคยลืมมัน — และสาบานว่าจะฟื้นฟูทุกชีวิตที่ป่ายังเรียกร้องอยู่'] },
@@ -11339,15 +11788,199 @@ function storyCard(id, onEnd, force) {
   if (S && !force) { if (!S.cuts) S.cuts = {}; S.cuts[id] = true; try { persist(); } catch (e) {} }
   var el = document.createElement('div'), n = 0, c = { el: el, next: onEnd || null, onKey: null };
   el.id = 'storycard'; el.className = 'storycard'; el.style.backgroundImage = 'url(' + def.img + ')' + (def.fb ? ', url(' + def.fb + ')' : '');
-  el.innerHTML = '<div class="sc-box"><div class="sc-head"><b>' + def.head + '</b><span>' + def.who + '</span></div><p class="sc-txt"></p><div class="sc-foot"><small class="sc-n"></small><button class="sc-next" type="button">ต่อไป ▸</button></div></div>';
+  if (def.date) el.classList.add('sc-date');
+  el.innerHTML = (def.date ? '<img class="sc-date-art" src="' + def.img + '" alt="' + def.head + ' · ภาพที่ 1">' : '') + '<div class="sc-box"><div class="sc-head"><b>' + def.head + '</b><span>' + def.who + '</span></div><p class="sc-txt"></p><div class="sc-foot"><small class="sc-n"></small><button class="sc-next" type="button">ต่อไป ▸</button></div></div>';
   var txt = el.querySelector('.sc-txt'), nb = el.querySelector('.sc-next'), cnt = el.querySelector('.sc-n');
-  function show() { sfx(n ? 'page' : 'chime'); if (def.imgs && def.imgs[n]) el.style.backgroundImage = 'url(' + def.imgs[n] + ')' + (def.fb ? ', url(' + def.fb + ')' : ''); txt.textContent = def.lines[n]; cnt.textContent = (n + 1) + ' / ' + def.lines.length; nb.textContent = n >= def.lines.length - 1 ? 'ปิด ✓' : 'ต่อไป ▸'; }
+  function show() { sfx(n ? 'page' : 'chime'); if (def.imgs && def.imgs[n]) el.style.backgroundImage = 'url(' + def.imgs[n] + ')' + (def.fb ? ', url(' + def.fb + ')' : ''); if (def.date) { var im = el.querySelector('.sc-date-art'); im.src = def.imgs[n] || def.img; im.alt = def.head + ' · ภาพที่ ' + (n + 1); } txt.textContent = def.lines[n]; cnt.textContent = (n + 1) + ' / ' + def.lines.length; nb.textContent = n >= def.lines.length - 1 ? 'ปิด ✓' : 'ต่อไป ▸'; }
   function adv() { if (n >= def.lines.length - 1) storyCardEnd(); else { n++; show(); } }
   nb.addEventListener('click', function (e) { e.stopPropagation(); adv(); }); el.addEventListener('click', adv);
   c.onKey = function (e) { var k = (e.key || '').toLowerCase(); if (k === 'escape') { e.preventDefault(); e.stopPropagation(); storyCardEnd(); } else if (k === ' ' || k === 'enter') { e.preventDefault(); e.stopPropagation(); adv(); } };
   document.addEventListener('keydown', c.onKey, true);
   document.body.appendChild(el); STORYC = c; show(); return true;
-}/* ================= FIELD MAPS (v18.4) =================
+}
+/* เมนูเดินทางและสมุดภารกิจ: เปิดทับฉากเดิมโดยไม่เรียก initWorld ระหว่างพักภารกิจ */
+var GAME_MENU = { open: false, wasPaused: false, focus: null, view: '' };
+var QUEST_UI = { next: 0, sig: '', expanded: false };
+var FAWN_BRIEF = false;
+function navEscape(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function navBusy() { return !!(STORYC || STILL || BINTRO || FORGE_CUT || (LOADV && LOADV.el)); }
+function navField() { return mode === 'playing' || mode === 'field' || mode === 'decision'; }
+function questSnapshot() {
+  var active = (mode === 'playing' || mode === 'decision') && M && M.quest ? qDef(M.quest) : curQuest(), main, side, bonds = [], d = dailyEnsure();
+  if (taleOpen()) {
+    var step = TALE && TALE.step, steps = { walk: 'เข้าใกล้ลูกกวาง · ยังไม่ต้องโจมตี', charge: 'หลบออกด้านข้างจากพื้นที่สีแดง', scan: 'กดสแกนค้างให้ครบ แล้วเลือกรักษา', choice: 'เลือกวิธีช่วยลูกกวางในหน้าตัดสินใจ' };
+    main = { title: 'ช่วยลูกกวางเฟิร์น', step: steps[step] || 'ดร.น้อยรอแนะนำ · ลูกกวางอยู่ข้างห้องวิจัย', view: 'fawn', state: step ? 'กำลังทำ' : 'บทเริ่มต้น' };
+  } else if (active) {
+    main = { title: active.name, step: mode === 'field' ? 'ตามร่องรอยในป่า แล้วตรวจอาการเป้าหมาย' : mode === 'playing' ? 'สแกนวินิจฉัย แล้วจบเคสให้สำเร็จ' : 'เตรียมเสบียง แล้วรายงานตัวกับกัปตันเรน', view: 'board', state: 'ภารกิจที่เลือก' };
+  } else {
+    var next = QUESTS.filter(function (q) { return qUnlocked(q) && !qCleared(q.id); })[0];
+    main = { title: next ? next.name : 'พิทักษ์ป่าต่อไป', step: next ? 'รับภารกิจที่กระดาน แล้วเตรียมออกพิทักษ์' : 'เลือกเคสที่กระดาน หรือกลับไปฟื้นฟูสัตว์ในคอก', view: 'board', state: next ? 'ภารกิจถัดไป' : 'ดูแลป่า' };
+  }
+  var pending = d.goals.filter(function (key) { return GOAL_DEFS[key] && (d.prog[key] || 0) < GOAL_DEFS[key].need; }), first = pending[0];
+  side = { title: first ? GOAL_DEFS[first].name : 'ภารกิจวันนี้ครบแล้ว', step: first ? Math.min(GOAL_DEFS[first].need, d.prog[first] || 0) + '/' + GOAL_DEFS[first].need + ' · วันนี้สำเร็จ ' + dailyDone() + '/3 ข้อ' : 'รับรางวัลอัตโนมัติแล้ว · กลับมาดูใหม่พรุ่งนี้', view: 'daily' };
+  Object.keys(BOND_CHARACTERS).forEach(function (id) {
+    var s = S.relationships && S.relationships[id], ch = s && bondChapter(id), q = ch && ch.quest;
+    if (!q || s.quest !== q.id) return;
+    var goals = (q.goals || []).map(function (g) { return { label: g.label, now: Math.min(g.count, (s.progress || {})[g.key] || 0), need: g.count }; });
+    if (q.battle) goals.push({ label: 'จบภารกิจ ' + qDef(q.battle.quest).name, now: Math.min(q.battle.count, s.task || 0), need: q.battle.count });
+    var ready = bondReady(id);
+    bonds.push({ id: id, name: talkNpc(id).name, title: q.title, stage: s.level < 5 ? 'ขั้น ' + (s.level + 1) : 'Extra', ready: ready, goals: goals,
+      step: ready ? 'ครบแล้ว · กลับไปส่งคำขอ' : goals.length ? goals.map(function (g) { return g.now + '/' + g.need; }).join(' · ') + ' · เตรียมของให้ครบ' : 'เตรียมสมุนไพรให้ครบ แล้วกลับไปส่งคำขอ' });
+  });
+  return { main: main, side: side, bonds: bonds };
+}
+function questCard(label, title, step, view, cls) {
+  return '<button type="button" class="qt-card ' + cls + '" data-nav-view="' + view + '"><span class="qt-kind">' + label + '</span><b>' + navEscape(title) + '</b><small>' + navEscape(step) + '</small></button>';
+}
+function questRefresh(force) {
+  var el = document.getElementById('quest-tracker'), status = document.getElementById('village-status');
+  if (!el || !S) return;
+  var now = Date.now(); if (!force && now < QUEST_UI.next) return; QUEST_UI.next = now + 450;
+  var m = questSnapshot(), b = m.bonds[0], sig = JSON.stringify([m, QUEST_UI.expanded, S.mats.coin, rankIdx(), Math.round(vilForestAvg()), S.pen.length]);
+  if (force || QUEST_UI.sig !== sig) {
+    QUEST_UI.sig = sig;
+    el.classList.toggle('expanded', QUEST_UI.expanded);
+    el.innerHTML = '<button type="button" class="qt-toggle" aria-expanded="' + QUEST_UI.expanded + '" aria-controls="quest-track-body"><span class="qt-mark">◇</span><span><small>เควสหลัก</small><b>' + navEscape(m.main.title) + '</b><em>รอง ' + dailyDone() + '/3 · ความสัมพันธ์ ' + m.bonds.length + ' คำขอ</em></span><span aria-hidden="true">' + (QUEST_UI.expanded ? '−' : '+') + '</span></button>' +
+      '<div id="quest-track-body"' + (QUEST_UI.expanded ? '' : ' hidden') + '>' + questCard('หลัก · ' + m.main.state, m.main.title, m.main.step, m.main.view === 'fawn' ? 'fawn' : 'quests', 'qt-main') +
+      questCard('รอง · ประจำวัน', m.side.title, m.side.step, 'quests', 'qt-side') + questCard('ความสัมพันธ์' + (m.bonds.length > 1 ? ' · ' + m.bonds.length + ' คำขอ' : ''), b ? b.name + ' · ' + b.title : 'ยังไม่ได้รับคำขอ', b ? b.step : 'คุยกับชาวบ้านเพื่อเริ่มความสัมพันธ์', 'bonds', 'qt-bond') + '<button type="button" class="qt-all" data-nav-view="quests">เปิดสมุดภารกิจทั้งหมด →</button></div>';
+    if (status) status.innerHTML = '<button type="button" data-nav-view="char"><small>FERN HOLLOW</small><b>หมู่บ้านเฟิร์นฮอลโลว์</b><span>' + RANK_NAME[rankIdx()] + ' <i>·</i> ป่า ' + Math.round(vilForestAvg()) + '%</span></button><span class="town-coin">◈ ' + S.mats.coin + '</span>';
+  }
+}
+function questsHtml() {
+  var m = questSnapshot(), h = '<div class="quest-journal"><div class="qj-intro"><span>WARDEN JOURNAL</span><h2>สมุดภารกิจ</h2><p>ดูสิ่งที่ต้องทำต่อ และติดตามผลงานจากการเล่นจริง</p></div><section class="qj-section main"><span class="qj-label">01 · เควสหลัก</span><h3>' + navEscape(m.main.title) + '</h3><p>' + navEscape(m.main.step) + '</p><button type="button" data-nav-view="' + m.main.view + '">' + (m.main.view === 'fawn' ? 'ฟังคำแนะนำจากดร.น้อย' : 'ไปกระดานภารกิจ') + '</button></section><section class="qj-section side"><span class="qj-label">02 · เควสรอง / ประจำวัน</span>';
+  var d = dailyEnsure();
+  d.goals.forEach(function (key) { var def = GOAL_DEFS[key]; if (!def) return; var n = Math.min(def.need, d.prog[key] || 0); h += '<div class="qj-goal' + (n >= def.need ? ' done' : '') + '"><span>' + (n >= def.need ? '✓ ' : '') + def.name + '</span><b>' + n + '/' + def.need + '</b></div>'; });
+  h += '<button type="button" data-nav-view="daily">ดูรางวัลและบันทึกประจำวัน</button></section><section class="qj-section bond"><span class="qj-label">03 · เควสความสัมพันธ์</span>';
+  if (!m.bonds.length) h += '<p>ยังไม่ได้รับคำขอส่วนตัว ลองคุยกับพิมหรือป้าแก้วแล้วเลือก “ความสัมพันธ์”</p>';
+  m.bonds.forEach(function (b) {
+    var q = bondChapter(b.id).quest;
+    h += '<article class="qj-bond"><h3>' + b.name + ' <small>· ' + b.stage + '</small></h3><b>' + b.title + '</b>';
+    b.goals.forEach(function (g) { h += '<div class="qj-goal' + (g.now >= g.need ? ' done' : '') + '"><span>' + g.label + '</span><b>' + g.now + '/' + g.need + '</b></div>'; });
+    h += '<p class="qj-cost">ของที่ต้องส่ง: ' + costHave(q.cost) + '</p><button type="button" data-nav-bond="' + b.id + '">' + (b.ready ? 'ครบแล้ว · ไปส่งคำขอ' : 'ดูคำขอของ' + b.name) + '</button></article>';
+  });
+  return h + '<button type="button" data-nav-view="bonds">ดูความสัมพันธ์ทั้งหมด</button></section></div>';
+}
+function relationshipsHtml() {
+  var h = '<div class="quest-journal"><div class="qj-intro"><span>PEOPLE OF FERN HOLLOW</span><h2>ความสัมพันธ์</h2><p>คำขอของแต่ละคนแยกกัน ความคืบหน้าบันทึกอัตโนมัติ</p></div><div class="bond-directory">';
+  Object.keys(BOND_CHARACTERS).forEach(function (id) {
+    var d = BOND_CHARACTERS[id]; if (!d.chapters.length) return;
+    var n = talkNpc(id), s = bondState(id), ch = bondChapter(id), q = ch && ch.quest, pic = talkPic(id);
+    h += '<article class="bond-directory-card">' + (pic ? '<img src="' + pic + '" alt="' + n.name + '">' : '') + '<div><small>' + s.level + '/5' + (s.extra ? ' + Extra' : '') + '</small><h3>' + n.name + '</h3><p>' + (q ? (s.quest === q.id ? 'กำลังทำ · ' : 'คำขอถัดไป · ') + q.title : 'เปิดดูความทรงจำได้') + '</p><button type="button" data-nav-bond="' + id + '">ไปหาความสัมพันธ์</button></div></article>';
+  });
+  return h + '</div></div>';
+}
+function fawnBriefingClose() {
+  var el = document.getElementById('fawn-briefing'); if (el) el.remove();
+  if (!FAWN_BRIEF) return; FAWN_BRIEF = false; paused = false;
+  document.body.classList.remove('fawn-brief-open'); document.getElementById('wrap').inert = false;
+  if (!S.cuts) S.cuts = {}; S.cuts.fawn_briefing = true; persist(); clearInput(false); questRefresh(true);
+}
+function fawnBriefingOpen() {
+  if (!taleOpen() || navField() || FAWN_BRIEF || navBusy()) return false;
+  if (GAME_MENU.open) menuClose(false);
+  var pic = talkPic('doc'), el = document.createElement('div'); FAWN_BRIEF = true; paused = true; clearInput(false);
+  el.id = 'fawn-briefing'; el.className = 'fawn-briefing'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'fawn-brief-title');
+  el.innerHTML = '<div class="fawn-brief-card"><div class="fb-portrait">' + (pic ? '<img src="' + pic + '" alt="ดร.น้อย">' : '') + '<span>ดร.น้อย <small>นักนิเวศประจำหมู่บ้าน</small></span></div><div class="fb-copy"><span class="qj-label">ภารกิจหลัก · บทเริ่มต้น</span><h2 id="fawn-brief-title">ช่วยลูกกวางที่รั้วด้วยค่ะ</h2><div class="fb-instructions"><p>“ลูกกวางเฟิร์นขาหลังสั่นอยู่ข้างห้องวิจัย ลองเข้าไปดูอาการก่อนนะคะ มันแค่กลัวเรา ยังไม่ต้องโจมตีค่ะ”</p><ol><li><b>เข้าไปใกล้ช้า ๆ</b><span>เดินไปหาลูกกวางที่มีเครื่องหมายสีทอง</span></li><li><b>หลบเมื่อมันตกใจพุ่งชน</b><span>' + (isTouch ? 'แตะปุ่ม หลบ' : 'กด Space เพื่อหลบออกด้านข้าง') + '</span></li><li><b>สแกนดูอาการ แล้วเลือกช่วยมัน</b><span>' + (isTouch ? 'กดปุ่ม สแกน ค้างจนตรวจครบ' : 'กด Q ค้างจนสแกนครบ') + ' จากนั้นเลือก “รักษา”</span></li></ol></div><div class="fb-actions"><button type="button" data-fawn="start">เริ่มช่วยลูกกวาง →</button><button type="button" data-fawn="later">สำรวจหมู่บ้านก่อน</button></div><small class="fb-note">ดูขั้นตอนอีกครั้งได้ที่แถบเควส หรือเมนู → สมุดภารกิจ</small></div></div>';
+  document.body.appendChild(el); document.body.classList.add('fawn-brief-open'); document.getElementById('wrap').inert = true;
+  el.addEventListener('click', function (e) { var b = e.target.closest('[data-fawn]'); if (!b) return; var start = b.getAttribute('data-fawn') === 'start'; fawnBriefingClose(); if (start) startTaleFight(); });
+  el.querySelector('button').focus(); return true;
+}
+function menuClose(restoreFocus) {
+  if (!GAME_MENU.open) return;
+  GAME_MENU.open = false; GAME_MENU.view = ''; paused = GAME_MENU.wasPaused;
+  var el = document.getElementById('game-menu'); if (el) el.hidden = true;
+  document.body.classList.remove('game-menu-open'); document.getElementById('wrap').inert = false;
+  var touch = document.getElementById('touch'); if (touch) touch.inert = false;
+  document.getElementById('game-menu-button').setAttribute('aria-expanded', 'false'); clearInput(false);
+  if (restoreFocus !== false && GAME_MENU.focus && GAME_MENU.focus.isConnected) GAME_MENU.focus.focus({ preventScroll: true });
+}
+function menuOpen() {
+  if (FAWN_BRIEF || navBusy() || inputEditing()) return false;
+  if (GAME_MENU.open) { menuClose(); return true; }
+  GAME_MENU.focus = document.activeElement; GAME_MENU.wasPaused = paused; GAME_MENU.open = true; GAME_MENU.view = ''; clearInput(false); paused = true;
+  var el = document.getElementById('game-menu'); el.hidden = false;
+  document.body.classList.add('game-menu-open'); document.getElementById('wrap').inert = true;
+  var touch = document.getElementById('touch'); if (touch) touch.inert = true;
+  document.getElementById('game-menu-button').setAttribute('aria-expanded', 'true');
+  menuRender(); el.querySelector('.gm-resume').focus(); return true;
+}
+function menuEscape() {
+  if (GAME_MENU.view) { GAME_MENU.view = ''; menuRender(); document.querySelector('#game-menu .gm-resume').focus(); }
+  else menuClose();
+}
+function menuRender() {
+  var el = document.getElementById('game-menu'), views = [['quests','◇','สมุดภารกิจ','หลัก · รอง · ความสัมพันธ์'],['char','♙','ตัวละคร','อาวุธ · เกราะ · ค่าสถานะ'],['bag','▣','ไอเท็มในกระเป๋า','ยา · วัสดุ · เสบียง'],['cards','▤','การ์ด','จัดชุดก่อนออกพิทักษ์'],['skills','✧','ทักษะ','แต้มและความสามารถผู้พิทักษ์'],['bonds','♡','ความสัมพันธ์','คำขอและความทรงจำ'],['album','▧','อัลบั้ม','ภาพที่ปลดล็อกแล้ว'],['set','⚙','การตั้งค่า','เสียง · ภาพ · สำรองเซฟ'],['guide','?','คู่มือการเล่น','การควบคุมและการดูแลสัตว์']];
+  el.innerHTML = '<button type="button" class="gm-scrim" tabindex="-1" data-menu="resume" aria-label="ปิดเมนูและกลับไปเล่น"></button><aside class="gm-drawer" aria-labelledby="gm-title"><header><div><small>FERN HOLLOW</small><h2 id="gm-title">บันทึกผู้พิทักษ์</h2></div><button type="button" data-menu="resume" aria-label="ปิดเมนู">×</button></header><button type="button" class="gm-resume" data-menu="resume">← กลับไปเล่นต่อ <kbd>Esc</kbd></button><nav aria-label="เมนูเกม">' + views.map(function (v) { return '<button type="button" data-menu-view="' + v[0] + '"' + (GAME_MENU.view === v[0] ? ' aria-current="page"' : '') + '><span class="gm-icon" aria-hidden="true">' + v[1] + '</span><span><b>' + v[2] + '</b><small>' + v[3] + '</small></span><i aria-hidden="true">›</i></button>'; }).join('') + '</nav><footer><span class="gm-save">● ความคืบหน้าบันทึกอัตโนมัติ</span><button type="button" class="gm-exit" data-menu="exit">ออกเกม / กลับหน้าแรก</button></footer></aside><section class="gm-detail" hidden aria-labelledby="gm-detail-title"></section>';
+}
+function menuDetail(title, html) {
+  var el = document.querySelector('#game-menu .gm-detail'); el.hidden = false;
+  el.innerHTML = '<header><h2 id="gm-detail-title">' + title + '</h2><button type="button" data-menu="back" aria-label="กลับรายการเมนู">×</button></header><div class="gm-detail-body">' + html + '</div>';
+  el.querySelector('button').focus();
+}
+function fieldBagHtml() {
+  var h = '<p>เสบียงที่เหลือในตัว · การดูข้อมูลนี้ไม่ใช้ไอเท็ม</p><div class="qj-inventory">';
+  Object.keys(S.inv).forEach(function (id) { if (S.inv[id] > 0) h += '<div><span>' + navEscape(MEDS[id] || (id === 'salve' ? 'ยาสมานแผล' : id === 'dart' ? 'ยาสลบ' : id === 'bait' ? 'เหยื่อ' : id === 'snare' ? 'กับดัก' : id)) + '</span><b>' + S.inv[id] + '</b></div>'; });
+  h += '</div><h3>วัสดุที่เก็บไว้</h3><div class="qj-inventory">';
+  Object.keys(S.mats).forEach(function (id) { if (S.mats[id] > 0) h += '<div><span>' + navEscape(MATS[id] || id) + '</span><b>' + S.mats[id] + '</b></div>'; });
+  return h + '</div>';
+}
+function menuNavigate(view) {
+  var allowed = ['char','bag','cards','skills','quests','bonds','album','set','guide','board','daily','fawn']; if (allowed.indexOf(view) < 0) return;
+  if (!navField()) {
+    if (GAME_MENU.open) menuClose(false);
+    if (view === 'fawn') { if (mode !== 'village') enterVillage(); fawnBriefingOpen(); return; }
+    openHub(view); questRefresh(true); return;
+  }
+  if (!GAME_MENU.open) menuOpen();
+  GAME_MENU.view = view; menuRender();
+  var html, title = { char: 'ตัวละคร', bag: 'ไอเท็มในกระเป๋า', cards: 'การ์ด', skills: 'ทักษะ', quests: 'สมุดภารกิจ', bonds: 'ความสัมพันธ์', album: 'อัลบั้ม', set: 'การตั้งค่า', guide: 'คู่มือการเล่น', board: 'ภารกิจภาคสนาม', daily: 'ภารกิจประจำวัน', fawn: 'ช่วยลูกกวางเฟิร์น' }[view];
+  if (view === 'bag') html = fieldBagHtml();
+  else if (view === 'char') html = charSheetHtml().replace(/<button\b/g, '<button disabled');
+  else if (view === 'album') html = albumHtml();
+  else if (view === 'set') html = '<p>ปรับเสียงได้ระหว่างพักเกม ส่วนภาพและสำรองเซฟเปิดได้เมื่อกลับหมู่บ้าน</p>' + ['vol','music','nature'].map(function (key, i) { return '<button type="button" class="gm-setting" data-menu-setting="' + key + '">' + ['เสียงเอฟเฟกต์','เพลง','เสียงธรรมชาติ'][i] + ' · ' + ['ปิด','เบา','ปกติ','แรง'][S.set[key]] + '</button>'; }).join('');
+  else if (view === 'cards') html = cardsHtml().replace(/<button\b/g, '<button disabled') + '<p>กลับหมู่บ้านเพื่อจัดการ์ดและเพิ่มทักษะ</p>';
+  else if (view === 'skills') html = skillsHtml().replace(/<button\b/g, '<button disabled') + '<p>กลับหมู่บ้านเพื่อใช้แต้มทักษะ</p>';
+  else if (view === 'guide') html = guideHtml().replace(/<button\b/g, '<button disabled') + '<p>เดิน WASD · หลบ Space · สแกน Q ค้าง · บล็อก L · เมนู Esc / มือถือใช้ปุ่มบนจอ</p>';
+  else html = questsHtml() + '<p class="gm-field-note">กำลังพักภารกิจอยู่ · ปิดเมนูเพื่อเล่นต่อจากจุดเดิม และกลับหมู่บ้านเพื่อรับหรือส่งคำขอ</p>';
+  menuDetail(title, html);
+}
+function menuExitConfirm() {
+  GAME_MENU.view = 'exit';
+  menuDetail('บันทึกและกลับหน้าแรก', '<p>' + (navField() ? 'ภารกิจรอบนี้จะยุติและไม่ได้รับรางวัล ความคืบหน้าที่บันทึกไว้ก่อนหน้านี้ยังอยู่' : 'บันทึกความคืบหน้าปัจจุบัน แล้วกลับไปหน้าชื่อเกม เมื่อพร้อมสามารถกดเล่นต่อได้') + '</p><div class="gm-confirm"><button type="button" data-menu="exit-confirm">บันทึกแล้วกลับหน้าแรก</button><button type="button" data-menu="back">เล่นต่ออีกหน่อย</button></div>');
+}
+(function () {
+  var menu = document.getElementById('game-menu'), launch = document.getElementById('game-menu-button'), tracker = document.getElementById('quest-tracker');
+  if (!menu || !launch || !tracker) return;
+  launch.addEventListener('click', menuOpen);
+  document.addEventListener('click', function (e) {
+    var v = e.target.closest('[data-nav-view]'), b = e.target.closest('[data-nav-bond]');
+    if (v) { menuNavigate(v.getAttribute('data-nav-view')); return; }
+    if (b && !navField()) { if (GAME_MENU.open) menuClose(false); mode = 'hub'; bondOpen(b.getAttribute('data-nav-bond')); }
+  });
+  tracker.addEventListener('click', function (e) { if (e.target.closest('.qt-toggle')) { QUEST_UI.expanded = !QUEST_UI.expanded; questRefresh(true); } });
+  menu.addEventListener('click', function (e) {
+    var v = e.target.closest('[data-menu-view]'), b = e.target.closest('[data-menu]'), setting = e.target.closest('[data-menu-setting]');
+    if (v) { menuNavigate(v.getAttribute('data-menu-view')); return; }
+    if (setting) { var key = setting.getAttribute('data-menu-setting'); if (['vol','music','nature'].indexOf(key) >= 0) { S.set[key] = ((S.set[key] || 0) + 1) % 4; persist(); menuNavigate('set'); } return; }
+    if (!b) return;
+    var action = b.getAttribute('data-menu');
+    if (action === 'resume') { if (ALBUM.el) albumClose(); menuClose(); }
+    else if (action === 'back') { GAME_MENU.view = ''; menuRender(); menu.querySelector('.gm-resume').focus(); }
+    else if (action === 'exit') menuExitConfirm();
+    else if (action === 'exit-confirm') { menuClose(false); albumClose(); persist(); FIELD = null; PREP = null; enterTitle(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    var root = FAWN_BRIEF ? document.getElementById('fawn-briefing') : GAME_MENU.open ? menu : null;
+    if (!root || ALBUM.el || STORYC || STILL) return;
+    if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); if (FAWN_BRIEF) fawnBriefingClose(); else menuEscape(); return; }
+    if (e.key === 'Tab') {
+      var nodes = [].slice.call(root.querySelectorAll('button:not([disabled]),summary,input,textarea,select,a[href]')).filter(function (n) { return n.tabIndex >= 0 && n.getClientRects().length > 0; });
+      var first = nodes[0], last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    } else if (!inputControl(e, inputKey(e))) { e.stopPropagation(); }
+  }, true);
+})();
+/* ================= FIELD MAPS (v18.4) =================
    1 เขตป่า = 1 แมพภาคสนาม = 1 ระบบนิเวศ (สุขภาพป่า S.forest[เขต] + พืชที่เก็บแล้ว S.eco[เขต].picked)
    stag = Sunken Grove (กวาง) · boar = Thornback Ridge (หมูป่า) · rabbit = Burrow Meadow (กระต่าย)
    พิกัดทั้งหมดเป็นหน่วยโลกสุดท้าย (px) · ตำแหน่งตามบทบาท: meadow=จุดกินหญ้า · water=จุดดื่มน้ำ · den=จุดนอน · bloom=จุดสปอร์อันตราย */
@@ -13172,6 +13805,8 @@ function leavePractice() {
   return true;
 }
 var ACTIONS = {
+  bond: function (arg) { bondAction(arg); },
+  shopscene: function (arg) { shopSceneSelect(arg); },
   gear: function (arg) { gearAction(arg); },
   start: function () { beginBattle(null); },
   explore: function () { huntGo(huntBegin); },
@@ -13426,7 +14061,7 @@ function npcSayHtml() {
     '<div class="tx"><b>' + n.name + '</b><span class="role">' + n.role + '</span><p>“' + s.line + '”</p></div></div>';
 }
 var ACT_MODES = { gear: ['hub'], skillreset: ['hub'], ld: ['hub'], ldview: ['hub'], pack: ['hub'], totitle: ['hub'], daily: ['hub'], chron: ['hub'], tgo: ['title'], ttut: ['title'], tguide: ['title'], tset: ['title'], tnew: ['title'], wtree: ['hub'], start: ['hub'], explore: ['hub'], tut: ['hub'], gpg: ['hub'], practice: ['hub'], set: ['hub'], prep: ['hub'], prepdo: ['hub'], supply: ['hub'], sell: ['hub'], brew: ['hub'], garden: ['hub'], buy: ['hub'], skill: ['hub'], reset: ['hub'], tedit: ['hub'], savecopy: ['hub'], savedl: ['hub'], saveimp: ['hub'], ptcopy: ['hub'], ptclear: ['hub'], weapon: ['hub'], target: ['hub'], pen: ['hub'], ally: ['hub'], variant: ['hub'], armor: ['hub'], village: ['hub', 'result'],
-  capture: ['decision'], treat: ['decision'], med: ['decision'], back: ['decision'], eliminate: ['decision'], dose: ['decision'], taledo: ['decision'], talkgo: ['hub'], talkchat: ['hub'], hub: ['hub', 'result', 'decision'], retry: ['result', 'hub'] };
+  bond: ['hub'], shopscene: ['hub'], capture: ['decision'], treat: ['decision'], med: ['decision'], back: ['decision'], eliminate: ['decision'], dose: ['decision'], taledo: ['decision'], talkgo: ['hub'], talkchat: ['hub'], hub: ['hub', 'result', 'decision'], retry: ['result', 'hub'] };
 function actClick(e, root) {
   var t = e.target; if (!t) return;
   while (t && t !== root && !(t.getAttribute && t.getAttribute('data-act'))) t = t.parentNode;
@@ -13630,7 +14265,7 @@ function openHub(view, note) {
   if (view !== 'main') resetArmed = false;
   var ri = rankIdx(), nx = RANK_XP[ri + 1];
   var rnx = rankNext();
-  var names = { char: 'ตัวละคร', cards: 'การ์ด', chronicle: 'พงศาวดาร', album: 'อัลบั้ม', loadout: 'ชุดอุปกรณ์', bag: 'กระเป๋า', daily: 'บันทึกประจำวัน', main: 'แผนที่ป่า', board: 'กระดานภารกิจ', garden: 'ลานเพาะปลูก', dojo: 'ลานซ้อม', pen: 'คอกฟื้นฟู', guide: 'คู่มือเริ่มเล่น', forge: 'ช่างเครื่องมือ', armor: 'ช่างเกราะ', lab: 'ห้องวิจัย', shop: 'แม่ค้า', skills: 'ทักษะ', help: 'วิธีเล่น', set: 'ตั้งค่า', prep: 'เตรียมออกล่า' }, k;
+  var names = { quests: 'สมุดภารกิจ', bonds: 'ความสัมพันธ์', char: 'ตัวละคร', cards: 'การ์ด', chronicle: 'พงศาวดาร', album: 'อัลบั้ม', loadout: 'ชุดอุปกรณ์', bag: 'กระเป๋า', daily: 'บันทึกประจำวัน', main: 'แผนที่ป่า', board: 'กระดานภารกิจ', garden: 'ลานเพาะปลูก', dojo: 'ลานซ้อม', pen: 'คอกฟื้นฟู', guide: 'คู่มือเริ่มเล่น', forge: 'ช่างเครื่องมือ', armor: 'ช่างเกราะ', lab: 'ห้องวิจัย', shop: 'แม่ค้า', skills: 'ทักษะ', help: 'วิธีเล่น', set: 'ตั้งค่า', prep: 'เตรียมออกล่า' }, k;
   /* v17.1: แถบหัวกะทัดรัด — [← กลับ · ชื่อหน้า · เหรียญ · กระเป๋า] ติดขอบบนตอนเลื่อน (sticky) + บรรทัดยศ + แท็บหมวด (เฉพาะกลุ่มข้อมูลผู้เล่น) */
   var grp = view === 'char' || view === 'cards' || view === 'skills' || view === 'help' || view === 'set' || view === 'guide' || view === 'daily' || view === 'chronicle' || view === 'album', gtabs = '';
   if (grp) for (k in { char: 1, cards: 1, daily: 1, chronicle: 1, album: 1, guide: 1, skills: 1, set: 1, help: 1 }) gtabs += '<button class="tab' + (k === view ? ' on' : '') + '" data-act="hub" data-arg="' + k + '">' + names[k] + '</button>';
@@ -13662,6 +14297,10 @@ function openHub(view, note) {
       '<button data-act="tut">' + (taleOpen() ? 'กลับไปที่รั้ว' : (S.tut ? 'ฝึกกับลูกกวาง' : 'ด่านฝึก: Fernback Fawn')) + '</button><button data-act="hub" data-arg="guide">คู่มือเริ่มเล่น</button><button data-act="hub" data-arg="char">ตัวละคร</button>' +
       '</div>';
     html = html.replace('@@CTA@@', function () { return ctaRow; }) + logHtml() + '<div class="row" style="margin-top:14px"><button data-act="reset" style="margin-left:auto;font-size:12px;color:#9aa39a">' + (resetArmed ? 'ยืนยันรีเซ็ต' : 'รีเซ็ตความคืบหน้า') + '</button></div>';
+  } else if (view === 'quests') {
+    html += questsHtml();
+  } else if (view === 'bonds') {
+    html += relationshipsHtml();
   } else if (view === 'album') {
     html += albumHtml();
   } else if (view === 'char') {
@@ -13693,11 +14332,11 @@ function openHub(view, note) {
   } else if (view === 'forge') {
     html += gearWeaponHtml();
   } else if (view === 'pen') {
-    html += '<h2>ผู้ดูแลคอก — คอกฟื้นฟู</h2>' + penHtml();
+    html += '<div class="shop-nav"><h2>ผู้ดูแลคอก — คอกฟื้นฟู</h2><button type="button" data-act="bond" data-arg="open:keeper">♡ ความสัมพันธ์กับป้าแก้ว</button></div>' + penHtml();
   } else if (view === 'armor') {
     html += armorHtml();
   } else if (view === 'shop') {
-    html += '<h2>เวิร์กช็อป</h2><p style="font-size:13px;color:#9aa39a">แปรรูปวัสดุเป็นอาวุธและอุปกรณ์ภาคสนาม · ผลึก Bloomrot ได้จากการ Capture/Treat เท่านั้น · <b>หนังกวาง</b> เก็บได้จากหนังที่ลอกร่วงระหว่างลาดตระเวน (ไม่ต้องฆ่า) หรือจากการ Eliminate</p>';
+    html += '<div class="shop-nav"><b>ซื้อ / ขายเสบียง</b><button type="button" data-act="bond" data-arg="open:trader">♡ ความสัมพันธ์กับพิม</button></div>';
     html += supplyHtml() + sellHtml();
     for (k in CAT) if (CAT[k].tab === 'shop') html += itemRow(k);
   } else if (view === 'skills') {
@@ -14531,6 +15170,7 @@ function finish(kind) {
   if (qd && okK) {
     var preU = {}; for (var pq = 0; pq < QUESTS.length; pq++) preU[QUESTS[pq].id] = qUnlocked(QUESTS[pq]);
     S.qclear[qd.id] = (S.qclear[qd.id] || 0) + 1;
+    varNote += bondQuestCleared(qd.id);
     var nextQ = []; for (var nq = 0; nq < QUESTS.length; nq++) if (!qCleared(QUESTS[nq].id) && qUnlocked(QUESTS[nq]) && !preU[QUESTS[nq].id]) nextQ.push(QUESTS[nq].name);
     if (qd.key && S.qclear[qd.id] === 1) { S.mats.coin = clamp(S.mats.coin + 200, 0, 9999); varNote += '<p class="good"><b>⚔ ผ่านเควสเลื่อนขั้น ' + qd.name + '!</b> เหรียญ +200</p>'; }
     if (S.qclear[qd.id] === 1 && nextQ.length) varNote += '<p class="good">ปลดล็อกภารกิจใหม่: <b>' + nextQ.join(', ') + '</b></p>';
@@ -14614,8 +15254,9 @@ function finish(kind) {
   if (ALLY && kind !== 'defeat' && S.allies[ALLY.idx]) { S.allies[ALLY.idx].bond++; var al2 = S.allies[ALLY.idx]; bondNote = '<p class="good">ผู้ช่วย ' + al2.name + ' ผูกพันมากขึ้น (Lv' + allyLv(al2) + ')</p>'; }
   if (!fawn) seenAdd(M.kind, Object.keys(stats.teleBy || {}));
   var penNote = penAdd(M, kind, duePay), healNote = '';
+  if (!fawn && kind === 'treat_full') healNote += bondCareEvent('heal', M, qd ? qd.tier : 0);
   if (!fawn && kind === 'treat_full') { /* ระบบรักษา v2: ภูมิคุ้มกันถาวรต่อสายพันธุ์ + พรป่าเมื่อรักษาในสนาม */
-    var abf = antiLv(M.kind), abk = antiKey(M.kind); if (!S.anti) S.anti = {}; S.anti[abk] = (S.anti[abk] || 0) + 1; healNote = antiNoteHtml(M.kind, abf);
+    var abf = antiLv(M.kind), abk = antiKey(M.kind); if (!S.anti) S.anti = {}; S.anti[abk] = (S.anti[abk] || 0) + 1; healNote += antiNoteHtml(M.kind, abf);
     if (M.cured) { S.favor = Math.min(3, (S.favor || 0) + 1); healNote += '<p class="good" style="font-size:13px">พรป่า +1 (ตีแรง +10% · สตามินาไว +20% ในภารกิจถัดไป) — รักษาในสนามสำเร็จ รางวัล ×1.2</p>'; }
   }
   // Commit every reward before rendering results. Capture can also add an
@@ -16492,7 +17133,7 @@ function bindLatch(id, key) {
     leavePractice();
   });
   var pb = document.getElementById('t_pause');
-  if (pb) pb.addEventListener('pointerdown', function (e) { if (e.preventDefault) e.preventDefault(); initAudio(); togglePause(); });
+  if (pb) pb.addEventListener('pointerdown', function (e) { if (e.preventDefault) e.preventDefault(); initAudio(); menuOpen(); });
   var joy = document.getElementById('joy'), knob = document.getElementById('joyKnob'), jid = null;
   function joyKeys(x, y) { joyAxis.x = x; joyAxis.y = y; keys['a'] = x < -.38; keys['d'] = x > .38; keys['w'] = y < -.38; keys['s'] = y > .38; if (x || y) aimMode = 'keys'; }
   function joyMove(e) {
@@ -17011,7 +17652,8 @@ function frameBody(now) {
     coachTick();
   }
   else if (mode === 'field' && !paused && FIELD) updateField(real);
-  else if (mode === 'village' && V) updateVillage(real);
+  else if (mode === 'village' && V && !paused) updateVillage(real);
+  questRefresh(false);
   shake = Math.max(0, shake - real * 40); flashA = Math.max(0, flashA - real * 2.4); punch = Math.max(0, punch - real * 3);
   if (hitChainT > 0) { hitChainT -= real; if (hitChainT <= 0) hitChain = 0; } chainPop = Math.max(0, chainPop - real * 5);
   if (typeof bgmTick === 'function') bgmTick(real);
